@@ -1,8 +1,8 @@
-# Graduate Seminar Paper 
-## Dr. Cong "Callie" Hao
-## Agile Hardware Development: Architectures and Tools
-## October 11, 2024
-## Enrique Antunano
+Graduate Seminar Paper <br>
+Dr. Cong "Callie" Hao <br>
+Agile Hardware Development: Architectures and Tools <br>
+October 11, 2024 <br>
+Enrique Antunano <br>
 
 As a PMP student, I work full-time as a firmware engineer at Blue Origin implementing hardware architecture designs on FPGAs. The Agile Hardware Development: Architectures and Tools presentation by Dr. Cong "Callie" Hao hit on multiple challenges that my team and I face frequently in the industry. Dr. Hao's topics on domain-specific architecture design and tool flow improvement were interesting because I want to learn more about research that can directly improve my workflow. She touched on aspects, such as rapid functional simulations of prototype designs through LightningSim, and the RealProbe tool for runtime investigation of FPGA logic. Finally, although I do not work on vision processing or GNN applications at Blue Origin, her presentation provided insight into novel FPGA applications that I would be interested in working on.
 
