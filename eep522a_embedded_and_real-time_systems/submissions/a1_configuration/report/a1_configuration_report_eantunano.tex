@@ -1,41 +1,65 @@
 \documentclass[journal]{IEEEtran}
+\usepackage{graphicx}
+% Path is relative to a1_configuration_report_eantunano.tex
+\graphicspath{ {./images/}}
 
 \begin{document}
 
-\title{Raspberry Pi 4 Embedded Development Environment}
+    \title{Raspberry Pi 4 Embedded Development Environment}
 
-\author{Enrique~Antunano\\UW\\enriantu@uw.edu}
+    \author{Enrique~Antunano\\UW\\enriantu@uw.edu}
 
-\markboth{EEP522A~Embedded and~Real~Time~Systems, A1~Configuration, January~2025}
+    \markboth{EEP522A~Embedded and~Real~Time~Systems, A1~Configuration, January~2025}{}
 
-\maketitle
+    \maketitle
 
-\begin{abstract}
+    \begin{abstract}
 
-\end{abstract}
-The purpose of the A1 Configuration assignment is to set up the Raspberry Pi 4 and the embedded development environment that will be used to interact with the machine. 
-\section{Introduction}
+    \end{abstract}
+    The purpose of the A1 Configuration assignment is to set up the Raspberry Pi 4 and the embedded development environment that will be used to interact with the machine. 
+    \section{Introduction}
 
-\section{Methods}
+    \section{Methods}
 
-\section{Results}
+    \section{Results}
 
-\section{Discussion}
+    \section{Discussion}
 
-\section{Conclusion}
+    \section{Conclusion}
 
-\nocite{*}
-\newpage
+    \nocite{*}
+    \newpage
 
-\bibliographystyle{ieeetr}
-\bibliography{a1_configuration_citations.bib}
+    \bibliographystyle{ieeetr}
+    \bibliography{a1_configuration_citations.bib}
 
-\newpage
-\section{Acknowledgements}
-The author would like to thank IEEE for providing the LaTeX template used in this document and Michael Shell of the Georgia Institute of Technology for putting together the template.
+    \newpage
+    \section{Acknowledgements}
+    The author would like to thank IEEE for providing the LaTeX template used in this document and Michael Shell of the Georgia Institute of Technology for putting together the template.
 
-\section{Appendices}
+    \appendices
+    \section{Install OS onto Raspberry Pi 4}
+    \subsection{Raspberry Pi Imager}
+    To install an operating system (OS) onto a Raspberry Pi 4 with the following procedures, the following items are required:
+    \begin{itemize}
+        \item A Linux machine that can store the OS image onto the SD card
+        \begin{itemize}
+            \item Distribution: \textit{POP!_OS 22.04 LTS (Debian)}
+        \end{itemize}
+        \item A SD card reader
+        \item A microSD card
+    \end{itemize}
+    First, the OS must be installed onto the microSD card. POP!_OS 22.04 LTS includes the Raspberry Pi Imager in its package manager, so installation on the Raspberry Pi Imager from Raspberry Pi website is not needed. If your machine's OS does not include the Raspberry Pi Imager in its package manager, then install the \hyperlink{https://www.raspberrypi.com/software/}{Raspberry Pi Imager} for easy OS installation and setup onto the microSD card. <br>
+    \begin{enumerate}
+        \item Install the Raspberry Pi Imager from the terminal using the package manager
+        \begin{verbatim}
+            sudo apt install rpi-imager
+        \end{verbatim}
+        \includegraphics{sudo_apt_install_rpi_imager.png}
 
-\section{Figures and Tables}
+        After typing out the command above and hitting \textit{Enter}, your terminal window should match the following
+        \includegraphics{sudo_apt_install_rpi_imager_download_progress.png}
+    \end{enumerate}
+    \section{Figures and Tables}
 
 \end{document}
