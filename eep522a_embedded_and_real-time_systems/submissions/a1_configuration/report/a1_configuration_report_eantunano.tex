@@ -1,5 +1,7 @@
 \documentclass[journal]{IEEEtran}
 \usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
 % Path is relative to a1_configuration_report_eantunano.tex
 \graphicspath{ {./images/}}
 
@@ -40,26 +42,124 @@
     \appendices
     \section{Install OS onto Raspberry Pi 4}
     \subsection{Raspberry Pi Imager}
-    To install an operating system (OS) onto a Raspberry Pi 4 with the following procedures, the following items are required:
-    \begin{itemize}
-        \item A Linux machine that can store the OS image onto the SD card
-        \begin{itemize}
-            \item Distribution: \textit{POP!_OS 22.04 LTS (Debian)}
-        \end{itemize}
-        \item A SD card reader
-        \item A microSD card
-    \end{itemize}
-    First, the OS must be installed onto the microSD card. POP!_OS 22.04 LTS includes the Raspberry Pi Imager in its package manager, so installation on the Raspberry Pi Imager from Raspberry Pi website is not needed. If your machine's OS does not include the Raspberry Pi Imager in its package manager, then install the \hyperlink{https://www.raspberrypi.com/software/}{Raspberry Pi Imager} for easy OS installation and setup onto the microSD card. <br>
-    \begin{enumerate}
-        \item Install the Raspberry Pi Imager from the terminal using the package manager
-        \begin{verbatim}
-            sudo apt install rpi-imager
-        \end{verbatim}
-        \includegraphics{sudo_apt_install_rpi_imager.png}
 
-        After typing out the command above and hitting \textit{Enter}, your terminal window should match the following
-        \includegraphics{sudo_apt_install_rpi_imager_download_progress.png}
+    The Raspberry Pi Imager assists with installing the OS onto a storage device, which can then be installed onto the Raspberry Pi 4.
+
+    \begin{enumerate}
+        \item Hardware checklist
+        
+        \begin{itemize}
+            \item Linux machine that can store the OS image onto microSD card \newline
+                \emph{Distribution: POP!\_OS 22.04 LTS (Debian)}
+            \item SD card reader
+            \item minimum 16GB microSD card
+        \end{itemize}
+    
+        \item Install the Raspberry Pi Imager from the Linux terminal \newline
+        
+        Type out the command below and hit \emph{Enter}. \newline
+
+        \begin{lstlisting}[frame=single]
+            sudo apt install rpi-imager
+        \end{lstlisting}
+
+        \emph{NOTE: POP!\_OS 22.04 LTS includes the Raspberry Pi Imager in its package manager. The package manager has Raspberry Pi Imager v1.7.2, which these instructions will use. If your machine's OS does not include the Raspberry Pi Imager in its package manager, then install the {\href{https://www.raspberrypi.com/software/}{Raspberry Pi Imager}}.} \newline
+
+        Following the figure below, select \emph{y} when prompted. \newline
+
+        \includegraphics[width=2.5in]{sudo_apt_install_rpi_imager.png}
+
+        After selecting \emph{y}, the terminal window should match the figure below after installation has completed. \newline
+
+        \includegraphics[width=2.5in]{sudo_apt_install_rpi_imager_download_progress.png}
+
+        \item Run Raspberry Pi Imager by opening a Linux terminal, typing the following, and selecting \emph{Enter}
+        
+        \begin{lstlisting}[frame=single]
+            rpi-imager
+        \end{lstlisting}
+
+        \item Select \emph{CHOOSE OS}
+
+        \includegraphics[width=2.5in]{choose_os.png}
+        
+        \item Select \emph{Raspberry Pi OS (Legacy,32-bit)}
+        
+        \includegraphics[width=2.5in]{os_available.png} \newline
+
+        A close-up figure  of the debian that will be installed onto the microSD card. \newline
+
+        \includegraphics[width=2.5in]{rp_os_debian_bullseye.png}
+        
+        \item Plug-in microSD card into the SD card reader
+        \item Plug-in SD card reader into Linux machine
+
+        \item Select \emph{CHOOSE STORAGE}
+        
+        \includegraphics[width=2.5in]{choose_storage.png}
+        
+        \item Select storage media. \newline
+        HeydayCardReader was my SD card reader. \newline
+        31.9 GB represents the size of the microSD card
+
+        \includegraphics[width=2.5in]{sd_card_reader_name.png}
+
+        \item Select the storage icon at the bottom-right of the screen \newline
+        
+        The Raspberry Pi OS image will be configured here to ease setup on the Raspberry Pi 4
+
+        \includegraphics[width=2.5in]{choose_settings_icon.png}
+
+        The following advanced options screen will appear. \newline
+
+        \includegraphics[width=2.5in]{advanced_options_initial_screen.png}
+
+        \item Set the hostname to be \emph{raspberrypi4}
+        \item Select the \emph{Enable SSH} option and select \emph{Use password authentication}
+        \item Select the \emph{Set username and password} option and fill in a \emph{username} and \emph{password} of your choosing.
+        
+        \includegraphics[width=2.5in]{advanced_options_hostname_enable-ssh_user_pass.png}
+
+        \item Select the \emph{Configure wireless LAN} option and fill out the \emph{SSID} and \emph{Password}
+        
+        \item Select \emph{Set locale settings} and set \emph{Time Zone} to your local time and the \emph{keyboard layout} to your preferred layout
+        
+        \includegraphics[width=2.5in]{advanced_options_ssid_locale.png}
+
+        \item Select \emph{Play sound when finished} and leave the other two options as enabled. Finally, select \emph{Save}.
+        
+        \includegraphics[width=2.5in]{advanced_options_misc_settings.png}
+
+        \item Select \emph{WRITE} 
+        
+        \includegraphics[width=2.5in]{choose_settings_icon.png}
+
+        \item Select \emph{YES} when prompted to continue despite all the data on the microSD card being erased.
+        
+        \includegraphics[width=2.5in]{clear_sd_card_warning.png}
+
+        \item Type in password when asked to authenticate user
+        
+        \includegraphics[width=2.5in]{authenticate_password.png}
+
+        \item Wait for SD write to completed
+        
+        \includegraphics[width=2.5in]{sd_card_write.png}
+
+        \item Wait for SD write verification to completed
+        
+        \includegraphics[width=2.5in]{sd_card_verify.png}
+
+        \item Click \emph{continue}. The following message will appear after the SD card has successfully been programmed with the Raspberry OS Bullseye debian.
+        
+        \includegraphics[width=2.5in]{end_write_message.png}
+
+        \item Safely eject your SD card reader from the Linux machine 
+
     \end{enumerate}
+
+    \subsection{Initial Raspberry Pi 4 Setup}
+
     \section{Figures and Tables}
 
 \end{document}
