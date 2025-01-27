@@ -26,7 +26,10 @@
     Once all the Appendix A subsections have been completed in order, proceed with the device characterization instructions below.
 
     Basic Raspberry Pi 4 characterization was conducted using a set of scripts found within the \emph{ee\_course.zip} that was provided by Dr. Sloss. 
-    The zip folder should be transferred into the Raspberry Pi 4 into a new directory called \emph{experiment}.
+    The characterization script runs the same set of three tests 500 times, meaning the type of test remains consistent across each test iteration.
+    The three tests run are a memory write test, a memory-friendly matrix calculation, and a memory-unfriendly matrix calculation.
+
+    To run the characterization script on the Raspberry Pi 4, first the zip folder should be transferred into the Raspberry Pi 4 into a new directory called \emph{experiment}.
     With \emph{Visual Studio Code}, the zip folder can be dragged and dropped from the host machine into the Raspberry Pi 4 after an SSH connection to the embedded device has been set up within Visual Studio Code.
     Once the zip file is transferred into the Raspberry Pi 4's new \emph{experiment} directory, unzip the folder. \newline
 
@@ -80,7 +83,7 @@
     \end{lstlisting}
 
     After updating the script, run it from the terminal. 
-    The script will take 5-10 minutes to run.
+    The script will take 5-10 minutes to run. In my experience, with a passive heat sink installed onto the Raspberry Pi 4, the test finished in about 1-2 minutes.
     Once the script finishes its suite of tests, three (3) graphs will be generated within the \emph{experiment} directory.
     These graphs contain the characterization data, covered in the next section.
     Once the characterization data is gathered, I would recommend transferring the updated script back to the host machine, along with the raw data, and the graphs.
@@ -93,8 +96,49 @@
     \end{lstlisting}
 
     \section{Results}
+    After running the characterization scripts outlined in the previous section, raw data for CPU time, relative temperature, and relative energy were logged in the \emph{main.dat} and \emph{test.dat} files generated within the \emph{experiments} directory.
+    The raw data was transferred onto the host machine and is available on {\href{https://github.com/enriquea02/uw/tree/d529ec8c53c7cc006b5184ab091cdea1d053dabc/eep522a_embedded_and_real-time_systems/submissions/a1_configuration}{github}}, along with the source code.
+    Three separate plots were generated from the raw data. Jump down to Appendix B for the Raspberry Pi 4 Model B characterization figures.
+    
+    Figure 1 plots the test number versus the time to complete a test. The graph separates the data into two, one plot showing time to complete a test when working with memory, and then a second showing time to complete a test when working against memory.
+    Figure 2 plots test number versus total elapsed time since script launch, test number versus device temperature relative to the start of the test, and test number versus energy required to complete a test relative to the start of the test. 
+    Figure 3 plots the total elapsed time since script launch to complete the test suite. The plot breaks the total elapsed time into chunks of 100 tests until 500 total tests have run through completion.
+
+    In all three graphs, the resources to complete a test (time, energy, and temperature) all trend upwards and to the right with each incremental test iteration.
+
+    The data graphed in Figure 1 shows that friendly memory access functions/calculations take less time to complete than unfriendly memory access functions/calculations at around the 150th test iteration.
+    As the test iteration continues to increment, the test completion time of an unfriendly memory access function grows at an exponential rate. 
+    In comparison, the time to complete a test for the friendly memory access function grows at a polynomial rate or a lower exponential rate.
+    So by the 500th test iteration, it takes approximately .006s longer, or 75\% more time, for the unfriendly function to complete an equivalent task as the friendly function.
+
+    Looking at figure 2, the three values graphed grew linearly, but the rates of growth varied between each metric. 
+    The time to complete a test case rose at a slower rate than the estimated energy usage for each successive test conducted. 
+    When comparing energy usage to the heat delta from test start, heat generation was growing at a faster rate. 
+
+    The data graphed in figure 3 shows that the first 100 iterations of the test are blazing fast at 5s. 
+    Then each successive 100-test iteration takes approximately 10-11 seconds to complete.
+
 
     \section{Discussion}
+    Looking over the results, I think it's a fair assumption that under a moderate workload the Raspberry Pi 4 throttles performance as heat increases within the CPU.
+
+    From a quick look at the results from figure 1. I was surprised at how quickly an unfriendly memory access function can slow down performance as heat increases. 
+    This makes me think, it is okay to have inefficient functions in the design as long as the device is not stressed for extended periods of time, and it can trend back to a baseline temperature.
+    Just looking at the data, differences in performance between the unfriendly function and the friendly function were not noticeable until roughly the 150th test iteration.
+    Now, if a function is going to be called repeatedly, or if the device is already stressed, then there begins to be a need for developing more efficient algorithms and functions.
+
+    The second figure is good for when conducting a trade-off analysis. If my main concern were time per test, then I think the current design works fairly well. 
+    Time per test did trend upwards and to the right, but it wasn't horrible considering the rapid increase in temperature and power usage.
+    Reviewing the data, I am led to think that the system could be pushed for longer and harder, until time per test began to rapidly decline in performance.
+    Second observation from the data, energy usage performance degraded over time. It took more energy to complete the same test with each iteration.
+    If energy consumption is my main concern, then the design cannot be pushed to heavily, because this will cause energy consumption to rise.
+    Final observation on figure 2, temperature rose quickly compared to baseline and did not plateau. 
+    Higher temperatures had negative impacts on power usage and performance, so it is key that temperature is managed well by the device.
+
+    The third figure was the least exciting. It showed that the first set of 100 test iterations was very quick. 
+    But, due to other factors, which I assume one is temperature, the time to complete a set of 100 test iterations increased to 10-11 seconds.
+    Surprisingly, based on results, increasing temperatures did not cause 100-test iteration completion times to increase rapidly past 10-11 seconds.
+    If I were to guess, the Raspberry Pi 4 can be pushed harder or for longer before the negative impacts begin to severely impact timing. 
 
     \section{Conclusion}
 
@@ -106,6 +150,10 @@
 
     \newpage
     \section{Acknowledgements}
+    The author would like to thank the University of Washington Electrical and Computer Engineering Department for providing Raspberry Pi kits.
+    
+    The author would like to thank Dr. Sloss for the characterization scripts used for this project.
+
     The author would like to thank IEEE for providing the LaTeX template used in this document and Michael Shell of the Georgia Institute of Technology for putting together the template.
 
     \appendices
