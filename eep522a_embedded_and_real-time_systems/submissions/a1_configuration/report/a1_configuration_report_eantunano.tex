@@ -22,6 +22,8 @@
     \section{Introduction}
 
     \section{Methods}
+    Basic raspberry pi 4 characterization was conducted using a set of scripts found within the \emph{ee\_course.zip} that was provided by Dr. Sloss.
+
 
     \section{Results}
 
@@ -296,7 +298,88 @@
 
     \end{enumerate}
 
+    \subsection{Update and Upgrade Raspberry Pi System}
+
+    This section covers how to update and upgrade the OS image on the Raspberry Pi so that it has the latest files.
+
+    \begin{enumerate}
+        \item Type the code below to update the software, so that the system has the latest list of current available software
+        
+        \begin{lstlisting}[frame=single]
+            sudo apt-get update
+        \end{lstlisting}
+        
+        \includegraphics[width=2.5in]{update_software_on_pi4.png}
+
+        \item Type the code below in the Raspberry Pi terminal, over SSH, and then type \emph{y} when prompted by the upgrade script.
+        
+        \begin{lstlisting}[frame=single]
+            sudo apt-get upgrade
+        \end{lstlisting}
+        
+        Upgrade will install the latest software that was pulled from the previous update command. \newline 
+
+        \includegraphics[width=2.5in]{upgrade_software_on_rpi4.png}
+
+    \end{enumerate}
+
+    \subsection{Install GNU Plot}
+
+    This section covers how to install \emph{GNU Plot} for use with the \emph{ee\_course.zip} project. \newline
+
+    \begin{enumerate}
+        \item Type the code below in the Raspberry Pi terminal, over SSH, and then type \emph{y} when prompted by the install script.
+        
+        \begin{lstlisting}[frame=single]
+            sudo apt install gnuplot
+        \end{lstlisting}
+
+        \includegraphics[width=2.5in]{gnu_plot_install.png}
+
+    \end{enumerate}
+
+    \subsection{Verification of Raspberry Pi after System Setup}
+    After system setup, the Raspberry Pi 4 was verified using a \emph{hello world} c-script. The code below was compiled and remotely run on the Raspberry Pi 4 through a host Linux machine.
+
+    \begin{lstlisting}[frame=single]
+        # include <stdio.h>
+
+        int main(void)
+        {
+            printf("hello_world\n");
+            return 1;
+        }   
+    \end{lstlisting}
+
+    The script was compiled on the Raspberry Pi 4 through two methods, to explore how c-code compilation on the device. \newline
+
+    The following text was written in the terminal to compile a file called \emph{a.out} \newline
+
+    \begin{lstlisting}[frame=single]
+        cc hello.c
+    \end{lstlisting}
+
+    \includegraphics[width=2.5in]{a_out_hello_world.png}
+
+    Afterwards, the following text was written in the terminal to compile a file called \emph{hellow} \newline
+
+    \begin{lstlisting}[frame=single]
+        gcc hello.c -o hellow
+    \end{lstlisting}
+    
+    \includegraphics[width=2.5in]{hellow_hello_world.png}
 
     \section{Figures and Tables}
+    \subsection{Figure 1 Memory Subsystems}
+
+    \includegraphics[width=2.5in]{plot_memsys.jpg}
+
+    \subsection{Figure 2 Memory Library Tests (time, rel. temp., rel. energy)}
+
+    \includegraphics[width=2.5in]{plot_memlib.jpg}
+
+    \subsection{Figure 3 Total Time to Run Tests}
+
+    \includegraphics[width=2.5in]{plot_tests.jpg}
 
 \end{document}
