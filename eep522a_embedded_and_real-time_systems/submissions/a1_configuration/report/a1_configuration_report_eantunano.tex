@@ -158,7 +158,144 @@
 
     \end{enumerate}
 
-    \subsection{Initial Raspberry Pi 4 Setup}
+    \subsection{Raspberry Pi 4 Initial Turn On and OS boot}
+
+    The Raspberry Pi 4 setup involves the steps required to boot up the Raspberry Pi OS Bullseye debian onto the Raspberry Pi 4 Model B board.
+
+    \emph{NOTE: The Raspberry Pi 4 should be OFF at the beginning of this section.} \newline
+
+
+    \begin{enumerate}
+        \item Insert the microSD card into the Raspberry Pi's microSD slot on the underside of the board. \newline 
+        
+        The Raspberry Pi 4 will look for an OS within a microSD card if there is a card inserted in the SD slot. \newline
+
+        \includegraphics[width=2.5in]{sd_card_w_rpi4.png}
+
+        \item Connect the power supply to the Raspberry Pi 4 \newline
+        
+        \includegraphics[width=2.5in]{rpi4_power_in_cord.png}
+
+        \item Turn on power supply switch. \newline
+        
+        LEDs on the Raspberry Pi 4 should be enabled \newline
+
+        Leave the Rapsberry Pi 4 alone for 5-10 minutes as the Raspberry Pi 4 OS Bullseye debian is loaded onto the board.
+
+    \end{enumerate}
+
+    \subsection{SSH into Raspberry Pi 4}
+
+    \emph{NOTE: Assuming all the steps were executed without any issue during the \textbf{Raspberry Pi Imager} section, there should be no issue using SSH immediately after the Raspberry Pi 4 has been loaded with an OS after initial power-on.} \newline
+
+    \begin{enumerate}
+        \item Open VS Code and go to Remote Explorer \newline
+        
+        User must download the \emph{Remote - SSH} extension by Microsoft from the VS Code marketplace so that the Remote Explorer shortcut is available. \newline
+
+        \item Select \emph{New Remote} in the SSH Explorer window \newline
+        
+        The SSH Explorer window will look like the image below. The \emph{New Remote} will pop-up as a user hovers over SSH. \newline
+
+        \includegraphics[width=2.5in]{ssh_explorer_screen.png}
+
+        \item Write the following information into the \emph{Enter SSH Connection Command} pop-up at the top of the screen, then select \emph{Enter}. \newline
+        
+        \emph{ssh <raspberry pi 4 username>@<raspberry pi 4 hostname>}.local \newline
+
+        Refer back to the rapsberry pi 4 \emph{username} and \emph{hostname} that you set during the \emph{Raspberry Pi Imager} subsection. \newline
+
+        \includegraphics[width=2.5in]{show_how_to_start_ssh_connection.png}
+
+        \item Select where you would like to store your SSH configuration settings, then select \emph{Enter}
+        
+        \includegraphics[width=2.5in]{set_ssh_config_to_local_user.png}
+
+        Afterwards, you should be SSH'ed in your Raspberry Pi 4 in headless mode. Congratulations! \newline
+        
+        \includegraphics[width=2.5in]{ssh_into_raspberrypi4.png}
+
+    \end{enumerate}
+
+    \subsection{Configure Raspberry Pi OS Bullseye Debian}
+
+    This section will focus on configuring your Raspberry Pi OS after initial power on and SSHing into your system. \newline
+
+    \begin{enumerate}
+        \item In your VS Code's SSH terminal, type the following and then hit \emph{Enter}
+        
+        \begin{lstlisting}[frame=single]
+            sudo raspi-config
+        \end{lstlisting}
+
+        The following screen will appear across your VS Code SSH terminal. \newline
+
+        \includegraphics[width=2.5in]{rpi_sw_config_tool_home.png}
+
+        \item Select \emph{1 System Options} from the home screen
+
+        \item A new menu will appear. Go down the menu and select the \emph{S5 Boot / Auto Login}
+        
+        \includegraphics[width=2.5in]{rpi_sw_config_tool_boot_auto_login.png}
+
+        \item Select option \emph{B2 Console Autologin}
+        
+        \includegraphics[width=2.5in]{rpi_sw_config_tool_subscreen_console_auto_login.png}
+
+        \item You'll be taken back to the home screen. Select \emph{1 System Options} from the home screen
+
+        \item Next go down the menu and select \emph{S7 Splash Screen}
+        
+        \includegraphics[width=2.5in]{rpi_sw_config_tool_splash_screen.png}
+
+        \item Select \emph{No}
+        
+        \includegraphics[width=2.5in]{rpi_sw_config_tool_splash_screen_yes_no.png}
+
+        The next screen will notify you that the splash screen has been disabled. \newline
+
+        \includegraphics[width=2.5in]{rpi_sw_config_tool_splash_screen_disabled.png}
+
+        \item You'll be taken back to the home screen. Select \emph{2 Display Options} from the home screen
+        
+        \item Next go down to and select \emph{D5 VNC Resolution}
+        
+        \includegraphics[width=2.5in]{rpi_sw_config_tool_subscreen_vnc_resolution.png}
+        
+        \item Select \emph{1920x1080}
+        
+        \includegraphics[width=2.5in]{rpi_sw_config_tool_vnc_1920x1080.png}
+
+        The next screen will notify you that the resolution has been set to 1920x1080. Select OK.
+
+        \includegraphics[width=2.5in]{rpi_sw_config_tool_vnc_1920_1080_ok.png}
+        
+        \item You'll be taken back to the home screen. Select \emph{3 Interface Options} from the home screen
+
+        \item Next go down the menu and select \emph{I3 VNC}
+        
+        \includegraphics[width=2.5in]{rpi_sw_config_tool_vnc_enable.png}
+
+        \item Select \emph{yes}
+        
+        \includegraphics[width=2.5in]{rpi_sw_config_tool_vnc_enable_yes.png}
+
+        The next screen will notify you that the VNC Server is enabled. Select OK.
+
+        \includegraphics[width=2.5in]{rpi_sw_config_tool_vnc_ok.png}
+
+        \item You'll be taken back to the home screen. Select \emph{8 Update} from the home screen
+
+        \item Select \emph{yes} so the Rapsberry Pi system can reboot
+        
+        \includegraphics[width=2.5in]{rpi_sw_config_tool_update_yes.png}
+
+        \emph{NOTE: The following error will appear on your VS Code SSH terminal since the Raspberry Pi 4 has been rebooted. \newline RECOMMENDATION: Close VS Code and open a new SSH instance after 1-2 minutes from reboot.} \newline
+
+        \includegraphics[width=2.5in]{vs_code_ssh_offline_error.png}
+
+    \end{enumerate}
+
 
     \section{Figures and Tables}
 
