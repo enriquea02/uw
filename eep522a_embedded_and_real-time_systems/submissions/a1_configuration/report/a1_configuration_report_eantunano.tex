@@ -9,7 +9,7 @@
 
     \title{Raspberry Pi 4 Embedded Development Environment}
 
-    \author{Enrique~Antunano\\UW\\enriantu@uw.edu}
+    \author{Enrique~Antunano\\University~of~Washington\\enriantu@uw.edu}
 
     \markboth{EEP522A~Embedded and~Real~Time~Systems, A1~Configuration, January~2025}{}
 
@@ -23,6 +23,7 @@
 
     \section{Methods}
     To repeat the device characterization below for a new Raspberry Pi, first follow the step-by-step setup and verification instructions for a headless system listed under Appendix A. 
+    All the supplies required for setting up a headless system are outlined in the first subsection under Appendix A.
     Once all the Appendix A subsections have been completed in order, proceed with the device characterization instructions below.
 
     Basic Raspberry Pi 4 characterization was conducted using a set of scripts found within the \emph{ee\_course.zip} that was provided by Dr. Sloss. 
@@ -140,7 +141,21 @@
     Surprisingly, based on results, increasing temperatures did not cause 100-test iteration completion times to increase rapidly past 10-11 seconds.
     If I were to guess, the Raspberry Pi 4 can be pushed harder or for longer before the negative impacts begin to severely impact timing. 
 
+    Future investigation is warranted to determine if the measurable heat dissipation plateaus as a function of Raspberry Pi 4 resource utilization over time. 
+    To elaborate, if the Raspberry Pi 4 load resource utilization remained constant but a gambit of $10^{3}$, $10^{4}$, $10^{5}$ test runs were conducted, would the heat, power, and performance trends continue on their trajectories. 
+    Additionally, it would be interesting to measure the rate of change of their performances as a function of heat to determine if energy and performance degradation follows a linear or non-linear trend as a function of device heat.
+
     \section{Conclusion}
+
+    The main objective of this project was to become comfortable configuring a Raspberry Pi 4 and learn how to set it up as a headless device.
+    Regarding configuration of the Raspberry Pi 4, the project walked through creating an OS image, pre-configuring the image, flashing the OS onto the device, upgrading applications, and finally setting up the user space. 
+    As part of the OS pre-configuration, SSH was enabled, hostname set, username and password set, Wi-Fi name and password set, which allowed the Raspberry Pi 4 to run as a headless system immediately after loading its Raspberry Pi OS Bullseye debian.
+    After device setup, the next step was to verify that the Raspberry Pi OS could receive files over SSH from a host Linux machine. 
+    Then, verifying the source files could be compiled and run locally on the Raspberry Pi.
+    The \emph{C} application that was run on the Raspberry Pi 4 provided baseline characterization of the device regarding power usage, heat dissipation, and performance. 
+    Characterization was conducted by stress testing the Raspberry Pi 4 with a standard set up tests which were repeated 500 times.
+    Based on the captured data, the Raspberry Pi 4's performance and energy usage degrade with respect to heat, meaning that heat management is a key limitation in the device.
+    Future projects on the device will have to factor performance, heat management, and power usage depending on the intended application.
 
     \nocite{*}
     \newpage
