@@ -9,22 +9,41 @@
 
     \title{Raspberry Pi 4 Embedded Development Environment}
 
-    \author{Enrique~Antunano\\University~of~Washington\\enriantu@uw.edu}
+    \author{Enrique~Antunano\\University~of~Washington\\enriantu@uw.edu\\https://github.com/enriquea02/uw}
 
     \markboth{EEP522A~Embedded and~Real~Time~Systems, A1~Configuration, January~2025}{}
 
     \maketitle
 
     \begin{abstract}
+        The purpose of the A1 Configuration assignment is to set up the Raspberry Pi 4 and the embedded development environment that will be used to interact with the machine. 
+        Creating an embedded development environment involves setting up the hardware and software.
+        The goal will be to have a headless system for the Raspberry Pi 4, using SSH from a host machine to interface with the Raspberry Pi 4 device.
 
     \end{abstract}
-    The purpose of the A1 Configuration assignment is to set up the Raspberry Pi 4 and the embedded development environment that will be used to interact with the machine. 
     \section{Introduction}
+    The objective of this project is to configure an embedded development environment for the Raspberry Pi. 
+    Creating an embedded development environment involves setting up the hardware and software. 
+    At the end of the project, a host machine should be able to SSH into the Raspberry Pi that has a Raspberry Pi OS image, transfer files, and the Raspberry Pi should be able to locally compile and run a basic device characterization test.
+    From my estimate, the project should take 3-4 hours. Additional time was spent attempting to configure my host machine's environment to make a conducive embedded development environment.
 
     \section{Methods}
-    To repeat the device characterization below for a new Raspberry Pi, first follow the step-by-step setup and verification instructions for a headless system listed under Appendix A. 
-    All the supplies required for setting up a headless system are outlined in the first subsection under Appendix A.
-    Once all the Appendix A subsections have been completed in order, proceed with the device characterization instructions below.
+    To setup, verify, and characterize a new Raspberry Pi, first follow the step-by-step setup and verification instructions for a headless system listed under Appendix A. 
+    Appendix A also includes a material checklist for everything you should need to perform initial setup and verification.
+    Additionally, before proceeding, the reader should review \emph{Getting Started - Raspberry Pi Documentation}.
+
+    \begin{enumerate}
+        \item Material checklist
+        \item Raspberry Pi Imager
+        \item Raspberry Pi 4 Initial Turn On and OS boot
+        \item SSH into Raspberry Pi 4
+        \item Configure Raspberry Pi OS Bullseye Debian
+        \item Update and Upgrade Raspberry Pi system
+        \item Install GNU Plot
+        \item Verification of Raspberry Pi after System Setup
+    \end{enumerate}
+
+    Once all the Appendix A subsections have been completed in order, refer to the instructions below to perform basic device characterization.
 
     Basic Raspberry Pi 4 characterization was conducted using a set of scripts found within the \emph{ee\_course.zip} that was provided by Dr. Sloss. 
     The characterization script runs the same set of three tests 500 times, meaning the type of test remains consistent across each test iteration.
@@ -121,7 +140,9 @@
 
 
     \section{Discussion}
-    Looking over the results, I think it's a fair assumption that under a moderate workload the Raspberry Pi 4 throttles performance as heat increases within the CPU.
+    Before going over the results, I would like to state that using the instructions outlined in the \emph{Methods} section led to a very smooth Rapsberry Pi 4 setup, configuration, and verification with no issues.
+
+    Now, looking over the results, I think it's a fair assumption that under a moderate workload the Raspberry Pi 4 throttles performance as heat increases within the CPU.
 
     From a quick look at the results from figure 1. I was surprised at how quickly an unfriendly memory access function can slow down performance as heat increases. 
     This makes me think, it is okay to have inefficient functions in the design as long as the device is not stressed for extended periods of time, and it can trend back to a baseline temperature.
@@ -173,20 +194,24 @@
 
     \appendices
     \section{Install OS onto Raspberry Pi 4}
+    \subsection{Material checklist}        
+    \begin{itemize}
+        \item Linux machine that can store the OS image onto microSD card \newline
+            \emph{Distribution: POP!\_OS 22.04 LTS (Debian)}
+        \item SD card reader
+        \item Minimum 16GB microSD card
+        \item Raspberry Pi 4 Model B board
+        \item Raspberry Pi compatible power supply
+        \item Wireless router
+        \item VS Code
+        \item VS Code Remote - SSH by Microsoft extension
+    \end{itemize}
+
     \subsection{Raspberry Pi Imager}
 
     The Raspberry Pi Imager assists with installing the OS onto a storage device, which can then be installed onto the Raspberry Pi 4.
 
-    \begin{enumerate}
-        \item Hardware checklist
-        
-        \begin{itemize}
-            \item Linux machine that can store the OS image onto microSD card \newline
-                \emph{Distribution: POP!\_OS 22.04 LTS (Debian)}
-            \item SD card reader
-            \item minimum 16GB microSD card
-        \end{itemize}
-    
+    \begin{enumerate}    
         \item Install the Raspberry Pi Imager from the Linux terminal \newline
         
         Type out the command below and hit \emph{Enter}. \newline
