@@ -1,5 +1,5 @@
 # -------------------------------- Description ------------------------------- #
-# YAML file contains all the requirements that shall define the bike mounted laser projector embedded project
+# YAML file contains all the requirements that shall define the laser projector embedded project
 # L4 requirements file contains all low-level block requirements
 
 # --------------------------------- Criteria --------------------------------- #
@@ -19,14 +19,14 @@
 # Example Requirement Input
 # requirements:
 #     -   id: LAZ-001
-#         description: The bike mounted laser projector must project any 1920x1080 2D images
+#         description: The laser projector must project any 1920x1080 2D images
 #         margin: N/A
 #         type: functional
 #         status: To Do
 #         target_environment: Host Machine
 #         verification:
 #             method: Performance Test
-#             criteria: The bike mounted laser can take any 1920x1080 image and project it
+#             criteria: The laser can take any 1920x1080 image and project it
 #             tools: Host machine, plotting software/script
 #             results:
 #                 -   type: data

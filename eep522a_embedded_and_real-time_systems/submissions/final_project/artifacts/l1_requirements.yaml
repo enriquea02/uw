@@ -1,5 +1,5 @@
 # -------------------------------- Description ------------------------------- #
-# YAML file contains all the requirements that shall define the bike mounted laser projector embedded project
+# YAML file contains all the requirements that shall define the laser projector embedded project
 # L1 requirements file contains all high-level system requirements
 
 # --------------------------------- Criteria --------------------------------- #
@@ -19,14 +19,14 @@
 # Example Requirement Input
 # requirements:
 #     -   id: LAZ-001
-#         description: The bike mounted laser projector must project any 1920x1080 2D images
+#         description: The laser projector must project any 1920x1080 2D images
 #         margin: N/A
 #         type: functional
 #         status: To Do
 #         target_environment: Host Machine
 #         verification:
 #             method: Performance Test
-#             criteria: The bike mounted laser projector can take any 1920x1080 image and project it
+#             criteria: The laser projector can take any 1920x1080 image and project it
 #             tools: Host machine, plotting software/script
 #             results:
 #                 -   type: data
@@ -37,80 +37,109 @@
 
 # ------------------------------- Requirements ------------------------------- #
 requirements:
-    -   id: LAZ-001
-        description: bike mounted laser projector should be able to display a 1920x1080 image from 2 meters away
+    -   id: LAZ-HS001
+        description: laser projector should be able to display a 320x200 single image from 5 meters away
         margin: +/- 10% (m)
         type: functional
         status: to do
         target_environment: target device
         verification:
             method: demonstration
-            criteria: the bike mounted laser projector can take any 1920x1080 image and project it
-            tools: tape measurer, chalk
+            criteria: the laser projector can take an image and display it at a resolution of 320x200 while remaining visible from 5 meters away
+            tools: tape measurer, tape
             results:
                 -   type: data
                     path: ./<data_path>
         related_requirements:
 
     -   id: LAZ-002
-        description: bike mounted laser projector shall weigh less than 0.5 kg 
+        description: laser projector shall weigh less than 1.5 kg 
         margin: +/- 5% (kg)
         type: constraints
         status: to do
         target_environment: target device
         verification:
             method: demonstration
-            criteria: integrated bike mounted laser projector system weighs less than 0.5 kg
+            criteria: integrated laser projector system weighs less than 0.5 kg
             tools: scale
             results:
                 -   type:
                     path:
         related_requirements:
 
-    -   id: LAZ-003
-        description: bike mounted laser projector shall have an eight (8) hour battery life in low-use conditions
-        margin: +/- 0.5 hours
-        type: constraints
-        status: to do
-        target_environment: target device
-        verification:
-            method: analysis, demonstration, test
-            criteria: the bike mounted laser projector can support low-usage operations for a minimum of 8 hours
-            tools: power analyzer
-            results:
-                -   type:
-                    path:
-        related_requirements:
-            -   LAZ-004
-
-    -   id: LAZ-004
-        description: bike mounted laser projector shall have a one (1) hour battery life in high-usage conditions
-        margin: +/- 0.25 hours
-        type: constraints
-        status: to do
-        target_environment: target device
-        verification:
-            method: performance test
-            criteria: the bike mounted laser projector can support high-usage operations for a minimum of 1 hour
-            tools: power analyzer
-            results:
-                -   type:
-                    path:
-        related_requirements:
-
     -   id: LAZ-005
-        description: bike mounted laser projector shall be water resistant
+        description: laser projector shall be water resistant
         margin: N/A
         type: constraints
         status: to do
         target_environment: target device
         verification:
             method: analysis, demonstration
-            criteria: the bike mounted laser projector can withstand a light rain as defined by the American Meteorological Society's Glossary of Meteorology, which is a maximum rate of 0.025 cm (0.01 in.) in six minutes
+            criteria: the laser projector can withstand a light rain as defined by the American Meteorological Society's Glossary of Meteorology, which is a maximum rate of 0.025 cm (0.01 in.) in six minutes
                 -   type: document
                 -   path: https://glossary.ametsoc.org/wiki/Rain
             tools:
             results:
                 -   type:
                     path:
+        related_requirements:
+
+    -   id: LAZ-003
+        description: laser projector should support R, G, or B laser display #TODO Determine which color to use
+        margin: color support can be 128 instead of 256
+        type: functional
+        status: to do
+        target_environment: target device
+        verification:
+            method: test
+            criteria: measure voltage usage of laser diode across all 256 steps of red, green, and blue
+            tools: multimeter, oscilloscope
+            results:
+                -   type: data
+                    path: ./<data_path>
+        related_requirements:
+
+    -   id: LAZ-004
+        description: laser projector should be able to display new images transferred wirelessly from a mobile device
+        margin: packet transfer success rate of 90%
+        type: functional
+        status: to do
+        target_environment: target device
+        verification:
+            method: test
+            criteria: measure voltage usage of laser diode across all 256 steps of red, green, and blue
+            tools: multimeter, oscilloscope
+            results:
+                -   type: data
+                    path: ./<data_path>
+        related_requirements:
+
+    -   id: LAZ-006
+        description: laser projector should power off laser after 10 minutes of inactivity
+        margin: +/- 1 minutes
+        type: safety
+        status: to do
+        target_environment: target device
+        verification:
+            method: test, demonstration
+            criteria: verify device turns off if no inputs are provided within a 10 minute period
+            tools: timer, auto-generated reports
+            results:
+                -   type: data
+                    path: ./<data_path>
+        related_requirements:
+
+    -   id: LAZ-HS007
+        description: laser show player software manager shall translate compressed image input into motion commands for laser and mirrors
+        margin: N/A
+        type: functional
+        status: to do
+        target_environment: target device
+        verification:
+            method: test, demonstration
+            criteria: laser show player software manager must output a laser projection matrix that matches expected output. use the ILDA Test Pattern as the expected output (https://www.ilda.com/technical.htm). laser show player manager must be capable of displaying an image.
+            tools: logs, simulation test bench input
+            results:
+                -   type: data
+                    path: ./<data_path>
         related_requirements:
