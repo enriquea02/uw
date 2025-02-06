@@ -1,0 +1,98 @@
+# -------------------------------- Description ------------------------------- #
+# YAML file contains all the requirements that shall define the laser projector embedded project
+# L2 requirements file contains all low-level system requirements
+
+# --------------------------------- Criteria --------------------------------- #
+# Requirement ID: Unique requirement identification number
+# Requirement Description:
+# Requirement Margin: 
+# Requirement Type: Functional, non-functional, performance
+# Requirement Status: Current status of the requirement (To Do, In Progress, Blocked, Verified, Rejected)
+# Target Environment: Where will the requirement be implemented?
+# Verification Method: How will the requirement be verified (Test, Analysis, Inspection, Demonstration)
+# Verification Success Criteria: Success criteria of the requirement
+# Verification Tools: Tools used in verification
+# Results: Verification artifacts
+# Related Requirements:
+
+# ------------------------------ Entry Template ------------------------------ #
+# Example Requirement Input
+# requirements:
+#     -   id: LAZ-001
+#         description: The laser projector must project any 1920x1080 2D images
+#         margin: N/A
+#         type: functional
+#         status: To Do
+#         target_environment: Host Machine
+#         verification:
+#             method: Performance Test
+#             criteria: The laser can take any 1920x1080 image and project it
+#             tools: Host machine, plotting software/script
+#             results:
+#                 -   type: data
+#                     path: ./<data_path>
+#         related_requirements:
+#             -   LAZ-002
+#             -   LAZ-402
+
+# ------------------------------- Requirements ------------------------------- #
+requirements:
+    -   id: LAZ-LS001
+        description: #TODO Can I use a singular laser or do I need multiple?
+        margin: +/- 10% (m)
+        type: functional
+        status: to do
+        target_environment: target device
+        verification:
+            method: demonstration
+            criteria: the laser projector can take an image and display it at a resolution of 320x200 while remaining visible from 5 meters away
+            tools: tape measurer, tape
+            results:
+                -   type: data
+                    path: ./<data_path>
+        related_requirements:
+
+    -   id: LAZ-LS002
+        description: laser player software manager shall decompress image that is wirelessly transmitted
+        margin: N/A
+        type: functional
+        status: to do
+        target_environment: target device
+        verification:
+            method: test
+            criteria: compressed image should be the same if read off the raspberry pi 4
+            tools: logs
+            results:
+                -   type: data
+                    path: ./<data_path>
+        related_requirements:
+
+    -   id: LAZ-LS003
+        description: laser player software manager shall extract edges of an image through matrix manipulation of decompressed image
+        margin: N/A
+        type: functional
+        status: to do
+        target_environment: target device
+        verification:
+            method: test, demonstration
+            criteria: laser show player software manager must output a new matrix that reduces the pixel count to 320x200 and captures edges in image
+            tools: logs, simulation test bench output
+            results:
+                -   type: data
+                    path: ./<data_path>
+        related_requirements:
+
+    -   id: LAZ-LS004
+        description: laser player software manager shall provide remote host with laser projector health and status
+        margin: N/A
+        type: functional
+        status: to do
+        target_environment: target device
+        verification:
+            method: test, demonstration
+            criteria: laser show player software manager must provide a set of health and status telemetry data
+            tools: logs, simulation test bench output
+            results:
+                -   type: data
+                    path: ./<data_path>
+        related_requirements:

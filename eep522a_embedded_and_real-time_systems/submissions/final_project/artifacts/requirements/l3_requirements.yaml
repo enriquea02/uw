@@ -1,6 +1,6 @@
 # -------------------------------- Description ------------------------------- #
 # YAML file contains all the requirements that shall define the laser projector embedded project
-# L2 requirements file contains all low-level system requirements
+# L3 requirements file contains all high-level block requirements
 
 # --------------------------------- Criteria --------------------------------- #
 # Requirement ID: Unique requirement identification number
@@ -37,45 +37,75 @@
 
 # ------------------------------- Requirements ------------------------------- #
 requirements:
-    -   id: LAZ-LS001
-        description: #TODO Can I use a singular laser or do I need multiple?
-        margin: +/- 10% (m)
-        type: functional
-        status: to do
-        target_environment: target device
-        verification:
-            method: demonstration
-            criteria: the laser projector can take an image and display it at a resolution of 320x200 while remaining visible from 5 meters away
-            tools: tape measurer, tape
-            results:
-                -   type: data
-                    path: ./<data_path>
-        related_requirements:
-
-    -   id: LAZ-LS002
-        description: laser player software manager shall decompress image that is wirelessly transmitted
-        margin: N/A
-        type: functional
-        status: to do
-        target_environment: target device
-        verification:
-            method: test
-            criteria: compressed image should be the same if read off the raspberry pi 4
-            tools: logs
-            results:
-                -   type: data
-                    path: ./<data_path>
-        related_requirements:
-
-    -   id: LAZ-LS003
-        description: laser player software manager shall extract edges of an image through matrix manipulation of decompressed image
+    -   id: LAZ-HB001
+        description: laser player software manager shall auto-update laser display when a new image is successfully uploaded 
         margin: N/A
         type: functional
         status: to do
         target_environment: target device
         verification:
             method: test, demonstration
-            criteria: laser show player software manager must output a new matrix that reduces the pixel count to 320x200 and captures edges in image
+            criteria: remote host will receive an acknowledge flag from the laser controller's transmission receiver
+            tools: logs, simulation test bench output
+            results:
+                -   type: data
+                    path: ./<data_path>
+        related_requirements:
+
+    -   id: LAZ-HB002
+        description: laser player software manager shall notify user of an error if image decompression fails
+        margin: N/A
+        type: functional
+        status: to do
+        target_environment: target device
+        verification:
+            method: test, demonstration
+            criteria: remote host will receive an error flag from the laser controller's image processing block via the transmission receiver
+            tools: logs, simulation test bench output
+            results:
+                -   type: data
+                    path: ./<data_path>
+        related_requirements:
+
+    -   id: LAZ-HB003
+        description: laser player software manager shall notify user of an error if laser failure detected
+        margin: N/A
+        type: functional
+        status: to do
+        target_environment: target device
+        verification:
+            method: test, demonstration
+            criteria: remote host will receive an error flag via the laser controller from the laser or ADC which measures power to the diode
+            tools: logs, simulation test bench output
+            results:
+                -   type: data
+                    path: ./<data_path>
+        related_requirements:
+
+    -   id: LAZ-HB004
+        description: laser player software manager shall notify user of an error if motor failure detected
+        margin: N/A
+        type: functional
+        status: to do
+        target_environment: target device
+        verification:
+            method: test, demonstration
+            criteria: remote host will receive an error flag via the laser controller from the motor or ADC which measures power to the motor
+            tools: logs, simulation test bench output
+            results:
+                -   type: data
+                    path: ./<data_path>
+        related_requirements:
+
+    -   id: LAZ-HB005
+        description: laser player software manager shall notify user of image decomposition failure during image processing
+        margin: N/A
+        type: functional
+        status: to do
+        target_environment: target device
+        verification:
+            method: test, demonstration
+            criteria: remote host will receive an error flag from the laser controller's image processing block via the transmission receiver if matrix decomposition fails
             tools: logs, simulation test bench output
             results:
                 -   type: data
