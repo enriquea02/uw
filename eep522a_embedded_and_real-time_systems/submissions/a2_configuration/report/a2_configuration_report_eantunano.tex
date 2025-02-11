@@ -11,10 +11,113 @@
 
     \author{Enrique~Antunano\\University~of~Washington\\enriantu@uw.edu\\https://github.com/enriquea02/uw}
 
-    \markboth{EEP522A~Embedded and~Real~Time~Systems, A1~Configuration, February~2025}{}
+    \markboth{EEP522A~Embedded and~Real~Time~Systems, A2~Configuration, February~2025}{}
 
     \maketitle
 
+    \section{Introduction}
+    \section{Methods}
+    \section{Results}
+    \section{Discussion}
+    \section{Conclusion}
+    \section{Acknowledgements}
+
+    \appendices
+    \section{Characterization Documentation}
+    This appendix section covers all the characterization documentation that was explored as part of my determination of whether the Raspberry Pi 4 would have a sufficient amount of material for quickly developing a prototype of a
+    Laser Projector box, as part of my EPP422 final project.
+    
+    The determination comes down to the Raspberry Pi 4's hardware limitations, OS, associated software and pin libraries, documentation of the Raspberry Pi 4 and potential peripherals, and software tools that 
+    will help with my development process.
+
+    \subsection{Characterization Questions}
+    This appendix section defines the characterization scope during the exploration phase. Not all questions will be answered, but answering a majority of the questions will help with the determination whether
+    the Raspberry Pi 4 will be sufficient for the final project.
+    \begin{enumerate}
+        \item What SoC is on the target board? What version and manufacturer of the SoC?
+        \item What features are present on the board/SoC?
+        \item What size caches are present in the Raspberry Pi?
+        \item What is the pin layout on this specific version of the target board?
+        \item How does the board boot? What is the process?
+        \item What software libraries are available for interfacing with the pins?
+        \item What is the performance of the GPIO pins for PWM control?
+        \item What is the latency for setting a GPIO pin from command to physical output change. i.e., 90\% of pin voltage rating)
+        \item How well documented is each pin library and how easy is it to use?
+        \item How much memory is available on the board?
+        \item What is the maximum memory configuration?
+        \item How many types of memory are on the board?
+        \item What is the performance of the memory?
+        \item What is the compiler name and version?
+        \item What is required to add an on-switch to the Raspberry Pi?
+        \item What is the interrupt latency for the board?
+        \item How much time does it take to copy 1 KB, 1 MB, and 1GB in bytes, half words, and words in RAM?
+        \item How much time does it take to copy 1 KB, 1 MB, and 1GB in bytes, half words, and words on the
+        ﬁling system?
+        \item Determine the speed of integer arithmetic with a benchmark.
+        \item Are there image processing libraries?
+        \item How much memory might the image processing library require?
+        \item What is the CPU time for an image processing task? Are there benchmarks available?
+        
+    \subsection{Characterization Commands}
+
+    This command generates a human-readable listing of the total RAM on the Raspberry Pi 4.
+    \begin{lstlisting}[frame=single]
+        free -h
+    \end{lstlisting}
+
+
+    The Linux OS will output the following memory information. \newline
+    
+    \includegraphics[width=2.5in]{rpi4_ram.png}
+
+    \end{enumerate}
+    \section{Figures and Tables}
+    \begin{table}[h!] 
+        \begin{center}
+          \caption{Raspberry Pi 4 Official Documentation Feature-set.}
+          \label{tab:table1}
+          \begin{tabular}{l|l} % <-- Alignments: 1st column left, 2nd middle and 3rd right, with vertical lines in between
+            \textbf{Feature} & \textbf{Details}\\
+            \hline
+            SoC & BCM2711 Broadcom Quad-core ARM Cortex-A72 64-bit SoC @ 1.5GHz\\
+            Memory & 1GB LPDDR4-2400 SDRAM \\
+            Caches & 32kB data + 48kB instruction L1 cache per core. 1MB L2 cache.\\
+            Multimedia & H.265 (4Kp60 decode)\\
+            Multimedia & H.264 (1080p60 decode,1080p30 encode)\\
+            Multimedia & OpenGL ES, 3.0 graphics\\
+            I/O & PCIe bus\\
+            I/O & onboard Ethernet port\\
+            I/O & 1 x Display Serial Interface (DSI) port\\
+            I/O & 1 x Camera Serial Interface (CSI) port\\
+            I/O & 6 x I2C ports\\
+            I/O & 6 x UART (muxed with I2C)\\
+            I/O & 5 x SPI\\
+            I/O & 2-lane MIPI Dual HDMI video output\\
+            I/O & 2-lane MIPI Composite video output\\
+            I/O & 40-pin GPIO Header\\
+            I/O & 2 x USB 3.0 ports\\
+            I/O & 2 x USB 2.0 ports\\
+            Audio/Video & 4-pole stereo audio and composite video port\\
+            Wireless Module & Dual channel 2.4/5.0 GHz IEEE 802.11ac wireless\\
+            Wireless Module & Bluetooth 5.0\\
+            Wireless Module & Bluetooth Low Energy (BLE)\\
+            Input power & 5.1V/3A DC via USB-C connector\\
+            Operating Temp. & 0 - 500C
+          \end{tabular}
+        \end{center}
+      \end{table}
+
+      \subsection{Figure 1 Raspberry Pi 4 40-pin Header}
+
+      \includegraphics[width=2.5in]{rpi4b_40pin_header.png}
+
+      \subsection{Figure 2 Raspberry Pi 4 GPIO Pins}
+
+      \includegraphics[width=2.5in]{rpi4_40pin_header_gpio_numbering.png}
+
+      \subsection{Figure 3 Alternative Pin Functions}
+
+      \includegraphics[width=2.5in]{alternative_gpio_pin_funcs.png}
     
 
 \end{document}
