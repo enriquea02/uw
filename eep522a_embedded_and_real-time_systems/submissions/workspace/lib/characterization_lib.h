@@ -52,9 +52,10 @@ int set_base_path(
 
 // Function captures elapsed test time into data log
 int data_logger (
-    const char *logfile_path,
+    const char *base_log_path,
+    const char *logname,
     const char *testname,
-    time_t elapsed_time
+    double elapsed_time
 );
 
 // Function to perform the copy and measure time for RAM

@@ -63,11 +63,46 @@ int set_base_path(
 
 // Function captures elapsed test time into data log
 int data_logger (
-    const char *logfile_path,
+    const char *base_log_path,
+    const char *logname,
     const char *testname,
-    time_t elapsed_time
+    double elapsed_time
 )
 {
+    char *logfile_path = NULL;
+
+    // Verify inputs are valid
+    if (!base_log_path || !logname || !testname) {
+        fprintf(stderr, "[ERROR] One or more input strings are NULL.\n");
+        return 1;
+    }
+
+    if (strlen(base_log_path) == 0 || strlen(logname) == 0 || strlen(testname) == 0) {
+        fprintf(stderr, "[ERROR] One or more input strings are empty.\n");
+        return 1;
+    }
+
+    // Allocate memory for the full path (including testname and extension)
+    size_t logfile_path_len = strlen(base_log_path) + strlen(logname) + strlen(".log") + 1; // +1 for null terminator
+    logfile_path = malloc(logfile_path_len);
+
+    if (logfile_path == NULL) {
+        perror("malloc failed");
+        return 1;
+    }
+
+    int len = snprintf(logfile_path, logfile_path_len, "%s%s.log", base_log_path, logname);
+
+    if (len < 0) {
+        perror("snprintf failed");
+        free(logfile_path);
+        return 1;
+    } else if (len >= logfile_path_len) {
+        fprintf(stderr, "[ERROR] Log file path too long (truncated).\n");
+        free(logfile_path);
+        return 1;
+    }
+
     // open logfile and append new information
     FILE *logfile = fopen(logfile_path, "a");
 
@@ -78,7 +113,7 @@ int data_logger (
     }
 
     // print logfile information
-    fprintf(logfile, "[INFO] Completed test: %s in %ld sec",testname,elapsed_time);
+    fprintf(logfile, "[INFO] Completed test: %s in %.9f sec\n",testname,elapsed_time);
     fclose(logfile);
     return 0;
 }
@@ -91,16 +126,30 @@ double ram_write_time (
     size_t element_size
 ) 
 {
-    clock_t start_time, end_time;
-    double elapsed_cpu_time;
+    struct timespec start, end;
+    double elapsed_time;
+    size_t num_elements = size / element_size; // Calculate the correct number of elements!
 
-    start_time = clock();
-    memcpy(dest, src, size * element_size); 
-    end_time = clock();
+    if (clock_gettime(CLOCK_MONOTONIC_RAW, &start) == -1) {
+        perror("clock_gettime failed");
+        return -1.0;
+    }
 
-    elapsed_cpu_time = ((double) (end_time - start_time)) / CLOCKS_PER_SEC;
+    // The crucial change: loop based on the number of elements
+    for (size_t i = 0; i < num_elements; i++) {
+        memcpy(dest, src, element_size);
+        dest = (char *)dest + element_size; // Increment by element size
+        src = (char *)src + element_size; // Increment src as well
+    }
 
-    return elapsed_cpu_time;
+    if (clock_gettime(CLOCK_MONOTONIC_RAW, &end) == -1) {
+        perror("clock_gettime failed");
+        return -1.0;
+    }
+
+    elapsed_time = (end.tv_sec - start.tv_sec) + (end.tv_nsec - start.tv_nsec) / 1e9;
+
+    return elapsed_time;
 }
 
 // Function runs all RAM write tests
@@ -133,7 +182,7 @@ int ram_write_test (
     {
         double byte_write_time = ram_write_time(src_byte,dest_byte,mem_size[i],sizeof(byte));
 
-        data_logger(base_path,"ram_write_test.log", byte_write_time);
+        data_logger(base_path,"ram_write_test","RAM Byte Test", byte_write_time);
     }
 
     // Free memory
@@ -154,7 +203,7 @@ int ram_write_test (
     {
         double halfword_write_time = ram_write_time(src_halfword,dest_halfword,mem_size[i],sizeof(halfword));
 
-        data_logger(base_path,"ram_write_test.log", halfword_write_time);
+        data_logger(base_path,"ram_write_test","RAM Halfword Test", halfword_write_time);
     }
 
     // Free memory
@@ -175,7 +224,7 @@ int ram_write_test (
     {
         double word_write_time = ram_write_time(src_word,dest_word,mem_size[i],sizeof(word));
 
-        data_logger(base_path,"ram_write_test.log", word_write_time);
+        data_logger(base_path,"ram_write_test","RAM Word Test", word_write_time);
     }
 
     // Free memory
