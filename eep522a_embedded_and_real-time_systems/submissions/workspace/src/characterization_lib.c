@@ -32,7 +32,6 @@
 /*                                 Data Types                                 */
 /* -------------------------------------------------------------------------- */
 
-
 /* -------------------------------------------------------------------------- */
 /*                                   Globals                                  */
 /* -------------------------------------------------------------------------- */
@@ -90,15 +89,30 @@ double ram_write_time (
     return elapsed_cpu_time;
 }
 
+// Function summarizes all RAM write tests
 void ram_write_test ()
 {
     byte *src_byte, *dest_byte;
     halfword *src_halfword, *dest_halfword;
     word *src_word, *dest_word;
 
+    size_t mem_size[] = {KiB, MiB, TEN_MiB, HUNDRED_MiB}
+    const char *size_names[] = 
+    test_byte
+
     // Byte Test
     src_byte = malloc(HUNDRED_MiB); // Allocate memory
     dest_byte = malloc(HUNDRED_MiB);
+
+    if (!src_byte || !dest_byte) {
+        perror("Memory byte allocation failed");
+        return 1;
+    }
+    
+    for(int i; i < 4; i++) {
+        double byte_write_time = ram_write_time(src_byte,dest_byte,mem_size[i],sizeof(byte));
+    }
+
 
     free(src_byte); free(dest_byte);    // Free memory
 
@@ -106,11 +120,21 @@ void ram_write_test ()
     src_halfword = malloc(HUNDRED_MiB * sizeof(halfword)); // Allocate memory
     dest_halfword = malloc(HUNDRED_MiB * sizeof(halfword));
 
+    if (!src_halfword || !dest_halfword) {
+        perror("Memory halfword allocation failed");
+        return 1;
+    }
+
     free(src_halfword); free(dest_halfword);    // Free memory
 
     // Word Test
     src_word = malloc(HUNDRED_MiB * sizeof(word));  // Allocate memory
     dest_word = malloc(HUNDRED_MiB * sizeof(word));
+
+    if (!src_word || !dest_word) {
+        perror("Memory word allocation failed");
+        return 1;
+    }
 
     free(src_word); free(dest_word);    // Free memory
 }
