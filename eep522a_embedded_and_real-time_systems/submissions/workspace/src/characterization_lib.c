@@ -165,6 +165,7 @@ int ram_write_test (
     word *dest_word = NULL;
 
     size_t mem_size[] = {KiB, MiB, TEN_MiB, HUNDRED_MiB};
+    const char *mem_size_str[] = {"1 KiB","1 MiB","10 MiB","100 MiB"};
 
     /* -------------------------------- Byte Test ------------------------------- */
     // Allocate memory
@@ -182,7 +183,11 @@ int ram_write_test (
     {
         double byte_write_time = ram_write_time(src_byte,dest_byte,mem_size[i],sizeof(byte));
 
-        data_logger(base_path,"ram_write_test","RAM Byte Test", byte_write_time);
+        // Construct the test name string using snprintf
+        char testname[256]; // Adjust size as needed
+        snprintf(testname, sizeof(testname), "RAM Byte %s Access Test", mem_size_str[i]);
+
+        data_logger(base_path,"ram_write_test",testname, byte_write_time);
     }
 
     // Free memory
@@ -203,7 +208,11 @@ int ram_write_test (
     {
         double halfword_write_time = ram_write_time(src_halfword,dest_halfword,mem_size[i],sizeof(halfword));
 
-        data_logger(base_path,"ram_write_test","RAM Halfword Test", halfword_write_time);
+        // Construct the test name string using snprintf
+        char testname[256]; // Adjust size as needed
+        snprintf(testname, sizeof(testname), "RAM Halfword %s Access Test", mem_size_str[i]);
+
+        data_logger(base_path,"ram_write_test",testname, halfword_write_time);
     }
 
     // Free memory
@@ -224,7 +233,11 @@ int ram_write_test (
     {
         double word_write_time = ram_write_time(src_word,dest_word,mem_size[i],sizeof(word));
 
-        data_logger(base_path,"ram_write_test","RAM Word Test", word_write_time);
+        // Construct the test name string using snprintf
+        char testname[256]; // Adjust size as needed
+        snprintf(testname, sizeof(testname), "RAM Word %s Access Test", mem_size_str[i]);
+
+        data_logger(base_path,"ram_write_test",testname, word_write_time);
     }
 
     // Free memory
