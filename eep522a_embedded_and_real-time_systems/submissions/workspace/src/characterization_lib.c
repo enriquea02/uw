@@ -5,6 +5,8 @@
  *
  * DESCRIPTION: 
  * This library contains functions that are useful for Raspberry Pi 4 device characterization.
+ * - RAM write speed tests (1KiB, 1MiB, 10MiB, 100MiB for byte, half_word, and word)
+ * - Hard Disk Write Speed Tests
  * 
  * ACKNOWLEDGEMENTS:
  * This library borrows from Andrew N. Sloss' prototype.c module developed for EP522A Embedded and Real-Time Systems course
@@ -35,6 +37,7 @@
 /* -------------------------------------------------------------------------- */
 /*                                   Globals                                  */
 /* -------------------------------------------------------------------------- */
+char base_path;
 
 /* -------------------------------------------------------------------------- */
 /*                                  Routines                                  */
@@ -44,7 +47,17 @@ int set_base_path(
     const char *path_var_name
 )
 {
-    const char *base_path = getenv(path_var_name);
+    const char *env_path = getenv(path_var_name);
+
+    if (env_path == NULL) {
+        fprintf(stderr, "PATH variable '%s' not found.\n", path_var_name);
+        return 1; // Indicate an error
+    }
+
+    // Construct the variables' path
+    int len = snprintf(base_path, sizeof(base_path), "%s", env_path);
+
+    return 0;
 }
 
 // Function captures elapsed test time into data log
@@ -89,35 +102,43 @@ double ram_write_time (
     return elapsed_cpu_time;
 }
 
-// Function summarizes all RAM write tests
-void ram_write_test ()
+// Function runs all RAM write tests
+int ram_write_test ()
 {
-    byte *src_byte, *dest_byte;
-    halfword *src_halfword, *dest_halfword;
-    word *src_word, *dest_word;
+    byte *src_byte = NULL;
+    byte *dest_byte = NULL;
+    halfword *src_halfword = NULL;
+    halfword *dest_halfword = NULL;
+    word *src_word = NULL;
+    word *dest_word = NULL;
 
-    size_t mem_size[] = {KiB, MiB, TEN_MiB, HUNDRED_MiB}
-    const char *size_names[] = 
-    test_byte
+    size_t mem_size[] = {KiB, MiB, TEN_MiB, HUNDRED_MiB};
 
-    // Byte Test
-    src_byte = malloc(HUNDRED_MiB); // Allocate memory
+    /* -------------------------------- Byte Test ------------------------------- */
+    // Allocate memory
+    src_byte = malloc(HUNDRED_MiB);
     dest_byte = malloc(HUNDRED_MiB);
 
-    if (!src_byte || !dest_byte) {
+    if (!src_byte || !dest_byte) 
+    {
         perror("Memory byte allocation failed");
         return 1;
     }
     
-    for(int i; i < 4; i++) {
+    // Run RAM write test per memory size test for byte accesses (KiB, MiB, TEN_MiB, HUNDRED_MiB)
+    for (int i = 0; i < 4; i++) 
+    {
         double byte_write_time = ram_write_time(src_byte,dest_byte,mem_size[i],sizeof(byte));
+
+        data_logger(base_path,"ram_write_test.log", byte_write_time);
     }
 
+    // Free memory
+    free(src_byte); free(dest_byte);
 
-    free(src_byte); free(dest_byte);    // Free memory
-
-    // Halfword Test
-    src_halfword = malloc(HUNDRED_MiB * sizeof(halfword)); // Allocate memory
+    /* ------------------------------ Halfword Test ----------------------------- */
+    // Allocate memory
+    src_halfword = malloc(HUNDRED_MiB * sizeof(halfword));
     dest_halfword = malloc(HUNDRED_MiB * sizeof(halfword));
 
     if (!src_halfword || !dest_halfword) {
@@ -125,10 +146,20 @@ void ram_write_test ()
         return 1;
     }
 
-    free(src_halfword); free(dest_halfword);    // Free memory
+    // Run RAM write test per memory size test for half-word accesses (KiB, MiB, TEN_MiB, HUNDRED_MiB)
+    for (int i = 0; i < 4; i++) 
+    {
+        double halfword_write_time = ram_write_time(src_halfword,dest_halfword,mem_size[i],sizeof(halfword));
 
-    // Word Test
-    src_word = malloc(HUNDRED_MiB * sizeof(word));  // Allocate memory
+        data_logger(base_path,"ram_write_test.log", halfword_write_time);
+    }
+
+    // Free memory
+    free(src_halfword); free(dest_halfword);
+
+    /* -------------------------------- Word Test ------------------------------- */
+    // Allocate memory
+    src_word = malloc(HUNDRED_MiB * sizeof(word));
     dest_word = malloc(HUNDRED_MiB * sizeof(word));
 
     if (!src_word || !dest_word) {
@@ -136,15 +167,28 @@ void ram_write_test ()
         return 1;
     }
 
-    free(src_word); free(dest_word);    // Free memory
+    // Run RAM write test per memory size test for word accesses (KiB, MiB, TEN_MiB, HUNDRED_MiB)
+    for (int i = 0; i < 4; i++) 
+    {
+        double word_write_time = ram_write_time(src_word,dest_word,mem_size[i],sizeof(word));
+
+        data_logger(base_path,"ram_write_test.log", word_write_time);
+    }
+
+    // Free memory
+    free(src_word); free(dest_word);
 }
 
 int main()  
 {
-    set_base_path("LOGFILE_PATH");  // Set LOGFILE_PATH in Raspbian .bash_profile
+    // Pull logfile path from OS
+    if (set_base_path("LOGFILE_PATH") != 0) // Remember to set LOGFILE_PATH in Raspbian .bash_profile!
+    {
+        fprintf(stderr, "Failed to set base path.\n");
+        return 1; // Exit with error
+    }
+    fprintf("Data Log File Location: ","%s",base_path);
 
-    // Test 1: RAM write (1KiB, 1MiB, 10MiB, 100MiB for byte, half_word, and word)
-    start_time = 
-    data_logger(base_path,"one_kib_ram_test",elapsed_time)
-    snprintf(base_path,sizeof(file_path),"Data Log File Location: ","%s",file_path);
+    // characterization tests
+    ram_write_test(); // Test 1: RAM write speed tests (1KiB, 1MiB, 10MiB, 100MiB for byte, half_word, and word)
 }
