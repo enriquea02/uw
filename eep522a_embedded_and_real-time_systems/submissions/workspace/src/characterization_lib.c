@@ -37,7 +37,8 @@
 /* -------------------------------------------------------------------------- */
 /*                                   Globals                                  */
 /* -------------------------------------------------------------------------- */
-char base_path;
+char base_path[256];
+char file_path[256];
 
 /* -------------------------------------------------------------------------- */
 /*                                  Routines                                  */
@@ -72,12 +73,12 @@ int data_logger (
 
     // verify file opened correctly
     if (logfile == NULL) {
-        fprintf(stderr,"[ERROR] Failed to open logfile: %s: %s\n",logfile,strerror(errno));
+        fprintf(stderr,"[ERROR] Failed to open logfile: %s: %s\n",logfile_path,strerror(errno));
         return 1;
     }
 
     // print logfile information
-    fprintf(logfile, "[INFO] Completed test: ","%s","in %ld sec",testname,elapsed_time);
+    fprintf(logfile, "[INFO] Completed test: %s in %ld sec",testname,elapsed_time);
     fclose(logfile);
     return 0;
 }
@@ -103,7 +104,9 @@ double ram_write_time (
 }
 
 // Function runs all RAM write tests
-int ram_write_test ()
+int ram_write_test (
+    char *base_path
+)
 {
     byte *src_byte = NULL;
     byte *dest_byte = NULL;
@@ -187,8 +190,8 @@ int main()
         fprintf(stderr, "Failed to set base path.\n");
         return 1; // Exit with error
     }
-    fprintf("Data Log File Location: ","%s",base_path);
+    snprintf(file_path,sizeof(file_path),"%s",base_path);
 
     // characterization tests
-    ram_write_test(); // Test 1: RAM write speed tests (1KiB, 1MiB, 10MiB, 100MiB for byte, half_word, and word)
+    ram_write_test(file_path); // Test 1: RAM write speed tests (1KiB, 1MiB, 10MiB, 100MiB for byte, half_word, and word)
 }
