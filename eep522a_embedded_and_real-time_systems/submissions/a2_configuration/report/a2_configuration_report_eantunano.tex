@@ -60,10 +60,10 @@
     The performance of the GPIO pins, as in how frequently could the pin toggle assuming a perfect square wave with 50\% duty, was pulled from a website called \emph{Code and Life}.
 
     \subsection{Memory Information}
-    Information on memory was pulled from the Raspberry Pi 4 documentation, third-party websites, and my own tests.
+    Information on memory was pulled from the Raspberry Pi 4 documentation, third-party websites, and my tests.
     Data gathered from this section covers questions 10 to 13 and 17 to 18.
 
-    To answer question 13 and 17, I used a characterization script I wrote in C to stress my Raspberry Pi 4.
+    To answer questions 13 and 17, I used a characterization script I wrote in C to stress my Raspberry Pi 4.
 
     Instructions to run the script:
     \begin{enumerate}
@@ -78,11 +78,11 @@
 
       \includegraphics[width=2.5in]{copy_files_into_rip4.png}
 
-      \item Move project_env shell script from where it was copied to ~/
-      \item Source the project_env shell script from home directory
+      \item Move project\_env shell script from where it was copied to ~/
+      \item Source the project\_env shell script from home directory
       
       \begin{lstlisting}[frame=single]
-        source project_env.sh
+        source project\_env.sh
       \end{lstlisting}
 
       \item In the \emph{/workspace} directory, compile the characterization script
@@ -94,6 +94,13 @@
       \includegraphics[width=2.5in]{characterization_script.png}
       
     \end{enumerate}
+
+    \subsection{Misc}
+
+    To get the compiler name and version, input the following command in raspberry pi command line.
+    \begin{lstlisting}[frame=single]
+      gcc --version
+    \end{lstlisting}
 
     \section{Results}
     \subsection{Board/Layout Information}
@@ -122,6 +129,19 @@
     Without direct board measurement, I could not find information on the Raspberry Pi 4's expected slew rate on its GPIO pins.
 
     \subsection{Memory Information}
+    For an answer to question 10, refer to Table 1.
+    The maximum RAM configuration for the Raspberry Pi 4 is 8GB, as listed on the Raspberry Pi website and documentation.
+    For the memory on board, there are L1, L2 caches, 1GB of RAM on my Raspberry Pi 4 board, and 32GB of non-volatile memory.
+
+    Refer to Appendix A, sub-appendix B, for the available memories of RAM and the File System.
+
+    Regarding the performance of the memories, referring to questions 13 and 17, refer to figures 6 and 7 respectively.
+
+    As for question 18, I created C code to test the access time of the file system, but I crashed my Raspberry Pi 4 and need to resolve the issue.
+    The \textbf{ACT} LED would be set and remain ON after running my characterization script for the file system test.
+
+    \subsection{Misc}
+    To view the compiler name and version, refer to Figure 8.
 
     \section{Discussion}
     \subsection{Board/Layout Information}
@@ -157,13 +177,22 @@
     Data captured in Figure 5 shows that although WiringPi has a switching performance hit compared to native C, the library should outperform other libraries and languages.
     Observing Raspberry Pi 1 and 2's performance, WiringPi's output frequency should still manage to meet my needs.
 
-    CHALLENGES I RAN INTO: There's way too much that I need to find out!!!! I don't work with C and I don't like it, so writing code for this assignment has been difficult.
+    \subsection{Memory Information}
+    For my purposes, I think 1GiB of RAM is sufficient for my image processing application. 
+    The access speeds from my tests were quick.
+    The best access type for performance would be 32-bit words, but I need to test for 64-bit words still.
 
-    INSIGHT FOR LIMITED OR MASS PRODUCTION: \newline
-    I would not use the Raspberry Pi 4 for pass production since it's likely too powerful and expensive for my purposes. 
-    Going on YouTube, most hobbyists use an Arduino to run their laser projector, which is 48\% more expensive. 
-    This is based on a quick Google search of an Arduino Uno $23.50, while the Raspberry Pi 4 is $35.00. 
-    Now, this suggestion is for small rates of production. For mass production, I would try to push for a smaller, cheaper, less power intensive device than even the Arduino Uno.
+    \subsection{Image Processing}
+    I did not play around with image processing, but from my research OpenCV seems like the friendliest option to go with.
+    It's more powerful than what I need, but I have spare power on my Raspberry Pi 4.
+
+    \subsection{General Discussion}
+
+    I ran into several challenges through this project. 
+    First, lacking hardware to characterize the Raspberry Pi 4. 
+    Second, there's way too much that I need to find out! 
+    Its been many years since I worked with C and I don't like it, so writing code for this assignment has been difficult.
+    Third, my file system function crashed my Raspberry Pi 4 and I have yet to figure out why, but I wasn't able to file system access information (read/write) due to my code's bug.
 
     On the a2\_configuration.pdf, it lists the expected time to complete this project as 5 to 6 hours.
     Time spent for me was closer to 12-15 hours and I only did 30-40\% of my goal.
@@ -172,6 +201,11 @@
     Initially I planned a whole characterization test suite/library, but was only able to complete one function reliably, my RAM write speed test function.
     The subsequent function I wrote, a file system access test, caused my Raspberry Pi 4 to crash.
     There is a strong likelihood that I accessed the file system incorrectly or stressed the device, but I currently do not have the time available to debug the root cause using my current skill-set.  
+
+    I would not use the Raspberry Pi 4 for pass production since it's likely too powerful and expensive for my purposes. 
+    Going on YouTube, most hobbyists use an Arduino to run their laser projector, which is 48\% more expensive. 
+    This is based on a quick Google search of an Arduino Uno 23.50, while the Raspberry Pi 4 is 35.00. 
+    Now, this suggestion is for small rates of production. For mass production, I would try to push for a smaller, cheaper, less power intensive device than even the Arduino Uno.
 
     As a final discussion point, I don't think it can be stressed enough how large-language models (LLMs) have lowered the bar of entry for starting a project in a new field or new technology.
     For my project, it was helpful to see how functions were crafted in C, a language I have almost zero experience in, and then to ask why it formatted or wrote code in a certain way. 
@@ -249,6 +283,16 @@
     
     \includegraphics[width=2.5in]{rpi4_ram.png}
 
+    This command generates a human-readable listing of the total file system on the Raspberry Pi 4.
+    \begin{lstlisting}[frame=single]
+        df -h
+    \end{lstlisting}
+
+
+    The Linux OS will output the following memory information. \newline
+    
+    \includegraphics[width=2.5in]{nvm_available_mem_rpi4.png}
+
     \end{enumerate}
     \section{Figures and Tables}
     \begin{table}[h!] 
@@ -305,6 +349,18 @@
       \subsection{Figure 5 Raspberry Pi 1 vs 2 GPIO Switching Performance}
 
       \includegraphics[width=2.5in]{pin_toggling_with_wiringpi_lib.png}
+
+      \subsection{Figure 6 RAM Memory Bandwidth}
+
+      \includegraphics[width=2.5in]{ram_memory_bandwidth.png}
+
+      \subsection{Figure 7 Measured RAM Transfer Speeds based on Access Type}
+
+      \includegraphics[width=2.5in]{ram_access_test.png}
+
+      \subsection{Figure 8 Compiler Name and Version}
+
+      \includegraphics[width=2.5in]{gcc_version.png}
     
 
 \end{document}
