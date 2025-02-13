@@ -16,7 +16,10 @@
     \maketitle
 
     \begin{abstract}
-    
+      The objective of this assignment is to characterize the Raspberry Pi 4. 
+      Then determine if the Raspberry Pi 4 will be form fit for the purpose of running our final project.
+      Characterization of the Raspberry Pi 4 will focus on determining whether it has the resources and interfaces to run the code required for a laser projector.
+      Laser projectors require PWM GPIO pin control, image processing capabilities, enough memory to process working data. 
     \end{abstract}
     \section{Introduction}
 
@@ -41,14 +44,87 @@
     Regarding question 5, refer to Figure 4 for the board boot process of the BCM2711 SoC.
 
     \subsection{GPIO Information}
+    This subsection covers questions \emph{6} to \emph{9}, all regarding gathering data on GPIO performance and information.
+    For this assignment, I did not capture raw performance data from the board's pins.
+    I do not have the necessary tools to capture the hardware data. For the final project, I have purchased the hardware debugging equipment which will arrive after a2\_configuration's submission date.
+    To select a software pin library, I read reviews on several pin libraries.
+    The following factors were considered when making a decision to go with a specific library:
+    
+    \begin{itemize}
+      \item Popularity and user base; more users potentially means more documentation or what\-to\-avoids
+      \item Ease-of-Use; meaning user-guide documentation
+      \item Language Support for C
+      \item High Performance; minimal latency when accessing pins for accurate laser diode and motor control
+    \end{itemize}
+
+    The performance of the GPIO pins, as in how frequently could the pin toggle assuming a perfect square wave with 50\% duty, was pulled from a website called \emph{Code and Life}.
+
+    \subsection{Memory Information}
+    Information on memory was pulled from the Raspberry Pi 4 documentation, third-party websites, and my own tests.
+    Data gathered from this section covers questions 10 to 13 and 17 to 18.
+
+    To answer question 13 and 17, I used a characterization script I wrote in C to stress my Raspberry Pi 4.
+
+    Instructions to run the script:
+    \begin{enumerate}
+      \item Pull from {\href{https://github.com/enriquea02/uw/tree/main/eep522a_embedded_and_real-time_systems/submissions/workspace}{github}} to get characterization files
+      \item Login to Raspberry Pi 4
+      \item Change directory in Raspberry Pi 4 to where you want to copy over files
+      \item Copy files over into Raspberry Pi 4 using scp 
+      
+      \begin{lstlisting}[frame=single]
+        scp -r <remote_machine:/file/path/to/cloned/github/folder> ./
+      \end{lstlisting}
+
+      \includegraphics[width=2.5in]{copy_files_into_rip4.png}
+
+      \item Move project_env shell script from where it was copied to ~/
+      \item Source the project_env shell script from home directory
+      
+      \begin{lstlisting}[frame=single]
+        source project_env.sh
+      \end{lstlisting}
+
+      \item In the \emph{/workspace} directory, compile the characterization script
+      
+      \includegraphics[width=2.5in]{gcc_compile_c_code.png}
+
+      \item Check \emph{/bld} directory under \emph{/workspace} for \emph{characterization} executable
+      
+      \includegraphics[width=2.5in]{characterization_script.png}
+      
+    \end{enumerate}
+
     \section{Results}
+    \subsection{Board/Layout Information}
     Answering questions \emph{1} to \emph{3}, refer to the table I compiled in Appendix B \emph{Figures and Tables}, Table 1. 
     The table summarizes the SoC, version, and manufacturer for the Raspberry Pi 4.
     Additionally, it covers the features present on the board, such a PWM hardware pins, SPI pins, and the encoding/decoding schemes supported by the Raspberry Pi 4 board.
     Finally, for question \emph{3}, the Raspberry Pi 4 official documentation listed out the cache and memory sizes this board.
     After SoC power up, the boot flow for the ROM is to read the EEPROM one-time programmable memory to determine which source the Raspberry Pi 4 will boot from.
     Assuming boot from a GPIO pin or second stage SPI boot loader is set, then the device will load from the SD memory slot and continue as normal with its boot. 
+
+    \subsection{GPIO Information}
+    There is a good summary of multiple Raspberry Pi GPIO Interfaces and Libraries that was compiled by one individual from input across the raspberry pi community.
+    Their spreadsheet \emph{Raspberry Pi GPIO Interfaces and Libraries}, listed in the references, has a entry for each of my bullet point criteria.
+    The WiringPi library is listed as popular, a "'wiring' like library", and written for C language.
+    The WiringPi github page is excellent, well-organized, and self-explanatory.
+    The repository page covers how to install the library, how to use it, and contains examples. 
+    If I chose to use another language, the repository provides language wrappings for the library.
+    Much of the documentation is written in German, but with modern translating apps this is okay.
+
+    Currently. I do not have data on GPIO pin performance for the Raspberry Pi 4. 
+    I did not go into the lab to measure the Raspberry Pi 4's performance and do not have tools at home to measure hardware performance yet.
+    Thus, I am relying on GPIO performance results from a Raspberry Pi 1 and 2 to set a theoretical lower and upper limit respectively for GPIO switching frequency. 
+    Test result data is captured in Figure 5 for the Raspberry Pi 1 (lower limit) and the Raspberry Pi 2 (upper limit).
+    Tests were conducted with the WiringPi library, which shows some of the best performance behind native C.
+
+    Without direct board measurement, I could not find information on the Raspberry Pi 4's expected slew rate on its GPIO pins.
+
+    \subsection{Memory Information}
+
     \section{Discussion}
+    \subsection{Board/Layout Information}
     I think the Raspberry Pi 4 L1 and L2 cache sizes will be sufficient for my purposes of on-board image processing. 
     The Raspberry Pi 4 will need to store intermediate values in the cache and memory as it conducts its matrix operations to covert a set of images and/or gifs into a matrix of floating points numbers.
     After the image processing, the Raspberry Pi 4 can store the data into its non-volatile memory.
@@ -72,7 +148,14 @@
     Limited PWM flexibility for a laser is not critical because realisitically the laser is likely to be set to just \emph{ON} or \emph{OFF}.
     On the other hand, the motors will require precise control which can be achieved easily by a software PWM.
     Finally, physically moving the mirrors and the inertia from the mirrors provides a margin for error regarding glitch-less control.
-    This comes from my naive understanding t 
+    
+    \subsection{GPIO Information}
+    Reviewing the WiringPi library, it is comprehensive and well-documented. 
+    For GPIO pin performance, I will take the Raspberry Pi 1's results as a worst-case lower-bound on the Raspberry Pi 4's GPIO pin performance.
+    Even taking the worst-case performance, GPIO switching in the low MHz range is likely sufficient for my laser projector needs.
+    The laser diode and motors are unlikley to switch or change duty cycles at those frequencies.
+    Data captured in Figure 5 shows that although WiringPi has a switching performance hit compared to native C, the library should outperform other libraries and languages.
+    Observing Raspberry Pi 1 and 2's performance, WiringPi's output frequency should still manage to meet my needs.
 
     CHALLENGES I RAN INTO: There's way too much that I need to find out!!!! I don't work with C and I don't like it, so writing code for this assignment has been difficult.
 
@@ -82,8 +165,6 @@
     This is based on a quick Google search of an Arduino Uno $23.50, while the Raspberry Pi 4 is $35.00. 
     Now, this suggestion is for small rates of production. For mass production, I would try to push for a smaller, cheaper, less power intensive device than even the Arduino Uno.
 
-    POINTS FOR INSIGHTS AND THOUGHTS ON HOW NEW TOOLS WILL EFFECT EMBEDDED SYSTEMS
-
     On the a2\_configuration.pdf, it lists the expected time to complete this project as 5 to 6 hours.
     Time spent for me was closer to 12-15 hours and I only did 30-40\% of my goal.
     My last C coding experience was during my undergraduate education several years ago, and I did not enjoy C as a coding language.
@@ -92,6 +173,14 @@
     The subsequent function I wrote, a file system access test, caused my Raspberry Pi 4 to crash.
     There is a strong likelihood that I accessed the file system incorrectly or stressed the device, but I currently do not have the time available to debug the root cause using my current skill-set.  
 
+    As a final discussion point, I don't think it can be stressed enough how large-language models (LLMs) have lowered the bar of entry for starting a project in a new field or new technology.
+    For my project, it was helpful to see how functions were crafted in C, a language I have almost zero experience in, and then to ask why it formatted or wrote code in a certain way. 
+    This provides a launching off point to seek other resources to understand how to code in C and interface with embedded systems.
+    By no means will this make someone an expert, but it provides a springboard into the field that can help while trying to find your bearings.
+    Additionally, I think the tools themselves will only get better and more powerful.
+    Currently, in VSCode I am able to open an SSH terminal, remote into my Raspberry Pi, and run C code that was written and linted in VSCode. 
+    Expanding the scope, I am also able to write and build my LaTeX document, create draw.io diagrams, and push my code into a version-controlled git repo all within VSCode. 
+    Given more time, I think the IDEs and development tools will continue to improve and help enhance the workflow of developers across all fields, including embedded systems.
 
     \section{Conclusion}
     Completing the initial exploration phase of this project, I am actually left with more questions than answers.
@@ -212,6 +301,10 @@
       \subsection{Figure 4 Board Boot Process}
 
       \includegraphics[width=2.5in]{board_boot.png}
+
+      \subsection{Figure 5 Raspberry Pi 1 vs 2 GPIO Switching Performance}
+
+      \includegraphics[width=2.5in]{pin_toggling_with_wiringpi_lib.png}
     
 
 \end{document}
