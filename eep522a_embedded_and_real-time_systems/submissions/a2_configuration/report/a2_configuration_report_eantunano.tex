@@ -20,12 +20,32 @@
     \end{abstract}
     \section{Introduction}
 
-    For this assignment I am trying to characterize the Raspberry Pi 4 specifically for the purposes of a laser projector box. The laser projector box, I would like to would accept a wireless transmission
-    \section{Methods}
+    For this assignment I am trying to characterize the Raspberry Pi 4 specifically for the purposes of a laser projector box. 
+    The purpose of this paper is to develop a baseline for the Raspberry Pi 4 and determine whether it is sufficient for my project needs.
+    For my project, I envision a laser projector box that can accept images and gifs through a wireless connection to a phone or other device. 
+    Then the device will auto-load the image set and project them onto a wall. 
+    Additionally, the device will be constantly connected to a power source and will not have a strict size and weight limit.
 
-    Laser projector box need
+    \section{Methods}
+    To meet the goal of developing a \emph{theoretical} baseline of capabilities, so that I can determine whether what I have available will be sufficient for my project goals, 
+    I have created a list of characterization questions I intend to explore for my project.
+    Not all questions will be answered, but the intent is that a majority of them would be answered and contain supporting material.
+    Refer to Appendix A, sub-appendix A \emph{Characterization Questions} for the list of characterization questions that I attempted to answer as part of my project base lining.
+
+    Questions \emph{1} and \emph{2} were pulled from the official Raspberry Pi documentation on their webpage and from Negi's \emph{Raspberry Pi 4 GPIO Pinout and Specifications (Updated)}.
+    To help answer question \emph{3}, Appendix A, sub-appendix B \emph{Characterization Commands} covers the command necessary to poll the Raspberry Pi 4 for its available memory.
     \section{Results}
+    Answering questions \emph{1} to \emph{3}, refer to the table I compiled in Appendix B \emph{Figures and Tables}, Table 1. 
+    The table summarizes the SoC, version, and manufacturer for the Raspberry Pi 4.
+    Additionally, it covers the features present on the board, such a PWM hardware pins, SPI pins, and the encoding/decoding schemes supported by the Raspberry Pi 4 board.
+    Finally, for question \emph{3}, the Raspberry Pi 4 official documentation listed out the cache and memory sizes this board.
+    For 
     \section{Discussion}
+    I think the Raspberry Pi 4 L1 and L2 cache sizes will be sufficient for my purposes of on-board image processing. 
+    The Raspberry Pi 4 will need to store intermediate values in the cache and memory as it conducts its matrix operations to covert a set of images and/or gifs into a matrix of floating points numbers.
+    After the image processing, the Raspberry Pi 4 can store the data into its non-volatile memory.
+    From non-volatile memory, the Raspberry Pi 4 can then switch to transferring the matrix into commands that will either toggle power to the laser diode and drive motor controls to the mirror(s) in the laser box. 
+
     CHALLENGES I RAN INTO: There's way too much that I need to find out!!!! I don't work with C and I don't like it, so writing code for this assignment has been difficult.
 
     INSIGHT FOR LIMITED OR MASS PRODUCTION: \newline
@@ -35,6 +55,14 @@
     Now, this suggestion is for small rates of production. For mass production, I would try to push for a smaller, cheaper, less power intensive device than even the Arduino Uno.
 
     POINTS FOR INSIGHTS AND THOUGHTS ON HOW NEW TOOLS WILL EFFECT EMBEDDED SYSTEMS
+
+    On the a2\_configuration.pdf, it lists the expected time to complete this project as 5 to 6 hours.
+    Time spent for me was closer to 12-15 hours and I only did 30-40\% of my goal.
+    My last C coding experience was during my undergraduate education several years ago, and I did not enjoy C as a coding language.
+    For this assignment, I struggled to write my characterization functions since much of my time was spent understanding and writing C.
+    Initially I planned a whole characterization test suite/library, but was only able to complete one function reliably, my RAM write speed test function.
+    The subsequent function I wrote, a file system access test, caused my Raspberry Pi 4 to crash.
+    There is a strong likelihood that I accessed the file system incorrectly or stressed the device, but I currently do not have the time available to debug the root cause using my current skill-set.  
 
 
     \section{Conclusion}
