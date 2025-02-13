@@ -31,20 +31,48 @@
     I have created a list of characterization questions I intend to explore for my project.
     Not all questions will be answered, but the intent is that a majority of them would be answered and contain supporting material.
     Refer to Appendix A, sub-appendix A \emph{Characterization Questions} for the list of characterization questions that I attempted to answer as part of my project base lining.
+    Device characterization was conducted on a Raspberry Pi 4 running the Raspbian OS with the Bullseye Debian.
 
+    \subsection{Board/Layout Information}
     Questions \emph{1} and \emph{2} were pulled from the official Raspberry Pi documentation on their webpage and from Negi's \emph{Raspberry Pi 4 GPIO Pinout and Specifications (Updated)}.
     To help answer question \emph{3}, Appendix A, sub-appendix B \emph{Characterization Commands} covers the command necessary to poll the Raspberry Pi 4 for its available memory.
+    Moving to question 4, the pin layout is covered in Appendix B, sub-appendix B \emph{Figures and Tables} Figures 1-3. 
+    The information was gathered from Raspberry Pi 4's official documentation and other unaffiliated websites.
+    Regarding question 5, refer to Figure 4 for the board boot process of the BCM2711 SoC.
+
+    \subsection{GPIO Information}
     \section{Results}
     Answering questions \emph{1} to \emph{3}, refer to the table I compiled in Appendix B \emph{Figures and Tables}, Table 1. 
     The table summarizes the SoC, version, and manufacturer for the Raspberry Pi 4.
     Additionally, it covers the features present on the board, such a PWM hardware pins, SPI pins, and the encoding/decoding schemes supported by the Raspberry Pi 4 board.
     Finally, for question \emph{3}, the Raspberry Pi 4 official documentation listed out the cache and memory sizes this board.
-    For 
+    After SoC power up, the boot flow for the ROM is to read the EEPROM one-time programmable memory to determine which source the Raspberry Pi 4 will boot from.
+    Assuming boot from a GPIO pin or second stage SPI boot loader is set, then the device will load from the SD memory slot and continue as normal with its boot. 
     \section{Discussion}
     I think the Raspberry Pi 4 L1 and L2 cache sizes will be sufficient for my purposes of on-board image processing. 
     The Raspberry Pi 4 will need to store intermediate values in the cache and memory as it conducts its matrix operations to covert a set of images and/or gifs into a matrix of floating points numbers.
     After the image processing, the Raspberry Pi 4 can store the data into its non-volatile memory.
     From non-volatile memory, the Raspberry Pi 4 can then switch to transferring the matrix into commands that will either toggle power to the laser diode and drive motor controls to the mirror(s) in the laser box. 
+    
+    As an interesting aside, one source listed the Raspberry Pi 4 operating temperature as 0\-500C.
+    The upper range value appears unrealistic, and I doubt value. 
+    For my purposes, the laser projector box will run indoors at ambient temperature, thus I am not worried about the operating temperature range.
+
+    Regarding boot flow, I intend to boot the Raspberry Pi 4 from the SD card each time. 
+    So this information is not actually useful for my final project, but it is interesting.
+    If I were to switch to a mass production device (1000+ devices), then I would look into changing where the target device boots its image from.
+    For mass production, it is expensive to boot from an SD card and inconvenient for the end-user to also purchase an SD-card to go along with their laser projector.
+    
+    As for the pin layout and available GPIO pins, it was interesting to find out that there were several pints available for PWM outputs.Futhermore, the PWM pins were further broken down to software and hardware set pins, which I think could be very useful.
+    For the purposes of my laser controller box, it is likely that a hardware set PWM pin may be sufficient for the laser.
+    Meanwhile, the complex software controlled PWMs may be required for driving the motors that rotate the mirrors.
+    My statement may represent an abundant amount of naivety, but from reading of Pi forums, specifically the \emph{Hardware or Software?} forum, my decision to use the hardware PWM for light diodes and software PWM for motor controllers makes sense.
+    With a software PWM, the laser diode may get stuck for a perceptible amount of time.
+    The hardware PWMs have a limited frequency and duty cycle set, but is independent of the Raspberry Pi processor.
+    Limited PWM flexibility for a laser is not critical because realisitically the laser is likely to be set to just \emph{ON} or \emph{OFF}.
+    On the other hand, the motors will require precise control which can be achieved easily by a software PWM.
+    Finally, physically moving the mirrors and the inertia from the mirrors provides a margin for error regarding glitch-less control.
+    This comes from my naive understanding t 
 
     CHALLENGES I RAN INTO: There's way too much that I need to find out!!!! I don't work with C and I don't like it, so writing code for this assignment has been difficult.
 
@@ -66,7 +94,9 @@
 
 
     \section{Conclusion}
-
+    Completing the initial exploration phase of this project, I am actually left with more questions than answers.
+    This assignment has illuminated how little I understood about my project.
+    Conversely, it has provided an initial guide on what challenges are likely to be the hardest to resolve before the project presentation deadline.
 
     \nocite{*}
     \newpage
@@ -76,6 +106,11 @@
 
     \newpage
     \section{Acknowledgements}
+    The author would like to thank the University of Washington Electrical and Computer Engineering Department for providing Raspberry Pi kits.
+
+    The author would like to thank IEEE for providing the LaTeX template used in this document and Michael Shell of the Georgia Institute of Technology for putting together the template.
+
+    The author would like to acknowledge the open-source community for their work on the documentation and source code associated with the WiringPi library. 
 
     \appendices
     \section{Characterization Documentation}
@@ -173,6 +208,10 @@
       \subsection{Figure 3 Alternative Pin Functions}
 
       \includegraphics[width=2.5in]{alternative_gpio_pin_funcs.png}
+
+      \subsection{Figure 4 Board Boot Process}
+
+      \includegraphics[width=2.5in]{board_boot.png}
     
 
 \end{document}
