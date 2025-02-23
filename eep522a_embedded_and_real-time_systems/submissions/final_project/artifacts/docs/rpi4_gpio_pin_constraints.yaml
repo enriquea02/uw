@@ -1,0 +1,443 @@
+# -------------------------------- Description ------------------------------- #
+# YAML file contains all the Raspberry Pi 4 Model B pin definitions
+
+# --------------------------------- Criteria --------------------------------- #
+# io_interface_name: pin, ethernet, dpi, cpi, usb
+# class: usb 2.0, usb 3.0, gpio
+# subclass: gpio, i2c, usb 1.1
+# mode: input, output, pwm_output
+# schmitt_trigger:
+# por_pull_state:
+# por_mode:
+# drive_strength:
+# pull_state:
+# physical_pin_number: 1, 5, 9
+# bcm_pin_number: 1, 4, 6
+# wpi_pin_number: 2, 4, 6
+# voltage: 3p3v_io
+
+# ------------------------------ Entry Template ------------------------------ #
+# Example IO Entry
+# io:
+#     -     io_interface_name: pin
+#           class: gpio
+#           subclass: gpio
+#               mode: input
+#                   schmitt_trigger:
+#           physical_pin_number: 1
+#           bcm_pin_number: 1
+#           wpi_pin_number: 2
+#           voltage: 3p3v_io
+#           drive_strength: 
+
+# -------------------------------- IO Entries -------------------------------- #
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass: 3p3v_power
+        mode: n/a
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass: 5v_power
+        mode: n/a
+        physical_pin_number: 2
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+ io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
+
+io:
+    -   io_interface_name: pin
+        class: gpio
+        subclass:
+        mode:
+        physical_pin_number: 1
+        bcm_pin_number: 
+        wpi_pin_number: 
+        voltage: 3p3v_io
