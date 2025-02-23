@@ -24,6 +24,8 @@
 /eep522a_embedded_and_real-time_systems/submissions/a1_configuration/a.out
 /eep522a_embedded_and_real-time_systems/submissions/a1_configuration/hellow
 /eep522a_embedded_and_real-time_systems/template resources/*
-
-
-
+/eep522a_embedded_and_real-time_systems/submissions/a2_configuration/report/*.fdb_latexmk
+/eep522a_embedded_and_real-time_systems/submissions/a2_configuration/report/*.fls
+/eep522a_embedded_and_real-time_systems/submissions/a2_configuration/report/*.log
+/eep522a_embedded_and_real-time_systems/submissions/a2_configuration/report/*.out
+/eep522a_embedded_and_real-time_systems/submissions/workspace/bld/*

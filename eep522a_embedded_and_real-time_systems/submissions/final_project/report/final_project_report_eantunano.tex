@@ -1,0 +1,79 @@
+\documentclass[journal]{IEEEtran}
+\usepackage{graphicx}
+\usepackage{hyperref}
+\usepackage{listings}
+% Path is relative to final_project_report_eantunano.tex
+\graphicspath{ {./images/}}
+
+\begin{document}
+
+    \title{Raspberry Pi 4 Exploration}
+
+    \author{Enrique~Antunano\\University~of~Washington\\enriantu@uw.edu\\https://github.com/enriquea02/uw}
+
+    \markboth{EEP522A~Embedded and~Real~Time~Systems, A3~Configuration, February~2025}{}
+
+    \maketitle
+
+    \begin{abstract}
+
+    \end{abstract}
+    \section{Introduction}
+
+    \section{Methods}
+
+    \section{Results}
+
+    \section{Discussion}
+
+    \section{Conclusion}
+
+    \nocite{*}
+    \newpage
+
+    \bibliographystyle{ieeetr}
+    \bibliography{final_project.bib}
+
+    \newpage
+    \section{Acknowledgements}
+
+    \newpage
+    \appendices
+    \section{Download WiringPi Library}
+
+    \section{Setup RaspController Mobile Application}
+    \emph{RaspController} is an \emph{iOS} app that allows for easy SSH access into your local Raspberry Pi 4 device.
+    The \emph{RaspController} mobile app will be used to control the laser projector manually or drop new laser projection files into the Raspberry Pi 4 device.
+    Unless port-fowarding is enabled, your mobile phone and Raspberry Pi 4 device must be on the same network, as this can be treated as any other SSH connection.
+
+    As a future improvement for mass-production, this process should be changed to be more user-friendly, simpler, and less powerful for a regular user.
+    At the moment, since the user is SSH-ing into the Raspberry Pi 4 operating system, there's a significant amount of room for error if the user does not know what they are doing.
+    My suggestion for making this feature more user-friendly would be to file share via Bluetooth instead.
+    For small-volume production, this is an easy path forward and reduces the complexity to the end-user and the risk that the user causes an error.
+    As a prototype project though, having full control via a phone is very helpful for development.
+    
+    Follow the steps below for downloading and connecting to your Raspberry Pi 4 device:
+    \begin{enumerate}
+        \item Go to the app store, search for \emph{RaspController}, and download the application
+        
+        \item Navigate through Apple's privacy settings
+        
+        \item Open the RaspController app and select \emph{Add Device} 
+        
+        \item Fill in Raspberry Pi 4 device information in the \emph{Add Device} screen
+        
+        \includegraphics[width=2.5in]{add_device_raspcontroller_app.PNG}
+        
+        \item Select the added device
+        
+        \item Ran linux command to test SSH connection
+        
+        \begin{lstlisting}[frame=single]
+            ifconfig
+        \end{lstlisting}
+
+        \includegraphics[width=2.5in]{ssh_shell_raspcontroller_app.PNG}
+    \end{enumerate}
+
+
+\end{document}
