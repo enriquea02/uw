@@ -25,6 +25,30 @@
     \section{Results}
 
     \section{Discussion}
+    \subsection{Laser Projection Code}
+    Vector laser projectors use an industry standard file format, set by the \emph{International Laser Display Association}, to convert images and videos into a laser display.
+    Files are saved with the \emph{.ild} file handle.
+    The file describes the X-Y commands and laser ON/OFF sequences which drive the mirror motors and laser diode respectively.
+
+    There is software, such as Laserworld's \emph{Showeditor}, that can export files into a \emph{.ild} format.
+    This project avoids the use of commercial software, such as \emph{Showeditor} for two reasons.
+    First, their free tiers, if available at all, have very limited functionality.
+    My research indicates that the free-tier from \emph{Showeditor} is sufficient for simple \emph{.ila} file exporting. 
+    Any additional features will require a professional license though.
+    For hobbyist purposes, \emph{Showeditor} seems like the only/best option.
+    Second, my primary workstation only has Linux installed and the free-tier of \emph{Showeditor} only supports up to Windows Vista.
+    Although I could install a VM or a dual-boot system, I would rather avoid installing an old version of Windows for the use of running one software package.
+    As a final statement, I did try to run Showeditor using \emph{Wine} on my Ubuntu-based Linux machine, but \emph{Showeditor} failed to boot.
+
+    Due to the issues highlighted, I found a workaround. 
+    The github user, \emph{marcan}, has developed a {\href{https://github.com/marcan/openlase/blob/master/tools/svg2ild.py}{script}} that converts \emph{.svg} file types into \emph{.ild} file types.
+    There are known bugs and issues with the script, code inefficiencies and possible missing RGB support, but as a development project those issues are fine. 
+    My current project only works with one light source, red, so possible missing RGB support is not an issue.
+    Plus, I have found another user who has implemented \emph{marcan's svg2ild.py} script onto a Raspberry Pi Zero and has a functional laser projector.
+    Click {\href{https://github.com/phuid/laser_projector?tab=readme-ov-file#hw}{here}} to be taken to the github page of \emph{phuid}, who has implemented the \emph{svg2ild.py} script for use in their Raspberry Pi Zero.
+    Since the project has been implemented by another user on a more resource constrained Raspberry Pi Zero, I am not worried about code inefficiencies with the \emph{svg2ild.py} script.
+
+    To create a laser animation using a \emph{.svg} file, go to appendix \emph{Create Laser Animation}.
 
     \section{Conclusion}
 
@@ -36,10 +60,33 @@
 
     \newpage
     \section{Acknowledgements}
+    The author would like to acknowledge the \emph{WiringPi} team for their GPIO access library for Raspberry Pi boards. \newline
+
+    The author would like to acknowledge the \emph{RaspController} team for their remote access mobile application for Raspberry Pi boards.
 
     \newpage
     \appendices
     \section{Download WiringPi Library}
+    The library can be built on the device or a prebuilt library can be used. 
+    For the Raspberry Pi 4 Model B using the Bullseye Debian in this project, the latest library in the WiringPi GitHub ({\href{https://github.com/WiringPi/WiringPi/releases/tag/3.14}{Release 3.14}}) will be used.
+
+    In a Raspberry Pi SSH terminal, follow the code below to build the WiringPi library.
+    \begin{lstlisting}[frame=single, basicstyle=\ttfamily\footnotesize, breaklines=true]
+        # fetch the source
+        sudo apt install git
+        git clone https://github.com/WiringPi/WiringPi.git
+        cd WiringPi
+
+        # build the package
+        ./build debian
+        mv debian-template/wiringpi_3.14_armhf.deb .
+
+        # install it
+        sudo apt install ./wiringpi_3.14_armhf.deb
+    \end{lstlisting}
+
+    WiringPi was installed in the \emph{\$HOME} directory. 
+    If the WiringPi library is installed in a different location in your Raspberry Pi system, then update laser controller scripts to reflect the location of the WiringPi library in your system.
 
     \section{Setup RaspController Mobile Application}
     \emph{RaspController} is an \emph{iOS} app that allows for easy SSH access into your local Raspberry Pi 4 device.
@@ -68,12 +115,36 @@
         
         \item Ran linux command to test SSH connection
         
-        \begin{lstlisting}[frame=single]
+        \begin{lstlisting}[frame=single, basicstyle=\ttfamily\footnotesize, breaklines=true]
             ifconfig
         \end{lstlisting}
 
         \includegraphics[width=2.5in]{ssh_shell_raspcontroller_app.PNG}
     \end{enumerate}
 
+    \section{Create Laser Animation}
+    To create a source \emph{.svg} file, which will be converted to a \emph{.ila} file format within the Raspberry Pi 4, follow the guide below.
+
+    Required Software:
+    \begin{itemize}
+        \item Blender 4.2 or newer
+        \item Blender Add-on: Render: {\href{https://extensions.blender.org/add-ons/freestyle-svg-exporter/}{\emph{Freestyle SVG Exporter}}}
+    \end{itemize} 
+
+    Blender was selected because it is an open-source, free animation software that is available across most operating systems (Windows, MacOS, Linux).
+    The Blender community is fairly large, so there is a sufficient amount of community support.
+    The following {\href{https://youtu.be/PrlK5Y74sR8?si=fridcX0fLfz2cV0W}{YouTube}} video was used as a reference to understand how to generate \emph{.svg} file types. 
+
+    \begin{enumerate}
+        \item Download Blender software
+        \item Download Freestyle SVG Exporter
+        \item Follow on-screen instructions for download and select to enable the extension
+        \item Follow YouTube video highlighted above for generating a \emph{.svg} file type, except change frame rate to 24fps
+        \item The \emph{.svg} file will be generated in the output folder location that was specified 
+    \end{enumerate}
+
+    Use this YouTube video, {\href{https://youtu.be/CBJp82tlR3M?si=AnMmnkilE5h2m_C9}{Animation for Beginners}}, to generate an animation for the laser projector.
+
+    
 
 \end{document}
