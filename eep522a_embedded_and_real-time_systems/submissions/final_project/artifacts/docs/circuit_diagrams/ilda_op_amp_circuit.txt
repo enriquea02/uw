@@ -1,0 +1,26 @@
+* Netlist created with www.circuit-diagram.org
+* XY Galvomotor Bipolar ILDA Signal Generation Circuit
+R1 6 1 10000
+'opamp out:1 ninv:7 inv:6 showSupply=False
+R2 2 6 10000
+'Alternative Ground a:7 type=Earth
+R3 8 9 47000
+R4 0 10 1000
+R5 9 7 10000
+R6 10 7 10000
+'opamp out:2 vsp:11 inv:10 vsn:8 ninv:12 showSupply=True
+'Alternative Ground a:13 type=Earth
+V7 11 13 -15
+V8 8 13 15
+R9 14 3 10000
+'opamp out:3 ninv:15 inv:14 showSupply=False
+R10 4 14 10000
+'Alternative Ground a:16 type=Earth
+V11 17 16 -15
+V12 18 16 15
+'Alternative Ground a:15 type=Earth
+R13 18 19 47000
+R14 5 20 1000
+R15 19 15 10000
+R16 20 15 10000
+'opamp out:4 vsp:17 inv:20 vsn:18 ninv:21 showSupply=True

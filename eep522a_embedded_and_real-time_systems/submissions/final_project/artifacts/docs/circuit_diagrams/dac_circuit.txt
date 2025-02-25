@@ -1,0 +1,11 @@
+* Netlist created with www.circuit-diagram.org
+* DAC Circuit
+R1 9 8 47000
+R2 7 9 30000
+D3 2 10
+R4 8 11 47
+C5 10 11 1E-05
+V6 11 0
+C7 10 11 1E-07
+'microcontroller #3:3 #1:4 #2:5 #5:9 #4:8 #6:8 #0:10 #7:12 header=MCP4921-E/P sz=8 p0=VDD p1=nCS p2=SCK p3=SDI p4=nLDAC p5=Vref p6=Vss p7=Vout p8= p9= p10= p11= p12= p13= p14= p15= p16= p17= p18= p19= p20= p21= p22= p23= p24= p25= p26= p27= p28= p29= p30= p31= p32= p33= p34= p35= p36= p37= p38= p39=
+'microcontroller #1:0 #3:6 #2:1 #5:9 #4:8 #6:8 #0:10 #7:13 header=MCP4921-E/P sz=8 p0=VDD p1=nCS p2=SCK p3=SDI p4=nLDAC p5=Vref p6=Vss p7=Vout p8= p9= p10= p11= p12= p13= p14= p15= p16= p17= p18= p19= p20= p21= p22= p23= p24= p25= p26= p27= p28= p29= p30= p31= p32= p33= p34= p35= p36= p37= p38= p39=
