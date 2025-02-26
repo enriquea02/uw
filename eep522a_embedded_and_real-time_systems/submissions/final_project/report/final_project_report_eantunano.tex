@@ -50,6 +50,34 @@
 
     To create a laser animation using a \emph{.svg} file, go to appendix \emph{Create Laser Animation}.
 
+    \subsection{Discrete Electronics}
+    Sourcing parts on a short notice, 3-5 weeks prior to March 17th, presented challenges with lead times.
+    Long lead times forced me to substitute parts, such as a single dual-channel DAC with two single-channel DACs to drive the X and Y galvomotors respectively.
+    Also, the long lead times not only limited my selection of parts, but limited where I could purchase those parts at such low volumes.
+
+
+    Amazon was the best option due to their return policy, delivery speed, and having at least one option/substitute electronic component available.
+    The drawbacks of using Amazon were, first, it was more expensive for equal or lower quality parts compared to vendors such as Digikey, Avnet, or AliExpress.
+    Many online writers of at-home vector laser projectors sourced cheap parts from AliExpress, but none mentioned the long lead times for the components.
+    The second drawback of Amazon was that many parts had sparse electrical characteristic documentation.
+    For this project, before I switched from a stepper motor to a galvomotor, I was interested in the stepper motor selection on Digikey because they were better documented and were more precise. 
+    Ultimately, I went with a stepper motor on Amazon that lacked documentation because the motor would arrive faster and the motor was 50\% cheaper. 
+    One example was when I purchased a motor driver circuit from Amazon.
+    The vendor had no workable documentation on their Amazon page, such as a pin out diagram.
+    Before switching from a stepper motor to a galvomotor, which made the motor driver irrelevant for my project, I had to look up the datasheet of the TI DRV8825 microcontroller that was on the PCBA and assume all the datasheet information was still applicable.
+
+    Another challenge that I faced was with handling substitute parts. 
+    After extensive research, I found a set of vector laser projects that were well documented and were complete enough for me to use and implement in such a short period of time.
+    Due to the time crunch of this project, I had to use substitute parts from the source documentation.
+    The new parts forced me to do circuit modifications, write code to target different microcontrollers, and do additional research to verify that the Raspberry Pi 4 had enough pins and that I wouldn't fry the Raspberry Pi 4 when hooking up the substitute components.
+    For this project, I had to substitute:
+    \begin{itemize}
+        \item Dual-channel DAC for two single-channel DACs
+        \item XY Galvo-motors and motor driver boards
+        \item Arduino with a Raspberry Pi 4
+    \end{itemize} 
+     
+
     \section{Conclusion}
 
     \nocite{*}
@@ -63,6 +91,8 @@
     The author would like to acknowledge the \emph{WiringPi} team for their GPIO access library for Raspberry Pi boards. \newline
 
     The author would like to acknowledge the \emph{RaspController} team for their remote access mobile application for Raspberry Pi boards.
+
+    The author would like to acknowledge {\href{https://www.circuit-diagram.org/editor/}{Circuit Diagram}} for their free circuit design software. 
 
     \newpage
     \appendices
@@ -145,6 +175,48 @@
 
     Use this YouTube video, {\href{https://youtu.be/CBJp82tlR3M?si=AnMmnkilE5h2m_C9}{Animation for Beginners}}, to generate an animation for the laser projector.
 
-    
+    \section{Schematics}
+    This appendix covers the electrical schematics necessary to execute this project.
+    Relevant datasheet material will also be included here.
+
+    \subsection{Raspberry Pi 4}
+    \subsection{DAC}
+    Refer to Microchip's \emph{MCP4901/4911/4921 8/10/12-Bit Voltage Output Digital-to-Analog Converter with SPI Interface} document listed in the references for the source material.
+
+    The Raspberry Pi 4 drive strength will have to be limited to 2mA to match the DAC's input current electrical characteristics.
+    One concern reading the datasheet was that the current at the supply pins were rated to an absolute maximum of 50mA.
+    Since the only DACs available, with such short notice on Amazon. were single channel DACs, I needed to purchase two single-channel DACs.
+    Each DAC channel drives a single galvomotor. 
+    Laser projectors require two galvomotors, one for the X direction and another for the Y direction.
+    What concerned me was whether the 5V pins on the Raspberry Pi 4 Model B could supply 100mA (50mA * 2 DACs).
+    Reading multiple forums, the current on the 5V rails on the Raspberry Pi 4 are primarily limited by the Raspberry Pi 4 power supply.
+    The power supply used in this design is rated for 3.5A, so 100mA is well below that threshold, even accounting for the Raspberry Pi 4's own current draw and any other components. \newline 
+
+    \includegraphics[width=2.5in]{mcp4921_electrical_characteristics.png}
+
+    The gain formula with respect to the reference voltage is listed in the image below. \newline
+
+    \includegraphics[width=2.5in]{mcp4921_gain_formula.png}
+
+    Referring the pinout descriptions below, separate nCS, SCK, and SDI lines will be driven from the Raspberry Pi 4 to the respective X and Y DACs.
+    Both DACs will need to be driven simultaneously and I have spare pins on the Raspberry Pi 4, thus each DAC will have their own set of SPI inputs.
+    nLDAC will be tied to GND, referenced to the Raspberry Pi 4, since $V_{out}$ control can be set on the rising edge of nCS.
+    Tying nLDAC to low also saves the use of two pins on the Raspberry Pi 4.
+    $V_{REF}$ will be set to 2.0143V because it is relatively close to the typical 2.038V reference voltage that is listed in the Microchip documentation.
+    I can use a simple voltage divider on the 3.3V power rail pins of the Raspberry Pi 4 to get 2.0143V.
+    The documentation is unclear whether $V_{DD}$ an $V_{REF}$ need to be related.
+    Additionally, it is unclear whether the input SPI pins need to be related to $V_{DD}$ or $V_{REF}$.
+    For now, I'm moving forward with the risk since I think it's low.
+    The Raspberry Pi 4 has an OCP circuit that I think will protect the Raspberry Pi 4.
+    Finally, the voltage divider for $V_{REF}$ uses high resistance vales to limit the current flow to the DAC. \newline
+
+    \includegraphics[width=2.5in]{mcp4921_pin_descriptions.png}
+
+    Final note on the DAC circuit, a bypass capacitor and a high-frequency noise filtering capacitor were placed on the 5V rail as recommended by the datasheet. \newline
+
+    \includegraphics[width=2.5in]{mcp4921_psu_and_dig_intf.png}
+
+    \subsection{ILDA Op Amp}
+
 
 \end{document}
