@@ -19,13 +19,19 @@ class ADCDACPi
 
 public:
 
-ADCDACPi();
+ADCDACPi(
+  const char*   spi_mode      ,
+  const int*    spi_bus_speed ,
+  const double* adc_ref_voltage ,
+  const int*    dac_gain      ,
+  const double* dac_voltage
+);
 
 /**
 * Open the ADC SPI bus channel
 * This needs to be called before using the DAC
 */
-int open_adc();
+int open_adc(const char* adc_device_path);
 
 /**
 * Close the ADC SPI bus channel
@@ -36,7 +42,7 @@ void close_adc();
 * Open the DAC SPI bus channel
 * This needs to be called before using the DAC
 */
-int open_dac();
+int open_dac(const char* dac_device_path);
 
 /**
 * Close the DAC SPI bus channel
