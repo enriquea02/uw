@@ -8,6 +8,17 @@
 #ifndef _MOTOR_DRVR_H_
 #define _MOTOR_DRVR_H_
 
+// Motor Driver Configuration Parameters 
+#define adc_device_x        = "/dev/spidev0.0";
+#define dac_device_x        = "/dev/spidev0.0";
+#define adc_device_y        = "/dev/spidev0.1";
+#define dac_device_y        = "/dev/spidev0.1";
+#define dac_spi_mode        = "SPI_MODE_0";
+#define dac_spi_bus_speed   = 2500000;
+#define adc_ref_voltage     = 3.3;
+#define dac_gain            = 1;
+#define dac_voltage         = 2.042;
+
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
