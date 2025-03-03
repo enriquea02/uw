@@ -1,0 +1,3 @@
+[submodule "eep522a_embedded_and_real-time_systems/submissions/workspace/src/rpi-lasershow"]
+	path = eep522a_embedded_and_real-time_systems/submissions/workspace/src/rpi-lasershow
+	url = https://github.com/tteskac/rpi-lasershow.git
