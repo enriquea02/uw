@@ -21,6 +21,57 @@
     \section{Introduction}
 
     \section{Methods}
+    \subsection {Coding Standard}
+    This project will use the LLVM Coding Standards. 
+    For my decision, I pulled three coding standards: Google C++ Style Guide, LLVM Coding Standards, and Motor Industry Software Reliability Association (MISRA) C/C++.
+    MISRA C/C++ will not be used for this projects because it is a purchased standard.
+    MISRA's focus is on safety-critical applications, which I think is not applicable for my project.
+    Even if my project were safety-critical, there is so little time to develop a working prototype that I care more about readability and consistency than safety-critical applications.
+    For a mass-product, which I'll classify as 10,000+ units annually, or human-rated vehicle, then it would make sense to implement a safety-critical coding standard after the prototype phase.
+    In my opinion, an engineering development unit would be a good candidate to implement this coding standard.
+
+    I have decided to use the Google C++ Style Guide because it has a better website than the LLVM Coding Standards website.
+    The coding standard only applies to new code that I have written for this project.
+    It does not apply to source code added to my project from other github repositories.
+    Source code will maintain whatever coding standard that it was written with and be used "as-is".
+    Easier is entirely subjective. For myself, it is easier to read, navigate, and less verbose.
+    The style guide is used for Google open-sourced projects, so it's widely used.
+    My focus is on writing prototype code, so I don't want to sit down and read through LLVM Coding Standards right now.
+    There may be more merit to the LLVM Coding Standards, but that decision may have to be for another day.
+
+    Click {\href{https://google.github.io/styleguide/cppguide.html}{here}} to be taken to the Google C++ Style Guide.
+
+    \subsection{Interfaces}
+    The laser controller requires the following physical interfaces:
+    \begin{itemize}
+        \item GPIO pin
+        \item SPI pins
+        \item Power Pins
+    \end{itemize}
+
+    For this project, Raspian's \emph{spidev} Linux utility was used to setup and drive the SPI interfaces from the Raspberry Pi 4. 
+    The Linux utility it limited to only two SPI interfaces, which was sufficient for this project.
+    Two SPI interfaces are required by this project to drive the two galvo motors.
+    One interface will drive the X-axis mirrors while the other will drive the Y-axis mirrors.
+    
+    Refer to the code below for checking if your system has the \emph{spidev} utility.
+
+    \begin{lstlisting}[frame=single, basicstyle=\ttfamily\footnotesize, breaklines=true]
+        ls -la /dev/
+    \end{lstlisting}
+
+    Search for a folder named \emph{spidev}.
+    There may be numbers as part of the folder name and that's okay.
+    Follow the instructions below if the \emph{spidev} folder does not exist.
+    If not, read the screenshot below to install the \emph{spidev} library.
+
+    \includegraphics[width=2.5in]{enable_spi_on_rpi4.png}
+
+    Now search for the library again because you should see the following two folders after reboot.
+
+    \includegraphics[width=2.5in]{spi4_installed_after_reboot.png}
+
+    The laser controller requires the following digital interfaces:
 
     \section{Results}
 
@@ -76,6 +127,14 @@
         \item XY Galvo-motors and motor driver boards
         \item Arduino with a Raspberry Pi 4
     \end{itemize} 
+
+    The biggest pain was the substitute of the Dual-channel DAC for the two single-channel DACs. 
+    The DACs are not as well in-sync as a single chip dual-channel DAC.
+    The \emph{ABElectronic} code that I pulled was written for the dual-channel DACs, so the driver code had to be modified to drive the two DACs separately.
+    Due to the timetable of this project, I dropped the more elegant single SPI interface solution, which would've used the chip-selects to communicate with DAC-X and DAC-Y separately.
+    Implementation of the single SPI interface may not be difficult, but I was not sure how time-multiplexing the SPI bus would work.
+    With most of the pins still free and a whole second set of Linux utility controlled SPI interface pins, I went with using both SPI interface resources.
+    From an implementation standpoint, this is easier since I can drive both buses simultaneously without having to deal with a time-multiplexing solution that would still allow the X and Y mirrors to move in-sync.
      
 
     \section{Conclusion}

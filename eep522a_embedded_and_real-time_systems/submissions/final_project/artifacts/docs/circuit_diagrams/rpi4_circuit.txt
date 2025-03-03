@@ -1,3 +1,3 @@
 * Netlist created with www.circuit-diagram.org
 * Raspberry Pi 4 Pinout
-'Raspberry Pi A+ / B+, 2 and Zero GPIO #3:2 #2:1 #39:3 #38:4 #1:0 #30:5 #28:6 #27:7 #37:8 #4:6 #8:9 #12:6 #19:6 #36:6 #34:6 #29:6 #26:6 #22:6 #0:9 #20:10 #21:10
+'Raspberry Pi A+ / B+, 2 and Zero GPIO #31:2 #9:1 #39:3 #38:4 #11:0 #30:5 #28:6 #27:7 #37:8 #4:6 #8:9 #12:6 #19:6 #36:6 #34:6 #29:6 #26:6 #22:6 #0:9 #20:10 #21:10
