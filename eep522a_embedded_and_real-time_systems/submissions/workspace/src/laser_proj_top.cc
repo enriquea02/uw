@@ -24,11 +24,11 @@
 #include <wiringPi.h>
 
 /* ----------------------------- local libraries ---------------------------- */
-#include "laser_proj_top.h"
 #include "rpi-lasershow/ABE_ADCDACPi.h"
 #include "Points.h"
 #include "IldaReader.h"
 #include "motor_drvr_lib.h"
+#include "../lib/laser_proj_top.h"
 
 using namespace std;
 using namespace ABElectronics_CPP_Libraries;

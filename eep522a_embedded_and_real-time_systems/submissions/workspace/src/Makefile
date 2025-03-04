@@ -14,20 +14,20 @@ INCLUDE_PATHS = -I./rpi-lasershow -I../lib
 
 # Rule to build the executable
 $(EXECUTABLE): $(OBJECTS)
-        $(CC) $(INCLUDE_PATHS) $(OBJECTS) $(LDFLAGS) -o $(EXECUTABLE)
+		$(CC) $(INCLUDE_PATHS) $(OBJECTS) $(LDFLAGS) -o $(EXECUTABLE)
 
 # Rule to compile object files
 ../bld/%.o: %.cc
-        mkdir -p ../bld
-        $(CC) $(INCLUDE_PATHS) -c $< -o $@
+		mkdir -p ../bld
+		$(CC) $(INCLUDE_PATHS) -c $< -o $@
 
 # Rule to clean up object files and executable
 clean:
-        rm -rf ../bld/*
+		rm -rf ../bld/*
 
 # Rule to run the program
 run: $(EXECUTABLE)
-        $(EXECUTABLE)
+		$(EXECUTABLE)
 
 # Rule to rebuild the executable
 rebuild: clean $(EXECUTABLE)
@@ -35,6 +35,6 @@ rebuild: clean $(EXECUTABLE)
 # Rule to remove the old executable on each run
 .PHONY: run
 run:
-        rm -f ../bld/laser_proj_top
-        make $(EXECUTABLE)
-        $(EXECUTABLE)
+		rm -f ../bld/laser_proj_top
+		make $(EXECUTABLE)
+		$(EXECUTABLE)
