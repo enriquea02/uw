@@ -29,3 +29,5 @@
 /eep522a_embedded_and_real-time_systems/submissions/a2_configuration/report/*.log
 /eep522a_embedded_and_real-time_systems/submissions/a2_configuration/report/*.out
 /eep522a_embedded_and_real-time_systems/submissions/workspace/bld/*
+.vscode/settings.json
+.vscode/c_cpp_properties.json

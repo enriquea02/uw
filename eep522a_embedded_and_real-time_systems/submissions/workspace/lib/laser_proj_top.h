@@ -1,0 +1,61 @@
+#ifndef LASER_PROJ_TOP_H
+#define LASER_PROJ_TOP_H
+
+/*
+ * MODULE: laser_proj_top.h
+ *
+ * DESCRIPTION: Header file for laser_proj_top.cc.
+ * */
+
+/* -------------------------------------------------------------------------- */
+/* IMPORTS                                  */
+/* -------------------------------------------------------------------------- */
+
+/* --------------------------- standard libraries --------------------------- */
+#include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <errno.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdexcept>
+#include <time.h>
+#include <unistd.h>
+#include <iostream>
+#include <chrono>
+#include <wiringPi.h>
+
+/* ----------------------------- local libraries ---------------------------- */
+#include "rpi-lasershow/ABE_ADCDACPi.h"
+#include "Points.h"
+#include "IldaReader.h"
+#include "motor_drvr_lib.h"
+
+/* -------------------------------------------------------------------------- */
+/* Data Types                                 */
+/* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+/* Globals                                  */
+/* -------------------------------------------------------------------------- */
+
+/* -------------------------------------------------------------------------- */
+/* Routines                                  */
+/* -------------------------------------------------------------------------- */
+
+/**
+ * @brief Function to handle interrupt signals.
+ * @param The signal number.
+ */
+void onInterrupt(int signal);
+
+/**
+ * @brief Sets up a GPIO pin with the specified mode.
+ * @param pin The BCM pin number.
+ * @param mode The pin mode (INPUT, OUTPUT, PWM_OUTPUT, etc.).
+ * @return 0 on success, exits the program on failure.
+ */
+int SetupPin(int pin, int mode);
+
+#endif // LASER_PROJ_TOP_H

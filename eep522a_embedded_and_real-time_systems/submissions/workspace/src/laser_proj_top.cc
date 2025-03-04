@@ -24,6 +24,7 @@
 #include <wiringPi.h>
 
 /* ----------------------------- local libraries ---------------------------- */
+#include "laser_proj_top.h"
 #include "rpi-lasershow/ABE_ADCDACPi.h"
 #include "Points.h"
 #include "IldaReader.h"
