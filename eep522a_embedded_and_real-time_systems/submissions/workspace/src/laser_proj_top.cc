@@ -24,7 +24,7 @@
 #include <wiringPi.h>
 
 /* ----------------------------- local libraries ---------------------------- */
-#include "rpi-lasershocw/ABE_ADCDACPI.h"
+#include "rpi-lasershow/ABE_ADCDACPi.h"
 #include "Points.h"
 #include "IldaReader.h"
 #include "motor_drvr_lib.h"
