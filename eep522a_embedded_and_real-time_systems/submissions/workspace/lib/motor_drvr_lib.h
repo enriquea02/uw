@@ -23,13 +23,36 @@
 /*                                   IMPORTS                                  */
 /* -------------------------------------------------------------------------- */
 
+/* --------------------------- standard libraries --------------------------- */
+#include <signal.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+#include <errno.h>
+#include <stdbool.h>
+#include <stdint.h>
+#include <stdexcept>
+#include <time.h>
+#include <unistd.h>
+#include <iostream>
+#include <chrono>
+#include <wiringPi.h>
+
+/* ----------------------------- local libraries ---------------------------- */
+#include "../src/rpi-lasershow/ABE_ADCDACPi.h"
+
 /* -------------------------------------------------------------------------- */
 /*                                 Data Types                                 */
 /* -------------------------------------------------------------------------- */
+typedef struct {
+    int* data;
+    int size;
+} DacTestVector;
 
 /* -------------------------------------------------------------------------- */
 /*                                   Globals                                  */
 /* -------------------------------------------------------------------------- */
+extern DacTestVector global_dac_test_vector; // Declaration
 
 /* -------------------------------------------------------------------------- */
 /*                                  CONSTANTS                                 */
@@ -38,7 +61,18 @@
 /* -------------------------------------------------------------------------- */
 /*                                  Routines                                  */
 /* -------------------------------------------------------------------------- */
+/**
+ * @brief Function generates MCP4921 DAC test vectors. 
+ * @brief Value starts at 0 and goes to 4095, then back to 0.
+ * @brief Each step is 32 until 4095 is reached, vice versa when returning to zero
+ * @return A DacTestVector containing the test data and size.
+*/
+DacTestVector GenerateMcp4921DacTestVector();
 
+/**
+* @brief Drive DAC test vectors to the MCP4921 DAC
+* @return 0 on success, exits the program on failure.
+*/
+int Mcp4921DacTest();
 
-
-#endif
+#endif // MOTOR_DRVR_LIB_H

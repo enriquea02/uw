@@ -1,11 +1,11 @@
-#ifndef LASER_PROJ_TOP_H
-#define LASER_PROJ_TOP_H
-
 /*
  * MODULE: laser_proj_top.h
  *
  * DESCRIPTION: Header file for laser_proj_top.cc.
  * */
+
+#ifndef LASER_PROJ_TOP_H
+#define LASER_PROJ_TOP_H
 
 /* -------------------------------------------------------------------------- */
 /* IMPORTS                                  */
@@ -55,7 +55,7 @@ void onInterrupt(int signal);
  * @param pin The BCM pin number.
  * @param mode The pin mode (INPUT, OUTPUT, PWM_OUTPUT, etc.).
  * @return 0 on success, exits the program on failure.
- */
+ */     
 int SetupPin(int pin, int mode);
 
 #endif // LASER_PROJ_TOP_H
