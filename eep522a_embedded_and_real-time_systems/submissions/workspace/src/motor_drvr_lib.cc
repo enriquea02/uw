@@ -25,18 +25,13 @@
 
 /* ----------------------------- local libraries ---------------------------- */
 #include "rpi-lasershow/ABE_ADCDACPi.h"
+#include "../lib/motor_drvr_lib.h"
 
 using namespace ABElectronics_CPP_Libraries;
 
 /* -------------------------------------------------------------------------- */
 /*                                 Data Types                                 */
 /* -------------------------------------------------------------------------- */
-struct Mcp4921DacTestVector {
-  int*  data;
-  int   size;
-};
-
-typedef struct Mcp4921DacTestVector DacTestVector;
 
 /* -------------------------------------------------------------------------- */
 /*                                   Globals                                  */
@@ -49,12 +44,12 @@ DacTestVector global_dac_test_vector;
 void onInterrupt(int);
 
 DacTestVector GenerateMcp4921DacTestVector(){
-  int test_vector_size    = ((2*4096)/32) + 1
-  int* dac_test_data    = (int*)malloc(vector_size * sizeof(int));
+  int test_vector_size    = ((2*4096)/32) + 1;
+  int* dac_test_data    = (int*)malloc(test_vector_size * sizeof(int));
 
   if (dac_test_data == NULL) {
       fprintf(stderr, "Memory allocation failed\n");
-      IntArray error = {NULL, 0}; // Indicate error
+      DacTestVector error = {NULL, 0}; // Indicate error
       return error; // Indicate an error
   }
 
@@ -83,7 +78,7 @@ DacTestVector GenerateMcp4921DacTestVector(){
         current_value -= 32;
     }
 
-    DacTestVector test_vector = {dac_test_data, vector_size}
+    DacTestVector test_vector = {dac_test_data, test_vector_size};
     return test_vector;
 }
 
@@ -94,17 +89,25 @@ int Mcp4921DacTest(){
 
   global_dac_test_vector = dac_test_data;
 
+  int* dac_test_vector  = NULL;
+  int vector_size       = 0;
+
   // Verify test vector generated correctly
   if (dac_test_data.data == NULL) {
     printf("Error generating DAC vector.\n");
   } else {
-      int* dac_test_vector = dac_test_data.data;
-      int vector_size = dac_test_data.size;
+    dac_test_vector = dac_test_data.data;
+    vector_size     = dac_test_data.size;
   }
 
+  int     spi_speed   = dac_spi_bus_speed;
+  double  ref_voltage = adc_ref_voltage  ;
+  int     gain        = dac_gain         ;
+  double  voltage     = dac_voltage      ;
+
   // initialize DAC hardware variables
-  ADCDACPi dac_x(dac_spi_mode,dac_spi_bus_speed,adc_ref_voltage,dac_gain,dac_voltage);
-  ADCDACPi dac_y(dac_spi_mode,dac_spi_bus_speed,adc_ref_voltage,dac_gain,dac_voltage);
+  ADCDACPi dac_x(dac_spi_mode,&spi_speed,&ref_voltage,&gain,&voltage);
+  ADCDACPi dac_y(dac_spi_mode,&spi_speed,&ref_voltage,&gain,&voltage);
   // initialize DAC hardware
   if (dac_x.open_dac(dac_device_x) != 1) return(1);
   if (dac_y.open_dac(dac_device_y) != 1) return(1);

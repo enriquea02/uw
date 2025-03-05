@@ -14,7 +14,7 @@ INCLUDE_PATHS = -I./rpi-lasershow -I../lib
 
 # Motor Driver Target (for user argument)
 MOTOR_DRIVER_TARGET = motor_driver
-MOTOR_DRIVER_SOURCE = motor_drvr_lib.c
+MOTOR_DRIVER_SOURCE = motor_drvr_lib.cc
 MOTOR_DRIVER_OBJECT = ../bld/motor_drvr_lib.o
 
 # Rule to build the main executable
