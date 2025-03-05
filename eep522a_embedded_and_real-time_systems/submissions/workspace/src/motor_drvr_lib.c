@@ -31,10 +31,12 @@ using namespace ABElectronics_CPP_Libraries;
 /* -------------------------------------------------------------------------- */
 /*                                 Data Types                                 */
 /* -------------------------------------------------------------------------- */
-typedef struct {
+struct Mcp4921DacTestVector {
   int*  data;
   int   size;
-} DacTestVector
+};
+
+typedef struct Mcp4921DacTestVector DacTestVector;
 
 /* -------------------------------------------------------------------------- */
 /*                                   Globals                                  */

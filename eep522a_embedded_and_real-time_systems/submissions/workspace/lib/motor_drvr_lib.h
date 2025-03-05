@@ -44,10 +44,12 @@
 /* -------------------------------------------------------------------------- */
 /*                                 Data Types                                 */
 /* -------------------------------------------------------------------------- */
-typedef struct {
-    int* data;
-    int size;
-} DacTestVector;
+struct Mcp4921DacTestVector {
+    int*  data;
+    int   size;
+};
+
+typedef struct Mcp4921DacTestVector DacTestVector;
 
 /* -------------------------------------------------------------------------- */
 /*                                   Globals                                  */
