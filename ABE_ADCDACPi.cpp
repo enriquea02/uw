@@ -180,11 +180,9 @@ void ADCDACPi::set_dac_voltage(double voltage, int channel) {
   }
 }
 
-void ADCDACPi::set_dac_raw(uint16_t raw, int channel) {
+void ADCDACPi::set_dac_raw(uint16_t raw) {
   /**
-  * Set the raw value from the selected channel on the DAC
   * @param raw - between 0 and 4095
-  * @param channel - 1 or 2
   */
   
   // MCP4921 Datasheet - 16-bit DAC write command
