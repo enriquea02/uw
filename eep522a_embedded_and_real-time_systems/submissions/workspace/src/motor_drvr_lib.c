@@ -1,6 +1,3 @@
-#ifndef MOTOR_DRVR_LIB_H
-#define MOTOR_DRVR_LIB_H
-
 /*
 * MODULE: 
 *

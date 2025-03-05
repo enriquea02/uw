@@ -12,7 +12,12 @@ EXECUTABLE = ../bld/laser_proj_top
 # Header Include Paths
 INCLUDE_PATHS = -I./rpi-lasershow -I../lib
 
-# Rule to build the executable
+# Motor Driver Target (for user argument)
+MOTOR_DRIVER_TARGET = motor_driver
+MOTOR_DRIVER_SOURCE = motor_drvr_lib.c
+MOTOR_DRIVER_OBJECT = ../bld/motor_drvr_lib.o
+
+# Rule to build the main executable
 $(EXECUTABLE): $(OBJECTS)
 		$(CC) $(INCLUDE_PATHS) $(OBJECTS) $(LDFLAGS) -o $(EXECUTABLE)
 
@@ -21,9 +26,18 @@ $(EXECUTABLE): $(OBJECTS)
 		mkdir -p ../bld
 		$(CC) $(INCLUDE_PATHS) -c $< -o $@
 
+# Rule to build motor_driver executable (when MOTOR_DRIVER=1)
+$(MOTOR_DRIVER_TARGET): $(MOTOR_DRIVER_OBJECT)
+	$(CC) $(INCLUDE_PATHS) $(MOTOR_DRIVER_OBJECT) $(LDFLAGS) -o $(MOTOR_DRIVER_TARGET)
+
+../bld/motor_drvr_lib.o: $(MOTOR_DRIVER_SOURCE)
+	mkdir -p ../bld
+	$(CC) $(INCLUDE_PATHS) -c $< -o $@
+
+
 # Rule to clean up object files and executable
 clean:
-		rm -rf ../bld/*
+		rm -rf ../bld/* $(MOTOR_DRIVER_TARGET)
 
 # Rule to run the program
 run: $(EXECUTABLE)
