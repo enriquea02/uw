@@ -142,6 +142,10 @@ int Mcp4921DacTest(){
   return 0;
 }
 
+int main() {
+  Mcp4921DacTest();
+}
+
 // function that is called when program needs to be terminated. 
 void onInterrupt(int) {
   printf("Motor program was interrupted.\n");

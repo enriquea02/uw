@@ -14,8 +14,10 @@ INCLUDE_PATHS = -I./rpi-lasershow -I../lib
 
 # Motor Driver Target (for user argument)
 MOTOR_DRIVER_TARGET = motor_driver
-MOTOR_DRIVER_SOURCE = motor_drvr_lib.cc
-MOTOR_DRIVER_OBJECT = ../bld/motor_drvr_lib.o
+MOTOR_DRIVER_SOURCES = motor_drvr_lib.cc rpi-lasershow/ABE_ADCDACPi.cpp
+MOTOR_DRIVER_OBJECTS = $(MOTOR_DRIVER_SOURCES:%.cc=../bld/%.o)
+
+MOTOR_DRIVER_EXECUTABLE = ../bld/motor_driver
 
 # Rule to build the main executable
 $(EXECUTABLE): $(OBJECTS)
@@ -23,17 +25,16 @@ $(EXECUTABLE): $(OBJECTS)
 
 # Rule to compile object files
 ../bld/%.o: %.cc
-		mkdir -p ../bld
-		$(CC) $(INCLUDE_PATHS) -c $< -o $@
-
-# Rule to build motor_driver executable (when MOTOR_DRIVER=1)
-$(MOTOR_DRIVER_TARGET): $(MOTOR_DRIVER_OBJECT)
-	$(CC) $(INCLUDE_PATHS) $(MOTOR_DRIVER_OBJECT) $(LDFLAGS) -o $(MOTOR_DRIVER_TARGET)
-
-../bld/motor_drvr_lib.o: $(MOTOR_DRIVER_SOURCE)
 	mkdir -p ../bld
-	$(CC) $(INCLUDE_PATHS) -c $< -o $@
+	$(CC) $(INCLUDE_PATHS) -c $< -o ../bld/$(notdir $@)
 
+# Rule to build motor_driver executable
+$(MOTOR_DRIVER_TARGET): $(MOTOR_DRIVER_OBJECTS)
+	$(CC) $(INCLUDE_PATHS) $(MOTOR_DRIVER_OBJECTS) $(LDFLAGS) -o $(MOTOR_DRIVER_EXECUTABLE)
+		
+../bld/%.o: %.cpp
+	mkdir -p ../bld
+	$(CC) $(INCLUDE_PATHS) -c $< -o ../bld/$(notdir $@)
 
 # Rule to clean up object files and executable
 clean:
@@ -48,7 +49,3 @@ rebuild: clean $(EXECUTABLE)
 
 # Rule to remove the old executable on each run
 .PHONY: run
-run:
-		rm -f ../bld/laser_proj_top
-		make $(EXECUTABLE)
-		$(EXECUTABLE)
