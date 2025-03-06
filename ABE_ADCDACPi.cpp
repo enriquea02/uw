@@ -174,13 +174,13 @@ void ADCDACPi::set_dac_voltage(double voltage, int channel) {
 
   if ((voltage >= 0.0) && (voltage < dacvoltage)) {
     uint16_t rawval = ((voltage / 2.048) * 4096) / dacgain;
-    set_dac_raw(rawval, channel);
+    set_dac_raw(rawval);
   } else {
     throw std::out_of_range("set_dac_voltage voltage out of range");
   }
 }
 
-void ADCDACPi::set_dac_raw(uint16_t raw, int channel) {
+void ADCDACPi::set_dac_raw(uint16_t raw) {
   /**
   * Set the raw value from the selected channel on the DAC
   * @param raw - between 0 and 4095

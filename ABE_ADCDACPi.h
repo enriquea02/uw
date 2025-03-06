@@ -87,7 +87,7 @@ void set_dac_voltage(double voltage, int channel);
 * @param raw - between 0 and 4095
 * @param channel - 1 or 2
 */
-void set_dac_raw(uint16_t raw, int channel);
+void set_dac_raw(uint16_t raw);
 
 /**
 * Set the DAC gain
