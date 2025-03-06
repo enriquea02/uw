@@ -37,6 +37,8 @@ using namespace ABElectronics_CPP_Libraries;
 /*                                   Globals                                  */
 /* -------------------------------------------------------------------------- */
 DacTestVector global_dac_test_vector;
+ADCDACPi* dac_x = nullptr;
+ADCDACPi* dac_y = nullptr;
 
 /* -------------------------------------------------------------------------- */
 /*                                  Routines                                  */
@@ -106,14 +108,15 @@ int Mcp4921DacTest(){
   double  voltage     = dac_voltage      ;
 
   // initialize DAC hardware variables
-  ADCDACPi dac_x(dac_spi_mode,&spi_speed,&ref_voltage,&gain,&voltage);
-  ADCDACPi dac_y(dac_spi_mode,&spi_speed,&ref_voltage,&gain,&voltage);
+  dac_x = new ADCDACPi(dac_spi_mode,&spi_speed,&ref_voltage,&gain,&voltage);
+  dac_y = new ADCDACPi(dac_spi_mode,&spi_speed,&ref_voltage,&gain,&voltage);
+
   // initialize DAC hardware
-  if (dac_x.open_dac(dac_device_x) != 1) return(1);
-  if (dac_y.open_dac(dac_device_y) != 1) return(1);
+  if (dac_x->open_dac(dac_device_x) != 1) onInterrupt;
+  if (dac_y->open_dac(dac_device_y) != 1) onInterrupt;
   // set the DAC gain to 1 which will give a voltage range of 0 to 2.024V.
-  dac_x.set_dac_gain(1);
-  dac_y.set_dac_gain(1);
+  dac_x->set_dac_gain(1);
+  dac_y->set_dac_gain(1);
 
   // subscribe program to exit/interrupt signal.
   signal(SIGINT, onInterrupt);
@@ -133,8 +136,8 @@ int Mcp4921DacTest(){
       }
 
       // move galvos to x,y position. (4096 is to invert horizontally)
-      dac_x.set_dac_raw(dac_test_vector[i]); // dac_x connected to chip select 0 on /dev/spidev0.0
-      dac_y.set_dac_raw(dac_test_vector[i]);  // dac_y connected to chip select 2 on /dev/spidev0.1 
+      dac_x->set_dac_raw(dac_test_vector[i]); // dac_x connected to chip select 0 on /dev/spidev0.0
+      dac_y->set_dac_raw(dac_test_vector[i]);  // dac_y connected to chip select 2 on /dev/spidev1.0 
 
       usleep(100000);
   }
@@ -152,5 +155,13 @@ void onInterrupt(int) {
     if (global_dac_test_vector.data != NULL) {
         free(global_dac_test_vector.data);
     }
+    if (dac_x != nullptr) { // Check if dac_x was initialized
+      dac_x->close_dac();
+      delete dac_x; // Free allocated memory
+  }
+  if (dac_y != nullptr) { // Check if dac_y was initialized
+      dac_y->close_dac();
+      delete dac_y; // Free allocated memory
+  }
     exit(1); 
 }

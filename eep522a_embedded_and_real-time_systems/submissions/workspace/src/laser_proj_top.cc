@@ -114,7 +114,7 @@ int main(int argc, char **argv) {
 
         // Move galvos to x,y position. (4096 is to invert horizontally)
         dac_x.set_dac_raw(4096-points.store[points.index*3],0); // dac_x connected to chip select 0 on /dev/spidev0.0
-        dac_y.set_dac_raw(points.store[(points.index*3)+1],2);  // dac_y connected to chip select 2 on /dev/spidev0.1 
+        dac_y.set_dac_raw(points.store[(points.index*3)+1],2);  // dac_y connected to chip select 2 on /dev/spidev1.0 
         
         // Turn on/off laser diode.
         if (points.store[(points.index*3)+2] == 1) digitalWrite(0, HIGH); 
