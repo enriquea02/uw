@@ -24,10 +24,6 @@
 #include <wiringPi.h>
 
 /* ----------------------------- local libraries ---------------------------- */
-#include "rpi-lasershow/ABE_ADCDACPi.h"
-#include "Points.h"
-#include "IldaReader.h"
-#include "motor_drvr_lib.h"
 #include "../lib/laser_proj_top.h"
 
 using namespace std;
@@ -47,20 +43,6 @@ using namespace ABElectronics_CPP_Libraries;
 /* -------------------------------------------------------------------------- */
 void onInterrupt(int);
 
-int SetupPin(
-  int pin,  // BCM Pin Number
-  int mode  // Modes: INPUT, OUTPUT, PWM_OUTPUT, PWM_MS_OUTPUT, PWM_BAL_OUTPUT, GPIO_CLOCK, PM_OFF
-) {
-  // Setup BCM pin with desired mode
-  int pin_setup_result = pinMode(pin, mode);
-
-  // wiringPi's pinMode function has detected and invalid parameter error
-  if (pin_setup_result == -1) {
-    fprintf(stderr, "Error: wiringPiSetupPinType failed for BCM GPIO %d with mode %d. \n",pin,mode);
-    exit(EXIT_FAILURE);
-  }
-}
-
 int main(int argc, char **argv) {
 
     // Validate arguments.
@@ -76,13 +58,18 @@ int main(int argc, char **argv) {
     string fileName = argv[2];
     double frameDuration = 0.042; // ~24fps (1/24=0.04167..).
 
+    int     spi_speed   = dac_spi_bus_speed;
+    double  ref_voltage = adc_ref_voltage  ;
+    int     gain        = dac_gain         ;
+    double  voltage     = dac_voltage      ;
+
     // Setup hardware communication stuff.
     wiringPiSetupPinType(WPI_PIN_BCM);  // setup wiringPi library functions to use BCM-Numbering
-    ADCDACPi dac_x(dac_spi_mode,dac_spi_bus_speed,adc_ref_voltage,dac_gain,dac_voltage);                     // setup DAC information using ABElectronics UK ADC-DAC Pi Library
-    ADCDACPi dac_y(dac_spi_mode,dac_spi_bus_speed,adc_ref_voltage,dac_gain,dac_voltage);
+    ADCDACPi dac_x(dac_spi_mode,&spi_speed,&ref_voltage,&gain,&voltage);                     // setup DAC information using ABElectronics UK ADC-DAC Pi Library
+    ADCDACPi dac_y(dac_spi_mode,&spi_speed,&ref_voltage,&gain,&voltage);
     //                                    | BCM     | Wiringpi  | Physical Pin Number |
     // Control laser diode on BCM pin 23  | GPIO23  | 4         | 16                  |
-    SetupPin(23,OUTPUT);
+    pinMode(23,OUTPUT);
     // Open both DAC SPI interfaces.
     if (dac_x.open_dac(dac_device_x) != 1) return(1);
     if (dac_y.open_dac(dac_device_y) != 1) return(1);
@@ -113,8 +100,8 @@ int main(int argc, char **argv) {
         if (points.size == 0) break;
 
         // Move galvos to x,y position. (4096 is to invert horizontally)
-        dac_x.set_dac_raw(4096-points.store[points.index*3],0); // dac_x connected to chip select 0 on /dev/spidev0.0
-        dac_y.set_dac_raw(points.store[(points.index*3)+1],2);  // dac_y connected to chip select 2 on /dev/spidev1.0 
+        dac_x.set_dac_raw(4096-points.store[points.index*3]); // dac_x connected to chip select 0 on /dev/spidev0.0
+        dac_y.set_dac_raw(points.store[(points.index*3)+1]);  // dac_y connected to chip select 2 on /dev/spidev1.0 
         
         // Turn on/off laser diode.
         if (points.store[(points.index*3)+2] == 1) digitalWrite(0, HIGH); 

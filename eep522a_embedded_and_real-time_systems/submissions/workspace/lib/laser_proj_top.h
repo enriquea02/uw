@@ -28,9 +28,9 @@
 
 /* ----------------------------- local libraries ---------------------------- */
 #include "../src/rpi-lasershow/ABE_ADCDACPi.h"
-#include "Points.h"
-#include "IldaReader.h"
-#include "motor_drvr_lib.h"
+#include "../src/rpi-lasershow/Points.h"
+#include "../src/rpi-lasershow/IldaReader.h"
+#include "./motor_drvr_lib.h"
 
 /* -------------------------------------------------------------------------- */
 /* Data Types                                 */
@@ -49,13 +49,5 @@
  * @param The signal number.
  */
 void onInterrupt(int signal);
-
-/**
- * @brief Sets up a GPIO pin with the specified mode.
- * @param pin The BCM pin number.
- * @param mode The pin mode (INPUT, OUTPUT, PWM_OUTPUT, etc.).
- * @return 0 on success, exits the program on failure.
- */     
-int SetupPin(int pin, int mode);
 
 #endif // LASER_PROJ_TOP_H
