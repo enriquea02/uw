@@ -65,8 +65,8 @@ int main(int argc, char **argv) {
 
     // Setup hardware communication stuff.
     wiringPiSetupPinType(WPI_PIN_BCM);  // setup wiringPi library functions to use BCM-Numbering
-    ADCDACPi dac_x(dac_spi_mode,&spi_speed,&ref_voltage,&gain,&voltage);                     // setup DAC information using ABElectronics UK ADC-DAC Pi Library
-    ADCDACPi dac_y(dac_spi_mode,&spi_speed,&ref_voltage,&gain,&voltage);
+    ADCDACPi dac_x(spi_speed,ref_voltage,gain,voltage);                     // setup DAC information using ABElectronics UK ADC-DAC Pi Library
+    ADCDACPi dac_y(spi_speed,ref_voltage,gain,voltage);
     //                                    | BCM     | Wiringpi  | Physical Pin Number |
     // Control laser diode on BCM pin 23  | GPIO23  | 4         | 16                  |
     pinMode(23,OUTPUT);
