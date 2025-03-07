@@ -21,22 +21,21 @@ using namespace ABElectronics_CPP_Libraries;
 
 
 ADCDACPi::ADCDACPi(
-  const char*   spi_mode        ,
-  const int*    spi_bus_speed   ,
-  const double* adc_ref_voltage ,
-  const int*    dac_gain        ,
-  const double* dac_voltage
+  const int    spi_bus_speed   ,
+  const double adc_ref_voltage ,
+  const int    dac_gain        ,
+  const double dac_voltage
 ){
-  mode 	        = *spi_mode;        // SPI_MODE_0
-  speed         = *spi_bus_speed;   // SPI bus speed
+  mode 	        = SPI_MODE_0;        // SPI_MODE_0
+  speed         = spi_bus_speed;   // SPI bus speed
 
   adctx[0] 		  = 0x01; 		        // transmit buffer for the ADC
   adctx[1] 		  = 0x80;
   adctx[2] 		  = 0x00;
   
-  adcrefvoltage = *adc_ref_voltage; // reference voltage for the ADC chip.
-  dacgain 		  = *dac_gain;        // gain setting for the DAC chip.
-  dacvoltage    = *dac_voltage;     // maximum voltage for the DAC output
+  adcrefvoltage = adc_ref_voltage; // reference voltage for the ADC chip.
+  dacgain 		  = dac_gain;        // gain setting for the DAC chip.
+  dacvoltage    = dac_voltage;     // maximum voltage for the DAC output
 }
 
 int ADCDACPi::open_adc(const char* adc_device_path) {

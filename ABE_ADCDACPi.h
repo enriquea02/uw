@@ -20,11 +20,10 @@ class ADCDACPi
 public:
 
 ADCDACPi(
-  const char*   spi_mode      ,
-  const int*    spi_bus_speed ,
-  const double* adc_ref_voltage ,
-  const int*    dac_gain      ,
-  const double* dac_voltage
+  const int     spi_bus_speed   ,
+  const double  adc_ref_voltage ,
+  const int     dac_gain        ,
+  const double  dac_voltage
 );
 
 /**
