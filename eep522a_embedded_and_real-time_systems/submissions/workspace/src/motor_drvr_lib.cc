@@ -108,8 +108,8 @@ int Mcp4921DacTest(){
   double  voltage     = dac_voltage      ;
 
   // initialize DAC hardware variables
-  dac_x = new ADCDACPi(dac_spi_mode,&spi_speed,&ref_voltage,&gain,&voltage);
-  dac_y = new ADCDACPi(dac_spi_mode,&spi_speed,&ref_voltage,&gain,&voltage);
+  dac_x = new ADCDACPi(spi_speed,ref_voltage,gain,voltage);
+  dac_y = new ADCDACPi(spi_speed,ref_voltage,gain,voltage);
 
   // initialize DAC hardware
   if (dac_x->open_dac(dac_device_x) != 1) onInterrupt;

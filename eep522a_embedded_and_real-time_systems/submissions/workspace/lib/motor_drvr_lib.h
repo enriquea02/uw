@@ -13,7 +13,6 @@
 #define dac_device_x        "/dev/spidev0.0"
 #define adc_device_y        "/dev/spidev1.0"
 #define dac_device_y        "/dev/spidev1.0"
-#define dac_spi_mode        "SPI_MODE_0"
 #define dac_spi_bus_speed   2500000
 #define adc_ref_voltage     3.3
 #define dac_gain            1
