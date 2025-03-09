@@ -164,7 +164,7 @@ void ADCDACPi::set_adc_refvoltage(double ref) {
 void ADCDACPi::set_dac_voltage(double voltage, int channel) {
   /**
   * Set the DAC voltage
-  * @param voltage - between 0 and 2.048 when gain is set to 1,  0 and 3.3 when gain is set to 2
+  * @param voltage - between 0 and 2.024 when gain is set to 1,  0 and 4.048 when gain is set to 2
   * @param channel - 1 or 2
   */
   if (channel < 1 && channel > 2) {
@@ -172,7 +172,7 @@ void ADCDACPi::set_dac_voltage(double voltage, int channel) {
   } 		
 
   if ((voltage >= 0.0) && (voltage < dacvoltage)) {
-    uint16_t rawval = ((voltage / 2.048) * 4096) / dacgain;
+    uint16_t rawval = ((voltage / 2.024) * 4096) / dacgain;
     set_dac_raw(rawval);
   } else {
     throw std::out_of_range("set_dac_voltage voltage out of range");
@@ -194,7 +194,7 @@ void ADCDACPi::set_dac_raw(uint16_t raw) {
   // 12         | 12        | 1, keep device active
   // 11         | 0         | 12-bit Data
   dactx[1] = (raw & 0xff);
-  dactx[0] = (((raw >> 8) & 0xff) | 0x1 << 5 | 1 << 4);
+  dactx[0] = (((raw >> 8) & 0xff) | 1 << 4);
 
   if (dacgain == 2) {
     #pragma GCC diagnostic push
@@ -225,11 +225,11 @@ void ADCDACPi::set_dac_raw(uint16_t raw) {
 void ADCDACPi::set_dac_gain(int gain) {
   /**
   * Set the DAC gain
-  * @param gain - 1 or 2 - The output voltage will be between 0 and 2.048V when gain is set to 1,  0 and 3.3V when gain is set to 2	
+  * @param gain - 1 or 2 - The output voltage will be between 0 and 2.024V when gain is set to 1,  0 and 3.3V when gain is set to 2	
   */
   if (gain == 1) {
     dacgain = 1;
-    dacvoltage = 2.048;
+    dacvoltage = 2.024;
   }
   if (gain == 2) {
     dacgain = 2;
