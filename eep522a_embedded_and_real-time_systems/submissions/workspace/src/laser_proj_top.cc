@@ -101,21 +101,24 @@ int main(int argc, char **argv) {
 
         // Move galvos to x,y position. (4096 is to invert horizontally)
         dac_x.set_dac_raw(4096-points.store[points.index*3]); // dac_x connected to chip select 0 on /dev/spidev0.0
+        printf("DAC Input: %d \n", 4096-points.store[points.index*3]);
         dac_y.set_dac_raw(points.store[(points.index*3)+1]);  // dac_y connected to chip select 2 on /dev/spidev1.0 
+        printf("DAC Input: %d \n", points.store[(points.index*3)+1]);
         
         // Turn on/off laser diode.
-        if (points.store[(points.index*3)+2] == 1) digitalWrite(0, HIGH); 
-        else digitalWrite(0, LOW); 
+        if (points.store[(points.index*3)+2] == 1) digitalWrite(23, HIGH); 
+        else digitalWrite(23, LOW); 
 
         // Maybe wait a while there.
         if (pointDelay > 0) usleep(pointDelay);
 
         // In case there's no more points in the current frame check if it's time to load next frame.
         if (!points.next()) {
+            printf("Load next frame\n");
             std::chrono::duration<double> elapsedSeconds = std::chrono::system_clock::now() - start;
             if(elapsedSeconds.count() > frameDuration) {
                 start = std::chrono::system_clock::now();
-                digitalWrite(0, LOW);
+                digitalWrite(23, LOW);
                 ildaReader.getNextFrame(&points);
             }
         }
@@ -131,7 +134,7 @@ int main(int argc, char **argv) {
 // Function that is called when program needs to be terminated. 
 void onInterrupt(int) {
     printf("Turn off laser diode.\n");
-    digitalWrite(0, LOW);
+    digitalWrite(23, LOW);
     printf("Program was interrupted.\n");
     exit(1); 
 }

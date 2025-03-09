@@ -65,8 +65,8 @@ DacTestVector GenerateMcp4921DacTestVector(){
     }
 
     // Correct the last overshoot if any.
-    if(dac_test_data[index-1] > 4096){
-        dac_test_data[index-1] = 4096;
+    if(dac_test_data[index-1] >= 4095){
+        dac_test_data[index-1] = 4095;
     }
 
     current_value -= 32; //start the descending part from 4096.
@@ -139,7 +139,7 @@ int Mcp4921DacTest(){
       dac_x->set_dac_raw(dac_test_vector[i]); // dac_x connected to chip select 0 on /dev/spidev0.0
       dac_y->set_dac_raw(dac_test_vector[i]);  // dac_y connected to chip select 2 on /dev/spidev1.0 
 
-      usleep(100000);
+      usleep(200000);
   }
 
   return 0;

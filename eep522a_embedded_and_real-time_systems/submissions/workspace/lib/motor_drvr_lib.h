@@ -15,8 +15,8 @@
 #define dac_device_y        "/dev/spidev1.0"
 #define dac_spi_bus_speed   2500000
 #define adc_ref_voltage     3.3
-#define dac_gain            1
-#define dac_voltage         2.042
+#define dac_gain            2
+#define dac_voltage         2.024
 
 /* -------------------------------------------------------------------------- */
 /*                                   IMPORTS                                  */
