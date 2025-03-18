@@ -1,0 +1,47 @@
+\documentclass{article}
+% Template from https://www.overleaf.com/project/67ce344378c4ecdee5f2fef9
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with`a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Response to Research on Automotive TSN network Scheduling Analysis and Simulation}
+\author{Enrique Antunano}
+
+\begin{document}
+\maketitle
+
+\section{Response}
+
+This paper proposes three different algorithms to analyze and simulate the performance of time-sensitive networking (TSN) scheduling mechanisms under different network conditions. 
+The algorithms were the SP algorithm (priority scheduling), CBS algorithm (credit based scheduling), and TAS algorithm (preset time window transmissions).
+Afterwards, in their modeling the authors associated a different type of network data packet that would best fit each type of scheduling algorithm.
+Paired with the data packet, the authors added a delay to their analysis to better represent the real system. 
+Based on the simulation setup, the authors' analysis and simulation showed that the TAS algorithm was best for CDT data, when also factoring in AVB and BE data type accesses on the network too.
+I think that future work should compare their simulated results to an experimental setup to determine how close their analysis and simulations are to real-world results. 
+
+One of the challenges that my team at Blue Origin is facing is selecting a communication protocol that is robust and reliable enough to meet human-safety rating standards. There are several factors that we're weighing.
+First, the communication protocol must be able to shuttle gigabytes/terabytes of data between different compute boxes. The protocol must be deterministic, so that autonomy applications, flight crew, and ground crew understand that exact state of the system.
+Data packets must have low-latency since systems must respond in real-time to user or environmental inputs.
+The results from the simulation and analysis can be used to help determine which types of scheduling algorithms to implement based on the type of traffic data that will be on specific networks, volume of data during a burst, and latency requirements of certain vehicle networks.
+
+The authors of this paper specifically outline that TSN for automotive purposes, but many of the technological developments regarding on-board compute and networking within the automotive industry are applicable to vehicle development at Blue Origin. 
+The push within non-legacy Aerospace is to move towards automotive grade components and standards, because the unit prices are lower, lower lead times, larger body of technical support and material, and technological standards that match the needs of a 21st century compute heavy vehicle.
+Ultimately, my team at Blue Origin moved away from time-sensitive networking because the there aren't enough resources to implement a full TSN-based architecture. 
+I think the analysis and simulation work included in this conference proceeding is valuable, because my team may decide later that a human-rated vehicle must use a TSN architecture or TSN-like architecture to guarantee network communication reliability and performance.
+
+\nocite{*}
+
+\bibliographystyle{ieeetr}
+\bibliography{auto_tsn_network_scheduling_analysis_and_sim.bib}
+
+\end{document}

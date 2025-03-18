@@ -1,0 +1,63 @@
+\documentclass{article}
+% Template from https://www.overleaf.com/project/67ce344378c4ecdee5f2fef9
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with`a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Response to Estimating Task Efforts in Hardware Development
+Projects in a Scrum Context}
+\author{Enrique Antunano}
+
+\begin{document}
+\maketitle
+
+\section{Response}
+
+The team at my company, Blue Origin, is organized in a two week sprint format.
+Sprints for firmware engineers function similarly to software sprint cycles during the development phase of a project, but from my experience they break down once hardware tests begin.
+For my applications, firmware \textbf{is} hardware, since my job is to design the circuits that are implemented within an FPGA device. 
+Thus, once hardware begins to drop and arrive, us designers have to be in the lab to debug the integration of our firmware with the circuit card hardware. In this phase of a project's life cycle, it feels nearly impossible to predict how long it would take to determine the root cause of a bug, if a bug resolution is possible, explaining the impact of a bug, negotiating with stakeholders to determine who should resolve a bug (hardware, firmware, or software), and verifying that a patch fixes the bug without introducing new bugs.
+From my perspective, the only way to scope the story points required to resolve a bug is to have experience with fixing similar bugs in the past.
+Otherwise, time estimates for when bugs will be solved are a guessing game.
+It is for this reason that I'm interested in this paper.
+The research can shine new light on how to estimate task efforts for firmware development.
+
+Exploring this paper, the authors begin by outlining the key differences between software and hardware development.
+Software can quickly cycle each sprint to achieve a minimal viable product.
+Development and testing can occur simultaneously and more importantly, immediately within a single sprint cycle.
+Now take hardware, which is a physical product that needs to be manufactured, shipped, and setup. 
+None of these activities are typically isolated to one team or individual, but rather distributed across multiple teams and individuals. 
+In the paper, the author highlights the time it takes for design, manufacturing, and procurement activities.
+Each one can represent a separate team, and for manufacturing it can represent a third-party company that takes orders from several customers.
+Additionally, hardware is capital intensive, so time is spent to trade off spinning/re-spinning hardware, buying COTS components, or modifying existing hardware. 
+All of these outside factors slow down the development process and add uncertainty to the sprint development process.
+
+The proposal from this team was to develop an Agile hardware sprint process. Before beginning, the authors suggest developing a conceptual system block diagram, which is not surprising as this paper is published in IEEE Systems Journal. 
+As a first step, the authors suggest that sprint planners should formulate a standard time estimate for common tasks (board routing, prototyping, schematics) based on the team's experience.
+Second, authors suggest that a sprint be well-defined with respect to measurable goals, sprint length, and customer involvement.
+Well-defined sprints will typically be longer than a software sprint, 2-3 weeks in comparison to the typical 1 week software sprint.
+Third, tie sprint deliverables to some system-level requirement and equate that to a minimal viable product (MVP) which is typically used to measure software sprint progress.
+There are more steps in the process, but I think these are the most important that I pulled.
+One thing that the authors specified was that this Agile sprint process if specifically for the R\&D phase.
+The paper mentioned that there are other design methodologies that are used for hardware development after the R\&D phase which may be more appropriate, but I think the author should focus on extending the Agile sprint process across the whole hardware development life cycle.
+From product conception, through requirement definition, design, validation, production, testing, integration, and finally sustainment. 
+My team at Blue Origin is attempting to use the Agile process during the hardware validation, production, and testing stages, and we're having trouble using the Agile methodology.
+So assuming that the authors team performance improvements of 8\%-18\% are real, it may be worth the effort to extend or adapt their methodology for post R\&D hardware work.
+
+
+\nocite{*}
+
+\bibliographystyle{ieeetr}
+\bibliography{estimating_task_efforts_in_a_hardware_scrum.bib}
+
+\end{document}

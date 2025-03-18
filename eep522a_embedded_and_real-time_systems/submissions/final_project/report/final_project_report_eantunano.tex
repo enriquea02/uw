@@ -19,6 +19,10 @@
 
     \end{abstract}
     \section{Introduction}
+    If starting from a baseline of zero or near zero, then I would block off 40-50 hours for an initial vector laser projector build. 
+    The time estimation assumes limited hardware development experience, C/C++ code proficiency, parts selection and procurement, system design, and system integration and test.
+    My 40-50 hour projection for the build out is for the whole design cycle. 
+    This means from design start till the laser projector is capable of drawing out the International Laser Display Association's (ILDA) test file.
 
     \section{Methods}
     \subsection {Coding Standard}
@@ -275,7 +279,16 @@
 
     \includegraphics[width=2.5in]{mcp4921_psu_and_dig_intf.png}
 
-    \subsection{ILDA Op Amp}
+    \subsection{ILDA Bipolar Op Amp}
+    The ILDA standard specifies that the input voltage to an ILDA motor driver should be +/- 5V.
+    I was only able to achieve a voltage range of 0V - 3.1V with a precision of $\div{1}{4096}$ from the 12-bit DAC output.
+    The DAC was configured to its max gain output $2 * V_{REF}$, so I would not be able to achieve a range of 0V to 5V.
+    Thus, I setup two bipolar op amp circuits, one for the x-axis and another for the y-axis, which would allow be to adjust the gain and offset of the ILDA motor driver input.
+    
+    The bipolar op amp was designed in two stages.
+    First stage was for the gain, while the second stage was for the offset.
+    Separating the circuit into two stages allowed for easy adjustments and modifications to the final circuit as necessary.
+    
 
 
 \end{document}

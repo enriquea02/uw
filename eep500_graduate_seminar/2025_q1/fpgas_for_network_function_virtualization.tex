@@ -1,0 +1,45 @@
+\documentclass{article}
+% Template from https://www.overleaf.com/project/67ce344378c4ecdee5f2fef9
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with`a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Response to FPGAs for Network Function Virtualization:
+Challenges in Placement and Partitioning}
+\author{Enrique Antunano}
+
+\begin{document}
+\maketitle
+
+\section{Response}
+The paper focuses on implementing different virtual network functions inside FPGAs, and evaluating their place and route performance to determine where FPGAs would be good candidates as replacement units for expensive networking middle-ware. The authors first grouped common network functions based on their estimated partition size, with respect to FPGA resources such as CLBs, BRAMs, and DSP blocks. The three standard network functions were: firewalls, deep package inspection (DPI),
+and advanced encryption standards (AES). Next, standard network functions were then mapped onto three different FPGAs. Afterwards, random functions were mapped to networks of 20 nodes each. Reviewing the results and the authors; conclusion, random placement of logic within FPGAs lowers the quality of the test output compared to a well placed and route design. Now, if the infrastructure of the network is accounted for when determining fit and device topology, then output quality rises. For wide spread usage, the whole point of moving networking functions to FPGAs is to be a cost-saving measure, so these results don't bode well if an engineer must be hired to place and route a new firmware design for each network configuration that requires a middle-ware box upgrade. I think the authors acknowledge this, because their suggestion for future work is to develop an algorithm that can do a better job with place and route of the network functions, based on the available device resources and network topology.
+
+At the moment, there was little practical usage for me to read this research paper.
+Genuinely, I found the authors' use case and application novel and interesting.
+It is important to see how other industries utilize FPGA devices and what new concepts are being proposed within those fields.
+From my experience in Aerospace, high reliability applications focus on triple modular redundant or dual redundant designs.
+This entails isolated hardware, firmware, and software stacks.
+If there's a power supply malfunction, hardware malfunction, or permanent radiation damage, then the system has redundancy to fall back on.
+So this paper's idea, partitioning logic, possibly duplicate logic, inside an FPGA based on the application at-hand, will likely not appear in space systems.
+If I were to think long-term though, it could be a good idea for in-space compute and networking applications.
+Modeling my idea off of Starlink, if it becomes economical to deploy in-space compute and networking capabilities for several companies, then the use case outlined by these authors makes sense.
+As old constellations are replaced, it may be better to replace them with an FPGA device that can be reconfigured in orbit to match the consumer demands of the time. 
+Assuming a lunar economy develops, the amount of logic partitioned for longer range radio bands can be increased with a firmware update to accommodate the increased long range radio traffic, assuming the hardware is installed and can support the additional traffic.
+
+\nocite{*}
+
+\bibliographystyle{ieeetr}
+\bibliography{fpgas_for_network_function_virtualization.bib}
+
+\end{document}

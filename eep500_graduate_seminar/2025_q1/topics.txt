@@ -1,0 +1,7 @@
+Topics I'll be looking into:
+1. Timing Closure Techniques in Firmware
+2. Firmware Development Tools
+3. Time-sensitive Networking
+4. Low-latency compute
+5. Simulation and Target Testing for Silicon/Logic Design
+6. Agile Hardware Development 

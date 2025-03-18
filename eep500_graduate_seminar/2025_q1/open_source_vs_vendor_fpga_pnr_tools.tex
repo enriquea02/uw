@@ -1,0 +1,54 @@
+\documentclass{article}
+% Template from https://www.overleaf.com/project/67ce344378c4ecdee5f2fef9
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with`a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Response to Quantifying the gap between open-source and
+vendor FPGA place and route tools}
+\author{Enrique Antunano}
+
+\begin{document}
+\maketitle
+
+\section{Response}
+
+From an industry-user perspective, the results from this paper will likely have a negligible impact on synthesis and place-and-route tool selection for companies. 
+The paper attempts to quantify the performance difference between open-source and vendor FPGA tools, specifically based on metrics in respect to place-and-route usage. 
+The reasons the authors chose this topic were because vendor tool licenses are expensive, they limit developer tool customization, and no one has compared how well open-source tools place-and-route designs even though they have begun to target specific hardware architectures. 
+The authors captured data on maximum frequency, implementation run times, LUT, and FF utilization. 
+I was surprised by the performance of Yosys + nextpnr 2017 for max frequency, but the tests did not stress FPGA performance. 
+For my team, we do low speed applications, 30-100MHz, which is easy on timing closure for FPGAs. The tests that the author conducted were <10MHz. 
+The metrics that the author found may not apply for most industry applications since they tend to be well above the 10MHz range. 
+As for the other metrics, implementation run times, LUT, and FF utilization, the open-source tools either performed equally or worse than the vendor tools. 
+Thus, the results from this paper show that the open-source tools have lower performance the vendor tools, but not by much in extremely low-speed applications.
+
+In the future, the author should increase their scope to a broader selection of FPGAs and vendors. 
+The scope and results of this paper were limited since all tests were conducted on the the Xilinx Artix-7 FPGA. 
+Additionally, the only vendor tools that were used in the benchmark metrics were Xilinx tools. 
+This discounts other vendors such as Lattice Semiconductor, Microchip, and Altera. 
+From my personal usage, Xilinx Vivado is the best all-round vendor tool, but performance is highly-dependent on the underlying hardware architecture, FPGA resource usage, and what each vendor's tools focus on. 
+In addition to user-experience, the vendor tools come with professional support from AMD, Intel, Lattice, and Microchip application engineers. 
+It is for this reason why the findings from this paper may have no real-world impact. 
+For simple, standard run-of-the-mill designs, open-source tools may be sufficient, but typically companies are pushing the limits of resource utilization, tool automation, implementing unique designs that try to take advantage of the hardware architecture, and debugging vendor silicon issues. 
+With open-source resources, users have no additional vendor support for all the additional challenges that developers experience. 
+Due to these challenges, the applications of this work are likely limited to individual developers and small firms that cannot afford to purchase vendor tool licenses. 
+Since FPGA development is typically the domain of medium to large firms, the results from this paper or limited to negligible. 
+At least for my usage at work, I would not recommend open-source tools nor do I plan to install the tool sets on company machines.
+
+\nocite{*}
+
+\bibliographystyle{ieeetr}
+\bibliography{open_source_vs_vendor_fpga_pnr_tools.bib}
+
+\end{document}
