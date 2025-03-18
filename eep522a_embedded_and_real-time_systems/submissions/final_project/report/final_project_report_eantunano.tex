@@ -354,7 +354,6 @@
 
     \includegraphics[width=2.5in]{vector_laser_projector_image3.png}
 
-
     \section{Discussion}
     \subsection{Laser Projection}
     
@@ -362,10 +361,24 @@
     I was far outside my wheelhouse initially, but now I know where I fell short in my characterization, what could have been improved, and the best next steps to improve my project in the future.
 
     First, observing the laser projection.
-    On a first prototype baseline, I was impressed that quality of the laser output was sufficient.
+    On a first prototype baseline, I was impressed that the quality of the laser output was sufficient.
     If reviewing the laser image from the results tab above, you can see that it's relatively faithful to the ILDA's test image.
 
     \includegraphics[width=2.5in]{ilda_test_image_key.png}
+
+    All the flaws of the current image projector will reference the ILDA Test Image Key.
+    First, the current projector has trouble reproducing circles, which likely results from DACs X and Y being slightly out-of-sync.
+    For future iterations, I would connect the nLDAC pins of both DACs to a single Raspberry Pi 4 GPIO pin, that way the two single-channel DAC outputs can be launched synchronously.
+    From a hardware standpoint, it was much easier to tie both nLDAC pins to ground, so I wouldn't have to write code to manage the synchronization of both the X and Y DAC outputs.
+    At the time of my project characterization and exploration phase, I did not consider that I'd need DACs to feed inputs to the motor driver board, so it felt rushed to read through the datasheets of the MCP4921 DACs and TL082 Op Amps.
+    So in the future, I'd dedicate more time to figuring out what hardware I'd need and highlighting common features amongst different part vendors, so that I can develop a better generic module that has features such a synchronous output latching already included.
+    This would allow me to be more hardware-agnostic in the future, as opposed to now where my Raspberry Pi 4 code is targeted for the Microchip DAC family.
+    
+    Another point of failure in my current design is that the projector is struggling to create fine points of various intensity as seen in image 2, tying to B3/B4.
+    From the ILDA Test Pattern Key, this issue can also be solved through tying the nLDACs together and also better aligning the bipolar op amp offset potentiameters to use the whole $\pm$ 5V range. 
+
+    The final image shows that the laser projector is excellent at centering as the edges of the squares are well aligned and clearly distinct.
+    The X and Y letters are inverted though, which can be easily corrected in hardware or software by flipping the outputs.
 
     \subsection{Laser Projection Code}
     
@@ -400,16 +413,29 @@
     Long lead times forced me to substitute parts, such as a single dual-channel DAC with two single-channel DACs to drive the X and Y galvomotors respectively.
     Also, the long lead times not only limited my selection of parts, but limited where I could purchase those parts at such low volumes.
 
-
     Amazon was the best option due to their return policy, delivery speed, and having at least one option/substitute electronic component available.
     The drawbacks of using Amazon were, first, it was more expensive for equal or lower quality parts compared to vendors such as Digikey, Avnet, or AliExpress.
     Many online writers of at-home vector laser projectors sourced cheap parts from AliExpress, but none mentioned the long lead times for the components.
     The second drawback of Amazon was that many parts had sparse electrical characteristic documentation.
+    I searched Amazon, Alibaba, and Ebay to find documentation on the motor drivers and the galvomotors, but nome existed.
+    Thankfully, the motor driver came with a test laser output board.
+    I used the test board to verify that the galvomotors and motor driver cards functioned correctly, and to verify that expected input into the motor driver board.
+    For example, I tried to drive the motor driver using my motor driver code, but the motor driver board expects the ILDA header before forwarding the motor commands to the two galvomotors.
+
     For this project, before I switched from a stepper motor to a galvomotor, I was interested in the stepper motor selection on Digikey because they were better documented and were more precise. 
     Ultimately, I went with a stepper motor on Amazon that lacked documentation because the motor would arrive faster and the motor was 50\% cheaper. 
     One example was when I purchased a motor driver circuit from Amazon.
     The vendor had no workable documentation on their Amazon page, such as a pin out diagram.
     Before switching from a stepper motor to a galvomotor, which made the motor driver irrelevant for my project, I had to look up the datasheet of the TI DRV8825 microcontroller that was on the PCBA and assume all the datasheet information was still applicable.
+
+    In continuation, the wish I spent more time on motor selection and motor driver file types during the Assignment 2 characterization. 
+    I bought stepper motors and galvomotors because I wasn't sure which path was best for my project.  
+    Quickly, I realized that stepper motors required potentiameters to align/zero themselves.
+    Additionally, stepper motors are suited for laser engraving/CNC milling purposes.
+    So the file type best suited for stepper motors is a CNC milling file type that has information such as \emph{step count} in the file data packet, which are not available in the \emph{.ild} file type.
+    There was also much more material and better suited material for galvomotors, since the \emph{.ild} file type was written for galvomotors in mind.
+    From an integration speed and ease-of-use view, galvomotors were the better choice, but at a higher cost.
+    All of this information could have come out during the characterization phase, but these issues did not cross my mind at the time.
 
     Another challenge that I faced was with handling substitute parts. 
     After extensive research, I found a set of vector laser projects that were well documented and were complete enough for me to use and implement in such a short period of time.
@@ -429,8 +455,33 @@
     Implementation of the single SPI interface may not be difficult, but I was not sure how time-multiplexing the SPI bus would work.
     With most of the pins still free and a whole second set of Linux utility controlled SPI interface pins, I went with using both SPI interface resources.
     From an implementation standpoint, this is easier since I can drive both buses simultaneously without having to deal with a time-multiplexing solution that would still allow the X and Y mirrors to move in-sync.
+
+    \subsection{Wireless Communication}
+    My characterization focused on memory usage, pin library tradeoffs, and memory access times.
+    Throughout my project, the only thing in my initial characterization that was helpful was the pin library tradeoff.
+    In hindsight, I should have looked at hardware early, read datasheets early, and read more into wireless communication so that I can remotely control my projector and drop new images remotely.
+    The wireless aspect of my project ended up being throw out because I needed to focus entirely on a baseline prototype projector that could be upgraded in the future.
+    That being said, from my latest research, which I failed to collect during the characterization phase, I think I can easily control my laser projector remotely using the RaspController app.
+
+    Using the app, I can SSH into the Raspberry Pi using my phone and launch the laser projector executable. 
+    Additionally, I can transfer files from my phone into the Raspberry Pi 4.
+    Assuming I have \emph{.ild} files on my phone, I can transfer the file into the Raspberry Pi 4 and log into an SSH session so that I can run my laser projector executable remotely as long as I'm on the same network as the Raspberry Pi 4.
+    It's not the file path transfer I intended, but it is an easy way to remotely control the projector and drop new images for it to project. 
+    Appendix B has information on downloading and setting up the RaspController app.
      
     \section{Conclusion}
+
+    In reference to my revised project goal of developing a laser projector that can print a simple image, I think I met and exceeded my expectations.
+    The laser projector has some trouble tracing out images, but for the most part it can project the test ILDA file well with room for improvement.
+    From my exploration of remote-access tools available for the Raspberry Pi, I can wirelessly SSH into the Raspberry Pi 4 using my phone.
+    This effectively allows me to transfer files wirelessly and launch/abort the laser controller when I see fit.
+    Thus, I think I exceeded my initial goal of developing a laser projector.
+    Through the course of this project, I realized that my characterization lacked a lot of detail.
+    It failed to identify the best hardware, focused on the wrong things (for example memory usage on a Raspberry Pi 4, which was sufficiently large), and I didn't read through vendor documentation early.
+    Throughout this project, size, weight, energy consumption, wireless capabilities, and image quality were secondary concerns as the primary goal was to develop a baseline laser projector.
+    In developing a final product, I dealt with challenges in procurement, budget, hardware selection, hardware integration, software testing, and hardware/software integration. 
+    Due to the time constraints of this class, the scope of the project was reduced, but the design is flexible enough for continued tinkering and improvement.
+    Overall, it was a great project I intend to continue developing.
 
     \nocite{*}
     \newpage
