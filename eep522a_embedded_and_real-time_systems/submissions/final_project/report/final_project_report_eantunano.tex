@@ -3,6 +3,7 @@
 \usepackage{hyperref}
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{media9}
 % Path is relative to final_project_report_eantunano.tex
 \graphicspath{ {./images/}{../artifacts/docs/circuit_diagrmas/} }
 
@@ -294,6 +295,7 @@
     \end{lstlisting}
 
     To run the laser projector code after compiling and building the code, type the following commands from the \emph{bld} directory.
+    The code will run indefinitely until \emph{ctrl+C} is entered into the SSH terminal window, which connects the host machine to the Raspberry Pi 4. 
 
     \begin{lstlisting}[frame=single, basicstyle=\ttfamily\footnotesize, breaklines=true]
         ./laser\_projector\_top [time between laser firings] [.ild file path and name]
@@ -322,12 +324,51 @@
     The measurement was taken across the 3.3V voltage divider with respect to the Raspberry Pi 4 ground.
     After setting up the DAC, the max output voltage was measured with a multimeter to be roughly 3.1V rather than 3.3V. 
     The minimum voltage output of the DAC was 75mV.
+    Neither the maximum nor the minimum output voltages were values that I expected, but the imperfections could be dealt with through the bipolar op amp circuit.
 
     \subsubsection{ILDA Bipolar Op Amp}
     For the DAC output, I was only able to achieve a voltage range of 0V - 3.1V with a precision of $\frac{1}{4096}$ from the 12-bit DAC output, as measured by a multimeter.
+    Using the first stage of the bipolar op amp, the voltage output range stretched from 75mV to -10.013V as measured by the multimeter.
+    The second stage, the summing amplifier, created a voltage output ranging from -4.930V to 5.013V for the X galvomotors input, and a similar value for the Y gavlometer input.
+    The gain and offset potentiameters allowed for both bipolar op amp outputs, the X and Y galvomotors outputs, to be tuned to meet the $\pm$ 5V output.
+    Differences from the DACs and resistance values could only be corrected for by the gain and offset potentiameters.
+
+    \subsection{Integrated Laser Projector}
+    
+    An image of the integrated laser projector is provided below.
+
+    Starting from the top-right and going clockwise, the first component is the Raspberry Pi 4 Model B.
+    Connected to the DAC circuit, which is then connected to the ILDA bipolar op amp circuit on the same breadboard.
+    Then the breadboard is connected to the laser diode.
+    Bottom-left are the X and Y galvomotors.
+    Motor drivers for the galvomotors are connected directly above. 
+    Finally, the DC power supply is connected to the ILDA bipolar circuit on the breadboard and motor driver board.
+
+    \includegraphics[width=2.5in]{prototype_hw_setup.png}
+
+    Now most importantly, I have included an image of the vector laser projector output when running the \emph{test.ild} file
+
+    \includegraphics[width=2.5in]{vector_laser_projector_image.png}
+
+    \includegraphics[width=2.5in]{vector_laser_projector_image2.png}
+
+    \includegraphics[width=2.5in]{vector_laser_projector_image3.png}
+
 
     \section{Discussion}
+    \subsection{Laser Projection}
+    
+    Although I'm very impressed with myself for selecting the hardware, integrating the components, tuning the hardware, developing the top-level "glue" code and test code, there is a still a large amount of room for improvement in this project.
+    I was far outside my wheelhouse initially, but now I know where I fell short in my characterization, what could have been improved, and the best next steps to improve my project in the future.
+
+    First, observing the laser projection.
+    On a first prototype baseline, I was impressed that quality of the laser output was sufficient.
+    If reviewing the laser image from the results tab above, you can see that it's relatively faithful to the ILDA's test image.
+
+    \includegraphics[width=2.5in]{ilda_test_image_key.png}
+
     \subsection{Laser Projection Code}
+    
     Vector laser projectors use an industry standard file format, set by the \emph{International Laser Display Association}, to convert images and videos into a laser display.
     Files are saved with the \emph{.ild} file handle.
     The file describes the X-Y commands and laser ON/OFF sequences which drive the mirror motors and laser diode respectively.
@@ -349,6 +390,8 @@
     Plus, I have found another user who has implemented \emph{marcan's svg2ild.py} script onto a Raspberry Pi Zero and has a functional laser projector.
     Click {\href{https://github.com/phuid/laser_projector?tab=readme-ov-file#hw}{here}} to be taken to the github page of \emph{phuid}, who has implemented the \emph{svg2ild.py} script for use in their Raspberry Pi Zero.
     Since the project has been implemented by another user on a more resource constrained Raspberry Pi Zero, I am not worried about code inefficiencies with the \emph{svg2ild.py} script.
+    
+    For now, the svg2ild conversion is not included, but this does highlight large "misses" during the characterization stage of my project.
 
     To create a laser animation using a \emph{.svg} file, go to appendix \emph{Create Laser Animation}.
 
@@ -387,7 +430,6 @@
     With most of the pins still free and a whole second set of Linux utility controlled SPI interface pins, I went with using both SPI interface resources.
     From an implementation standpoint, this is easier since I can drive both buses simultaneously without having to deal with a time-multiplexing solution that would still allow the X and Y mirrors to move in-sync.
      
-
     \section{Conclusion}
 
     \nocite{*}
