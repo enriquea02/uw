@@ -2,8 +2,18 @@
 \usepackage{graphicx}
 \usepackage{hyperref}
 \usepackage{listings}
+\usepackage{xcolor}
 % Path is relative to final_project_report_eantunano.tex
-\graphicspath{ {./images/}}
+\graphicspath{ {./images/}{../artifacts/docs/circuit_diagrmas/} }
+
+
+\hypersetup{
+  colorlinks,
+  linkcolor=blue, % Color of internal links
+  urlcolor=blue,  % Color of URLs
+  linkbordercolor={1 1 0}, % Yellow border around links
+  urlbordercolor={1 1 0} % Yellow border around URLs
+}
 
 \begin{document}
 
@@ -45,6 +55,85 @@
 
     Click {\href{https://google.github.io/styleguide/cppguide.html}{here}} to be taken to the Google C++ Style Guide.
 
+    \subsection{Hardware Setup}
+    This appendix covers the electrical schematics necessary to execute this project.
+    Relevant datasheet material will also be included here.
+
+    \subsubsection{Raspberry Pi 4}
+
+    Refer to the schematic listed in Appendix D subsection A for the Raspberry Pi 4 pinout diagram.
+    
+    Go to the interfaces section to understand the Raspberry Pi 4 pin set up.
+
+    \subsubsection{DAC} 
+    
+    Refer to Microchip's \emph{MCP4901/4911/4921 8/10/12-Bit Voltage Output Digital-to-Analog Converter with SPI Interface} document listed in the references for the source material.
+
+    The Raspberry Pi 4 drive strength will have to be limited to 2mA to match the DAC's input current electrical characteristics.
+    One concern reading the datasheet was that the current at the supply pins were rated to an absolute maximum of 50mA.
+    Since the only DACs available, with such short notice on Amazon. were single channel DACs, I needed to purchase two single-channel DACs.
+    Each DAC channel drives a single galvomotor. 
+    Laser projectors require two galvomotors, one for the X direction and another for the Y direction.
+    What concerned me was whether the 5V pins on the Raspberry Pi 4 Model B could supply 100mA (50mA * 2 DACs).
+    Reading multiple forums, the current on the 5V rails on the Raspberry Pi 4 are primarily limited by the Raspberry Pi 4 power supply.
+    The power supply used in this design is rated for 3.5A, so 100mA is well below that threshold, even accounting for the Raspberry Pi 4's own current draw and any other components. \newline 
+
+    \includegraphics[width=2.5in]{mcp4921_electrical_characteristics.png}
+
+    The gain formula with respect to the reference voltage is listed in the image below. \newline
+
+    \includegraphics[width=2.5in]{mcp4921_gain_formula.png}
+
+    Referring the pinout descriptions below, separate nCS, SCK, and SDI lines will be driven from the Raspberry Pi 4 to the respective X and Y DACs.
+    Both DACs will need to be driven simultaneously and I have spare pins on the Raspberry Pi 4, thus each DAC will have their own set of SPI inputs.
+    nLDAC will be tied to GND, referenced to the Raspberry Pi 4, since $V_{out}$ control can be set on the rising edge of nCS.
+    Tying nLDAC to low also saves the use of two pins on the Raspberry Pi 4.
+    $V_{REF}$ will be set to 2.0143V because it is relatively close to the typical 2.038V reference voltage that is listed in the Microchip documentation.
+    I can use a simple voltage divider on the 3.3V power rail pins of the Raspberry Pi 4 to get 2.0143V.
+    The documentation is unclear whether $V_{DD}$ an $V_{REF}$ need to be related.
+    Additionally, it is unclear whether the input SPI pins need to be related to $V_{DD}$ or $V_{REF}$.
+    For now, I'm moving forward with the risk since I think it's low.
+    The Raspberry Pi 4 has an OCP circuit that I think will protect the Raspberry Pi 4.
+    Finally, the voltage divider for $V_{REF}$ uses high resistance vales to limit the current flow to the DAC. \newline
+
+    \includegraphics[width=2.5in]{mcp4921_pin_descriptions.png}
+
+    Final note on the DAC circuit, a bypass capacitor and a high-frequency noise filtering capacitor were placed on the 5V rail as recommended by the datasheet. \newline
+
+    \includegraphics[width=2.5in]{mcp4921_psu_and_dig_intf.png}
+
+    Refer to the schematic listed in Appendix D subsection B for the DAC circuit diagram.
+    
+    \subsection{ILDA Bipolar Op Amp}
+
+    The ILDA standard specifies that the input voltage to an ILDA motor driver should be $\pm$ 5V.
+    The output of the DAC, assuming an ideal of 0V - 3.3V, requires a bipolar op amp to extend the range to $\pm$ 5V.
+    The DAC was configured to its max gain output $2 * V_{REF}$, where $V_{REF}$ = 2.0143V as specified in the previous subsection.
+    
+    Thus, to create the $\pm$ 5V, set up two bipolar op amp circuits.
+    One for the x-axis and another for the y-axis.
+    In addition to having two bipolar op amps, each bipolar op amp consists of two stages.
+    The first stage adjusts the gain, which increases the DAC voltage output from 0V - 3.3V to 0V - 10V.
+    Second stage of the bipolar op amp adjusts the offset of the output, moving the 0V - 10V output to -5V to 5V.
+
+    The op amps used for the bipolar op amp circuit is the TL082 op amp, because it is a two-channel op amp which allows for the two stage bipolar op amp to be developed in a compact size.
+    A benefit of the op amp is that it can take an input voltage of $\pm$ 2.25V to $\pm$ 20V.
+    Please refer to the \emph{TL08xx FET-Input Operational Amplifiers} datasheet for information and the pin out of the op amp. It is linked in the references section.
+
+    First stage consists of an inverting amplifier with a gain of around $G = - \frac{10}{3.3} = -3.03$.
+    The resultant DAC output will go from 0V - 3.3V to -10V - 0V.
+    Use the following formula to solve for the necessary $R_{f}$ and $R_{i}$ to achieve a gain of -3.03.
+    $$ G = -\frac{R_{f}}{R_{i}}$$
+    Set the positive input of the first TL082 op amp to ground to keep the first stage easier calculations simple.
+
+    Second stage of the bipolar op amp will consist of an inverting summing amplifier.
+    The negative terminal inputs of the summing amplifier consist of the first stage output and an adjustable voltage divider from the positive 15V terminal of the power supply.
+    Use the following formula to solve for the necessary resistance values to achieve a negative 5V offset.
+    $$ V_{out} = -(\frac{R_{f}}{R_{in}}) * (V1 + V2)$$ 
+    Math for the summing amplifier was kept simple by setting all the $R_{in}$ resistors to be equal.
+    The negative input of the TL082 op amp was tied to the same ground as the inverting amplifier to keep the math simple.
+    Refer to the schematic listed in Appendix D subsection C for the ILDA Bipolar Op Amp circuit diagram.
+
     \subsection{Interfaces}
     The laser controller requires the following physical interfaces:
     \begin{itemize}
@@ -52,6 +141,10 @@
         \item SPI pins
         \item Power Pins
     \end{itemize}
+
+    Only one GPIO pin was used for this project, BPM GPIO23, which is used to toggle power to the red laser.
+    The Raspberry Pi 4 pin out diagram in Appendix D lists GPIO24 and GPIO25 for the green and blue laser diode controls respectively, but those pins are only reserved through documentation.
+    The remaining GPIO pins are used for the two DAC SPI interfaces.
 
     For this project, Raspian's \emph{spidev} Linux utility was used to setup and drive the SPI interfaces from the Raspberry Pi 4. 
     The Linux utility it limited to only two SPI interfaces, which was sufficient for this project.
@@ -110,9 +203,21 @@
         \item List everything under the /dev folder and verify that \emph{spidev1.0} is now listed alongside \emph{spidev0.0} and \emph{spidev0.1}
     \end{enumerate}
 
-    The laser controller requires the following digital interfaces:
+    Finally, one 3.3V, 5V, and GND pin of the Raspberry Pi 4 are connected to the DAC and ILDA Bipolar Op Amp driver circuits. 
+    The 3.3V is used to drive the DAC $V_{REF}$ input, the 5V DAC power rail, and common ground is connected between the 15V power supply and the Raspberry Pi 4.
+
+    \subsection{Code}
+
 
     \section{Results}
+    \subsection{Hardware Setup}
+    This subsection covers the results from hardware setup.
+
+    \subsubsection{Raspberry Pi 4}
+    \subsubsection{DAC}
+    
+    \subsubsection{ILDA Bipolar Op Amp}
+    For the DAC output, I was only able to achieve a voltage range of 0V - 3.1V with a precision of $\frac{1}{4096}$ from the 12-bit DAC output, as measured by a multimeter.
 
     \section{Discussion}
     \subsection{Laser Projection Code}
@@ -273,57 +378,22 @@
 
     Use this YouTube video, {\href{https://youtu.be/CBJp82tlR3M?si=AnMmnkilE5h2m_C9}{Animation for Beginners}}, to generate an animation for the laser projector.
 
-    \section{Schematics}
-    This appendix covers the electrical schematics necessary to execute this project.
-    Relevant datasheet material will also be included here.
-
+    \section{Hardware Setup}
     \subsection{Raspberry Pi 4}
+
+    \includegraphics[width=2.5in]{../artifacts/docs/circuit_diagrams/rpi4_circuit.png}
+
     \subsection{DAC}
-    Refer to Microchip's \emph{MCP4901/4911/4921 8/10/12-Bit Voltage Output Digital-to-Analog Converter with SPI Interface} document listed in the references for the source material.
 
-    The Raspberry Pi 4 drive strength will have to be limited to 2mA to match the DAC's input current electrical characteristics.
-    One concern reading the datasheet was that the current at the supply pins were rated to an absolute maximum of 50mA.
-    Since the only DACs available, with such short notice on Amazon. were single channel DACs, I needed to purchase two single-channel DACs.
-    Each DAC channel drives a single galvomotor. 
-    Laser projectors require two galvomotors, one for the X direction and another for the Y direction.
-    What concerned me was whether the 5V pins on the Raspberry Pi 4 Model B could supply 100mA (50mA * 2 DACs).
-    Reading multiple forums, the current on the 5V rails on the Raspberry Pi 4 are primarily limited by the Raspberry Pi 4 power supply.
-    The power supply used in this design is rated for 3.5A, so 100mA is well below that threshold, even accounting for the Raspberry Pi 4's own current draw and any other components. \newline 
-
-    \includegraphics[width=2.5in]{mcp4921_electrical_characteristics.png}
-
-    The gain formula with respect to the reference voltage is listed in the image below. \newline
-
-    \includegraphics[width=2.5in]{mcp4921_gain_formula.png}
-
-    Referring the pinout descriptions below, separate nCS, SCK, and SDI lines will be driven from the Raspberry Pi 4 to the respective X and Y DACs.
-    Both DACs will need to be driven simultaneously and I have spare pins on the Raspberry Pi 4, thus each DAC will have their own set of SPI inputs.
-    nLDAC will be tied to GND, referenced to the Raspberry Pi 4, since $V_{out}$ control can be set on the rising edge of nCS.
-    Tying nLDAC to low also saves the use of two pins on the Raspberry Pi 4.
-    $V_{REF}$ will be set to 2.0143V because it is relatively close to the typical 2.038V reference voltage that is listed in the Microchip documentation.
-    I can use a simple voltage divider on the 3.3V power rail pins of the Raspberry Pi 4 to get 2.0143V.
-    The documentation is unclear whether $V_{DD}$ an $V_{REF}$ need to be related.
-    Additionally, it is unclear whether the input SPI pins need to be related to $V_{DD}$ or $V_{REF}$.
-    For now, I'm moving forward with the risk since I think it's low.
-    The Raspberry Pi 4 has an OCP circuit that I think will protect the Raspberry Pi 4.
-    Finally, the voltage divider for $V_{REF}$ uses high resistance vales to limit the current flow to the DAC. \newline
-
-    \includegraphics[width=2.5in]{mcp4921_pin_descriptions.png}
-
-    Final note on the DAC circuit, a bypass capacitor and a high-frequency noise filtering capacitor were placed on the 5V rail as recommended by the datasheet. \newline
-
-    \includegraphics[width=2.5in]{mcp4921_psu_and_dig_intf.png}
+    \includegraphics[width=2.5in]{../artifacts/docs/circuit_diagrams/dac_circuit.png}
 
     \subsection{ILDA Bipolar Op Amp}
-    The ILDA standard specifies that the input voltage to an ILDA motor driver should be +/- 5V.
-    I was only able to achieve a voltage range of 0V - 3.1V with a precision of $\div{1}{4096}$ from the 12-bit DAC output.
-    The DAC was configured to its max gain output $2 * V_{REF}$, so I would not be able to achieve a range of 0V to 5V.
-    Thus, I setup two bipolar op amp circuits, one for the x-axis and another for the y-axis, which would allow be to adjust the gain and offset of the ILDA motor driver input.
-    
-    The bipolar op amp was designed in two stages.
-    First stage was for the gain, while the second stage was for the offset.
-    Separating the circuit into two stages allowed for easy adjustments and modifications to the final circuit as necessary.
-    
 
+    \includegraphics[width=2.5in]{../artifacts/docs/circuit_diagrams/ilda_op_amp_circuit.png}
+
+    \section{Interfaces}
+    \subsection{Raspberry Pi 4 SPI Pinout}
+
+    \includegraphics[width=2.5in]{rpi4_spi_pinout.png}
 
 \end{document}
