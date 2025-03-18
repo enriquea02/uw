@@ -19,22 +19,34 @@
 
     \title{Raspberry Pi 4 Exploration}
 
-    \author{Enrique~Antunano\\University~of~Washington\\enriantu@uw.edu\\https://github.com/enriquea02/uw}
+    \author{Enrique~Antunano\\University~of~Washington\\enriantu@uw.edu\\{\href{https://github.com/enriquea02/uw/tree/main/eep522a_embedded_and_real-time_systems/submissions/workspace}{https://github.com/enriquea02/uw}}}
 
     \markboth{EEP522A~Embedded and~Real~Time~Systems, A3~Configuration, February~2025}{}
 
     \maketitle
 
     \begin{abstract}
-
+        The scaled back goal of this project was to develop a vector graphic laser display projector that could display a vector image test file with sufficient accuracy that an observer can understand the image that is projected.
+        All the supplies, code, schematics, datasheets, and challenges are outlined in this paper, which should be seen as a project description and guide.
+        The overall design provides flexibility for miniaturization, wireless control integration, and projection quality improvement, but the current project exceeds a minimal viable product.
     \end{abstract}
     \section{Introduction}
+    The intent of this project was to develop a portable vector graphic laser display projector which could take wirelessly uploaded images and project them when commanded to by a user input.
+    Quickly, I realized that I did not do sufficient characterization of my project and thus had to scale back significantly from my original goal.
+    The new focus of this project was to develop a base laser projector, in only one color, that could draw the International Laser Display Association's (ILDA) test file at the lowest supported speed of 12 kilo point per second (kpps).
+    The size, weight, energy consumption, wireless capabilities, and image quality were secondary concerns as the primary goal was to develop a baseline laser projector.
+
+    The scope of this project dealt with challenges in procurement, budget, hardware selection, hardware integration, software testing, and hardware/software integration. 
+    The methods, challenges, and results of this project are covered below, but following my paper it should be possible to develop and to continue improving the laser projector project.
+    Due to the time constraints of this class, the scope of the project was reduced, but the design is flexible enough for continued tinkering and improvement.
+
+    \section{Methods}
+
     If starting from a baseline of zero or near zero, then I would block off 40-50 hours for an initial vector laser projector build. 
     The time estimation assumes limited hardware development experience, C/C++ code proficiency, parts selection and procurement, system design, and system integration and test.
     My 40-50 hour projection for the build out is for the whole design cycle. 
-    This means from design start till the laser projector is capable of drawing out the International Laser Display Association's (ILDA) test file.
+    This means from design start till the laser projector is capable of drawing out the ILDA test file.
 
-    \section{Methods}
     \subsection {Coding Standard}
     This project will use the LLVM Coding Standards. 
     For my decision, I pulled three coding standards: Google C++ Style Guide, LLVM Coding Standards, and Motor Industry Software Reliability Association (MISRA) C/C++.
@@ -207,6 +219,11 @@
     The 3.3V is used to drive the DAC $V_{REF}$ input, the 5V DAC power rail, and common ground is connected between the 15V power supply and the Raspberry Pi 4.
 
     \subsection{Code}
+
+    As for code, the code base can roughly be outlined with the following diagram.
+
+    \includegraphics[width=2.5in]{spi4_installed_after_reboot.png}
+
 
 
     \section{Results}
