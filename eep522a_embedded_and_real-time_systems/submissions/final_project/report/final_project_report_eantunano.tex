@@ -42,10 +42,34 @@
 
     \section{Methods}
 
-    If starting from a baseline of zero or near zero, then I would block off 40-50 hours for an initial vector laser projector build. 
+    If starting from a baseline of zero or near zero, then I would block off 50-60 hours for an initial vector laser projector build. 
     The time estimation assumes limited hardware development experience, C/C++ code proficiency, parts selection and procurement, system design, and system integration and test.
     My 40-50 hour projection for the build out is for the whole design cycle. 
     This means from design start till the laser projector is capable of drawing out the ILDA test file.
+
+    Hardware supplies for this project include:
+    \begin{itemize}
+        \item 15V Dual Power Supply
+        \item 2x ILDA Motor Drivers
+        \item 2x 15kpps Middle Speed Galvomotors
+        \item 5mW Laser
+        \item 2x MCP4921 DACs
+        \newline Communication via SPI
+        \newline 12-bit precision matches DAC code bases found on git
+        \item 2x TL082 Dual Channel Op amps
+        \item 4x 10k-ohm Potentiameters
+        \item Various resistors and capacitors (view schematics linked in Appendices)
+        \item Raspbery Pi 4 Model B
+    \end{itemize}
+
+    Software for this project include:
+    \begin{itemize}
+        \item Raspberry Pi OS Bullseye
+            \newline SPI enabled through raspi-config
+            \newline 2x SPI enabled through /dev/config.txt
+        \item WiringPi
+        \item ILDA file reader code
+    \end{itemize}
 
     \subsection {Coding Standard}
     This project will use the LLVM Coding Standards. 
@@ -222,17 +246,83 @@
 
     As for code, the code base can roughly be outlined with the following diagram.
 
-    \includegraphics[width=2.5in]{spi4_installed_after_reboot.png}
+    \includegraphics[width=2.5in]{system_level_architecture_diagram.png}
 
+    All code pulled from other git users, included in the references, did not have the Google C++ style guide apply to them.
+    Rather, code from other users was grandfathered in, with only minimal modifications made when necessary.
+    Code that I developed did attempt to conform to the Google C++ style guide.
 
+    The motor drivers were pulled from github user \emph{tteskac}, github project \emph{rpi\_lasershow}.
+    The motor driver uses a library developed by ABElectronics, which translates decimal inputs between 0-4095 into SPI commands which are then driven to the DAC.
+    The SPI commands are sent using IOCTL.
+    Code for the motor driver also activates and closes the DAC.
+    In contrast, the laser driver code is very straightforward and easy to implement using the WiringPi library
+
+    Looking at the next level of abstraction, the image and command sequencers were covered by the ILDA reader developed by \emph{tteskac}.
+    The ILDA reader follows the ILDA Format 5 - 2D with True Color.
+    The ILDA format consists of a 32 byte header, x/y/z motor commands, laser on/off commands, and red/blue/green light intensity information.
+    Each ILDA packet covers information for a single laser point and consists of 8 data bytes.
+
+    \includegraphics[width=2.5in]{ilda_command_packet.png}
+
+    All the code I listed is contained in a git submodule, linked to \emph{tteskac}'s \emph{rpi\_lasershow}. 
+    The \emph{rpi\_lasershow} directory contains a subfolder called \emph{ilda\_files} which contains the \emph{.ild} files which would be projected by my laser projector
+
+    The two pieces of code that I developed were first, the "glue" logic that managed the ILDA reader and motor drivers.
+    Refer to github link at the top of this then go to the following file \emph{src/laser\_proj\_top.cc} which contains all the glue logic.
+
+    Then for testing, I wrote \emph{src/motor\_drvr\_lib.cc} which is used to generate a sine wave from the DAC minimum (0V) to the DAC maximum (3.3V).
+    This code allowed for validation and calibration of the motor driver signal from the Raspberry Pi 4 edge through the DAC and Bipolar Op Amp supply, up to the edge of the motor driver card.
+    Although I could have used the github code + my glue logic to do the same validation, developing a motor driver test script allowed for calibration of the bipolar op amp's \emph{gain} and \emph{offset} to achieve the ILDA $\pm$ 5V standard input. 
+
+    The motor driver test code and the laser projector code can both be compiled using the Makefile I developed.
+
+    To create a motor driver test executable, type the following command into the terminal window while in the \emph{src} directory.
+    A file called \emph{../bld/motor\_driver} will be generated after the make command is run on the raspberry pi 4.
+
+    \begin{lstlisting}[frame=single, basicstyle=\ttfamily\footnotesize, breaklines=true]
+        make clean
+        make motor_driver
+    \end{lstlisting}
+
+    To create a laser projector executable, type the following command into the terminal window while in the \emph{src} directory.
+    A file called \emph{../bld/laser\_projector\_top} will be generated after the make command is run on the raspberry pi 4.
+
+    \begin{lstlisting}[frame=single, basicstyle=\ttfamily\footnotesize, breaklines=true]
+        make clean
+        make
+    \end{lstlisting}
+
+    To run the laser projector code after compiling and building the code, type the following commands from the \emph{bld} directory.
+
+    \begin{lstlisting}[frame=single, basicstyle=\ttfamily\footnotesize, breaklines=true]
+        ./laser\_projector\_top [time between laser firings] [.ild file path and name]
+    \end{lstlisting}
+
+    An example launch command is shown below, assuming the executable is launched from the \emph{bld} directory.
+
+    \begin{lstlisting}[frame=single, basicstyle=\ttfamily\footnotesize, breaklines=true]
+        ./laser\_projector\_top 0 ../src/rpi\-lasershow/ilda\-files/test.ild
+    \end{lstlisting}
 
     \section{Results}
     \subsection{Hardware Setup}
     This subsection covers the results from hardware setup.
 
     \subsubsection{Raspberry Pi 4}
+
+    For the Raspberry Pi 4, integration of the Raspberry Pi 4 GPIO and power pins the circuit did not have any notable results.
+    An app, RaspController, was used to test the power toggle of the laser diode. 
+    The app allows for easy SSHing into the device and discrete toggling of each GPIO pin on the device.
+    Go to Appendix B for instructions on how to download and set up the RaspController app on your mobile phone. 
+
     \subsubsection{DAC}
-    
+
+    To validate DAC set up, $V_{REF}$ was measured to be 2.0148V.
+    The measurement was taken across the 3.3V voltage divider with respect to the Raspberry Pi 4 ground.
+    After setting up the DAC, the max output voltage was measured with a multimeter to be roughly 3.1V rather than 3.3V. 
+    The minimum voltage output of the DAC was 75mV.
+
     \subsubsection{ILDA Bipolar Op Amp}
     For the DAC output, I was only able to achieve a voltage range of 0V - 3.1V with a precision of $\frac{1}{4096}$ from the 12-bit DAC output, as measured by a multimeter.
 
