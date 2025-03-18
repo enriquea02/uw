@@ -71,6 +71,41 @@
 
     \includegraphics[width=2.5in]{spi4_installed_after_reboot.png}
 
+    Enabling the SPI setting in the using \emph{raspi\_config} only sets one SPI controller though unfortunately. 
+    Although the first SPI controller is enabled, it needs to be modified.
+    Additionally, the second SPI pins need to be enabled.
+    
+    \begin{enumerate}
+        \item Copy \emph{config.txt} under /boot to a safe location
+        \item Open the text file under the /boot folder with sudo privileges
+        
+        \begin{lstlisting}[frame=single, basicstyle=\ttfamily\footnotesize, breaklines=true]
+            sudo vi /boot/config.txt
+        \end{lstlisting}
+
+        \item Find the following line
+        
+        \begin{lstlisting}[frame=single, basicstyle=\ttfamily\footnotesize, breaklines=true]
+            dtparam=spi=on
+        \end{lstlisting}
+
+        \item Add the following line underneath, then save and close file
+        
+        \begin{lstlisting}[frame=single, basicstyle=\ttfamily\footnotesize, breaklines=true]
+            dtoverlay=spi0-1cs,no_miso
+            dtoverlay=spi1-1cs,cs0_pin=16
+        \end{lstlisting}
+
+        \item Now reboot the Raspberry Pi
+        
+        \begin{lstlisting}[frame=single, basicstyle=\ttfamily\footnotesize, breaklines=true]
+            sudo reboot
+        \end{lstlisting}
+
+        \item View /boot/config.txt to verify the modification highlighted
+        \item List everything under the /dev folder and verify that \emph{spidev1.0} is now listed alongside \emph{spidev0.0} and \emph{spidev0.1}
+    \end{enumerate}
+
     The laser controller requires the following digital interfaces:
 
     \section{Results}
