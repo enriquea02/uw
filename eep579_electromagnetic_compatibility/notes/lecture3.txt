@@ -1,0 +1,21 @@
+United States FCC regulations kick in when emitting 9kHz are greater
+
+Regulatory Framework
+United States: FCC
+International: CISPR
+
+Can a single product contain sub-components that fall under different FCC subparts?
+These FCC subparts are at the system-level, not the subsystem-level. System must include cables and configured for max emissions possibility.
+
+Radiated Emission are emissions through the air
+Line emissions are emissions through a cable
+
+Compliance testing for the FCC is set by ANSI standard C63.4-1992
+
+For radiated emissions tests for FCC compliance, the test suite will likely be conducted 5x your stated worst case margins. 
+If you say device will emit 1GHz, then sweep will be up to 5GHz.
+
+Class B is more stringent than Class A, because residential devices don't have EMI protection typically.
+So residential devices need to emit less to be "good neighbors".    
+
+Are there easy ways to model and measure this on hardware for circuit design at home? Differential signal, clocks effects, simultaneously switching outputs, etc...
