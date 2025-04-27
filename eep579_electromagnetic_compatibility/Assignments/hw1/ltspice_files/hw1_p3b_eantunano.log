@@ -1,0 +1,27 @@
+Circuit: * C:\users\enriqueantunano\ltspice_files\hw1_p3b_eantunano.asc
+
+Error on line 3 : c1 eut rf_meas_rcvr 0.1 uf
+	 Unknown parameter "uf"
+Error on line 4 : c2 ac_pwr_60hz 0 1.0 uf
+	 Unknown parameter "uf"
+Error on line 5 : l1 ac_pwr_60hz eut 50 uh
+	 Unknown parameter "uh"
+.OP point found by inspection.
+
+Date: Sun Apr 27 12:05:36 2025
+Total elapsed time: 0.024 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 2618
+traniter = 2618
+tranpoints = 1310
+accept = 1147
+rejected = 163
+matrix size = 4
+fillins = 0
+solver = Normal
+Matrix Compiler1: 136 bytes object code size  0.1/0.0/[0.0]
+Matrix Compiler2: 230 bytes object code size  0.0/0.1/[0.0]
+

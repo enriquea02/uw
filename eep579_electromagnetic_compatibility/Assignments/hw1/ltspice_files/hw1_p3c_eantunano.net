@@ -1,0 +1,11 @@
+* C:\users\enriqueantunano\ltspice_files\hw1_p3c_eantunano.asc
+R1 RF_MEAS_RCVR 0 1k
+C1 EUT RF_MEAS_RCVR 0.1 uF
+C2 AC_PWR_60HZ 0 1.0 uF
+L1 AC_PWR_60HZ EUT 50 uH
+R2 RF_MEAS_RCVR 0 50
+V1 EUT 0 SINE(0 0.25mV 1meg 0 0 0)
+* LISN
+.tran 0 20us 0
+.backanno
+.end
