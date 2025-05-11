@@ -1,0 +1,21 @@
+Circuit: * C:\users\enriqueantunano\ltspice_files\hw2_p2e_eantunano.asc
+
+.OP point found by inspection.
+
+Date: Sat May 03 13:01:45 2025
+Total elapsed time: 0.183 seconds.
+
+tnom = 27
+temp = 27
+method = modified trap
+totiter = 40106
+traniter = 40106
+tranpoints = 20054
+accept = 20054
+rejected = 0
+matrix size = 9
+fillins = 3
+solver = Normal
+Matrix Compiler1:      26 opcodes  0.1/[0.1]/0.1
+Matrix Compiler2:      54 opcodes  0.1/[0.1]/0.1
+
