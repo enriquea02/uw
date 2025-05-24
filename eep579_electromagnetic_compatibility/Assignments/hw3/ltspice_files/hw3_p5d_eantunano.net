@@ -1,0 +1,41 @@
+* C:\users\enriqueantunano\ltspice_files\hw3_p5d_eantunano.asc
+R1 Vo_dm N007 {R1*(1+TOL_POS)}
+R2 N007 N002 {R1*(1+TOL_POS)}
+R3 N009 N011 {R1*(1+TOL_NEG)}
+R4 0 N009 {R1*(1+TOL_NEG)}
+R5 N011 N012 {Rf*(1+TOL_NEG)}
+R6 N001 N002 {Rf*(1+TOL_POS)}
+R7 N012 N001 {kRf*(1+TOL_POS)}
+XU1 N009 N007 V+ V- Vo_dm AD746
+XU2 N004 N001 V+ V- N002 AD746
+XU3 N015 N012 V+ V- N011 AD746
+V1 V+ 0 15V
+V2 V- 0 -15
+R8 Vo_cm N008 {R1*(1+TOL_POS)}
+R9 N008 N005 {R1*(1+TOL_POS)}
+R10 N010 N013 {R1*(1+TOL_NEG)}
+R11 0 N010 {R1*(1+TOL_NEG)}
+R12 N013 N014 {Rf*(1+TOL_NEG)}
+R13 N003 N005 {Rf*(1+TOL_POS)}
+R14 N014 N003 {kRf*(1+TOL_POS)}
+XU4 N010 N008 V+ V- Vo_cm AD746
+XU5 N006 N003 V+ V- N005 AD746
+XU6 N006 N014 V+ V- N013 AD746
+V3 N004 N015 {Vdm} AC 1
+V4 N006 0 {Vcm} AC 1
+.param Rf=1k
+.param R1=10k
+.param kRf=100
+* Differential Mode Gain
+* Common Mode Gain
+.param Vcm=10
+.param Vdm=200m
+.ac dec 1000 1m 20meg
+.param TOL_POS=0.01
+.param TOL_NEG= -0.01
+.op
+.MEASURE AC F3DB_DM FIND frequency WHEN VDB(vo_dm)=29 ASCENDING
+.MEASURE AC F3DB_CM FIND frequency WHEN (VDB(vo_cm)/VDB(n006))=-137dB
+.lib ADI1.lib
+.backanno
+.end
