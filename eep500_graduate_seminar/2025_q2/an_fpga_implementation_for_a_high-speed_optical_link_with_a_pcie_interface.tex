@@ -1,0 +1,35 @@
+\documentclass{article}
+% Template from https://www.overleaf.com/project/67ce344378c4ecdee5f2fef9
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with`a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Response to An FPGA Implementation For A High Speed Optical Link With A PCIe Interface}
+\author{Enrique Antunano}
+
+\begin{document}
+\maketitle
+
+\section{Response}
+The paper focuses on the architecture to transfer data from a host PC through a PCIe interface onto a high-speed optical link, all implemented on an FPGA. The authors were interested in this topic because they understood that the data networking industry would move from Ethernet over copper wires to Ethernet over an optical link. The benefit of using an optical link is the higher speed and higher bandwidth provided by the link. The challenges of the optical link include managing, buffering, and honoring requests between the host machine and data network. 
+
+The network handler was implemented on an FPGA since the customer was an individual research lab which required high speed data transfers between machines to enable load sharing across a network, which FPGAs are excellent for since they are ideal for low-volume high-performance applications. The top-level implementation involved two host machine, each with their own FPGA, which was then connected to a SFP board which was capable of receiving and transmitting signals over a 4-lane optical link which connected the two systems (host machine + FPGA). The logic within both FPGAs involved large data buffers implemented in the FPGA's SRAM that could handle data packet transfers from the optical link or the PCIe interface. There were two dual-port RAM buffers, one for PCIe reads / optical network writes and another for PCIe writes / optical network read accesses. As the PCIe and optical links ran at different clock frequencies, both RAMs were partitioned into three memory areas. This allowed the PCIe to read/write until a memory area was empty/full respectively, while simultaneously the optical link would also read/write from another memory area until it was empty/full. The third memory area guaranteed that the two asynchronous sides of the RAM would never access the same memory area simultaneously. The paper goes on to describe how it trained the PCIe link connection and maintained the connection so that the PCIe connection would always be active and valid. 
+
+I chose this topic is because I wanted to understand how another group implemented  high-speed connections within an FPGA across two asynchronous interfaces. Specifically, I was interested in how they handled the connection when one interface ran at a higher clock frequency. My group's implementation was almost identical to this group's implementation. Personally, I did not implement the PCIe connection my group, so I found this paper very useful. For future work, I would like to see how this architecture scales up as more users are added. The tests conducted in this paper were only between two machines, but the authors do not discuss whether their architecture can handle tens or hundreds of interconnected servers. It is possible their solution is only for small server groups, but the authors do not elaborate.
+
+\nocite{*}
+
+\bibliographystyle{ieeetr}
+\bibliography{an_fpga_implementation_for_a_high-speed_optical_link_with_a_pcie_interface.bib}
+
+\end{document}
