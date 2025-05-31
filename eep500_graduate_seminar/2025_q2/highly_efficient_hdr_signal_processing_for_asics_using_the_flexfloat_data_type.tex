@@ -1,0 +1,36 @@
+\documentclass{article}
+% Template from https://www.overleaf.com/project/67ce344378c4ecdee5f2fef9
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with`a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Highly Efficient HDR Signal Processing for ASICs
+Using the Flexfloat Data Type}
+\author{Enrique Antunano}
+
+\begin{document}
+\maketitle
+
+\section{Response}
+The paper focuses on a new data type for encoding visual, audio, radio frequency (RF), or any other signal type that has a high dynamic range. For the purposes of this paper, high dynamic range seems to indicate a signal that has a large gap between its maximum possible value and the smallest value that can be encoded, before the smallest quantization is indistinguishable from noise. In the paper, the author describes a new data type that can carry nonlinear data. The need case for a nonlinear data type is that for certain applications, primarily those that are human-facing, there is no benefit to providing the full linear dynamic range worth of information. There is a threshold where humans can no longer distinguish very small or very large variations in data output, known as the Barten Threshold. Thus, if an audio, visual, or RF application is implemented in silicon, within an ASIC/FPGA device, it is prudent to drop excessive data bits to save resources because ultimately more data would be encoded than can even be perceived by the human eye or ear for example.
+
+The author describes a novel data type that is a variation of the IEEE 754 float data type. Current digital signal processing (DSP) algorithms implemented in silicon use the IEEE 754 float data type to compress linear sensor outputs into a nonlinear data type. The purpose of data compression is to save silicon resources in terms of DSP blocks in ASICs/FPGAs, logic gates, and arithmetic logical units (ALUs) - blocks of silicon that are efficient at multiplication and addition. The solution proposed in this paper is to add a bias (B) and ignore special values (NaN, infinity) to the IEEE 754 float point data type, which makes the data type one bit more compact than the IEEE 754 float point. To test their new data type, the author implemented the same DSP algorithm using fixed point (linear), IEEE 754 floating point, and their Flexfloat data type. The Flexfloat data type was 24\% more efficient than a fixed point data type and slightly more efficient than the standard IEEE 754 floating point data type based on ASIC/FPGA flip-flop resource utilization rates.
+
+At my company, I have signed up to implement audio and visual processing within FPGAs for an upcoming multi-year project. Currently, I lack experience in DSP design, which involves processing large amounts of data in real-time for storage and/or transmission. The main challenge with DSP is resource utilization and meeting timing within a chip. It is hard to manage the flood of data bits that need to be  processed and shuffled around within a discrete time window. So, if there are techniques to compress the amount of bits that need to be moved around or manipulated, without losing too much data, then it is important that I understand them. As a criticism of this paper, the authors only tested their Flexfloat against one type of DSP algorithm and did not provide a justification why the algorithm is a good baseline to compare against. So in the future, I would like to see more testing against different ASIC/FPGA implementations and with a greater range of DSP algorithms.
+
+\nocite{*}
+
+\bibliographystyle{ieeetr}
+\bibliography{highly_efficient_hdr_signal_processing_for_asics_using_the_flexfloat_data_type.bib}
+
+\end{document}
