@@ -1,0 +1,36 @@
+\documentclass{article}
+% Template from https://www.overleaf.com/project/67ce344378c4ecdee5f2fef9
+
+% Language setting
+% Replace `english' with e.g. `spanish' to change the document language
+\usepackage[english]{babel}
+
+% Set page size and margins
+% Replace `letterpaper' with`a4paper' for UK/EU standard size
+\usepackage[letterpaper,top=2cm,bottom=2cm,left=3cm,right=3cm,marginparwidth=1.75cm]{geometry}
+
+% Useful packages
+\usepackage{amsmath}
+\usepackage{graphicx}
+\usepackage[colorlinks=true, allcolors=blue]{hyperref}
+
+\title{Response to Design of PCIe-DMA bridge interface for High
+Speed Ethernet Applications}
+\author{Enrique Antunano} 
+
+\begin{document}
+\maketitle
+
+\section{Response}
+The paper focuses the architecture of a PCIe-DMA bridge for high-speed Ethernet. The researchers propose in their architecture the implementation of a PCIe-DMA bridge in an FPGA that can interface with a Tri-Speed Ethernet. The topic stood out to me because the exact same technology has been implemented by my team at my company. I did not design, implement, or test the PCIe-DMA bridge to Tri-Speed Ethernet design, so I selected this paper to provide me with an architecture overview and implementation details. 
+
+The researchers' used an Actel FPGA to implement their PCIe-DMA bridge to Tri-Speed Ethernet design. The first portion of their design was the PCIe-DMA bridge. In the FPGA, the designers implemented a PCIe interface hard IP block available within the FPGA. From there, Intel's custom bus and their custom DMA access engine was connected to the PCIe hard IP interface. Then, a control and status logic block was used to access memory directly, which allowed for PCIe data to be pulled from memory and written into FIFO RAM or pulled from the FIFO RAM and written into memory. The control and status logic controlled accesses to memory to guarantee no conflict between the PCIe and FIFO accesses occurred due to a simultaneous memory access. If needing to transmit data on to the Tri-Speed Ethernet line, then FIFO data would then be read out and shuffled to the Tri-Speed Ethernet hard IP block inside the FPGA. If data were received from the Tri-Speed Ethernet, then it would be registered and written into a separate read FIFO which could then be placed into memory through a DMA transaction. Only a high-level view of the system was provided. There was no further explanation on the memory access arbitration logic or how FIFO overflow/underflow may have been handled. Thus, I am still left with design questions after reading through the paper.
+
+After a review of the research, I am left lacking and would like to propose several next-steps for the researchers. First, the researchers do no cover whether their PCIe-DMA bridge to Tri-Speed Ethernet design functioned successfully. There is no characterization data for the real-world read and write data throughput. No information is given that would allow the user to recreate a test case, test vectors, or compare test data against. Finally, data on the timing margin is not provided, so it is unclear whether the researchers' architecture and implementation was able to function on real hardware and whether data packets were being dropped due to timing violations. Finally, the researchers specify that their next step is to scale their design to interface with eight Ethernet ports from the current one Ethernet port setup. It would be interesting to gather data on whether their design is capable of scaling. Additionally, an analysis on the degradation of the system's data throughput for each additional Ethernet port would be helpful for understanding how their architecture scales as it has manage bus time across additional Ethernet endpoints. It was interesting to read their architecture implementation, but currently I am skeptical with the PCIe-DMA bridge to Tri-Speed Ethernet's performance and would create my own implementation rather than use the researchers' proposal. 
+
+\nocite{*}
+
+\bibliographystyle{ieeetr}
+\bibliography{design_of_pcie-dma_bridge_interface_for_high_speed_ethernet_applications.bib}
+
+\end{document}
