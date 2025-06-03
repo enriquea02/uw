@@ -278,17 +278,6 @@ Figure \ref{fig:output_filter_rlc_stage_2_waveforms} continues to demonstrate th
     \label{fig:output_filter_rlc_stage_2_waveforms}
 \end{figure}
 
-The 
-
-Figure \ref{fig:output_filter_common_mode_choke_waveforms}
-
-\begin{figure}[htp]
-    \centering
-    \includegraphics[width=1.0\linewidth]{output_filter_common_mode_choke.png}
-    \caption{Output Filter Common Mode Choke Current}
-    \label{fig:output_filter_common_mode_choke_waveforms}
-\end{figure}
-
 In addition to the common-mode choke, the noise current across the line to chassis-ground capacitors on the unit side and the load side were very small as seen in Figure \ref{fig:output_filter_chassis_ground_y_capacitors_waveforms}. There was very little common-mode noise risk from either the load side or source side threatening the AC-DC converter circuit.  
 
 \begin{figure}[htp]
@@ -300,8 +289,7 @@ In addition to the common-mode choke, the noise current across the line to chass
 
 \subsection{Load}
 
-Figure \ref{fig:load_average_voltage_waveform}
-Figure \ref{fig:load_fft_150kHz_16MHz_waveform}
+The voltage across the measured load was averaged 28.369$V$ and can be seen in Figure \ref{fig:load_average_voltage_waveform}. The regulator frequency could be modified to reach a perfect 28$V$, but there is negligible benefit in optimizing the power path of our circuit for the scope of this course. The voltage swing is high at $1V$, but the solution to reduce the voltage swing would be to design a feedback loop to the switching regulator which is also outside the purpose of this course. The current across the load resistor $R1$ is also very clean and has a small current swing. The output filter capacitor $C14$ shunted much of the remaining high frequency noise from the converter output to the negative power rail.
 
 \begin{figure}[htp]
     \centering
@@ -310,7 +298,9 @@ Figure \ref{fig:load_fft_150kHz_16MHz_waveform}
     \label{fig:load_average_voltage_waveform}
 \end{figure}
 
-\begin{figure}[htp]
+Figure \ref{fig:load_fft_150kHz_16MHz_waveform} displays the FFT of the output current in ($dB \mu A$ across the frequency range 150$kHz$ to 152$MHz$. All current noise values in the FFT lied below the DO-160G conducted emissions limit line.
+
+\begin{figure}[htb]
     \centering
     \includegraphics[width=1.0\linewidth]{load_fft_150kHz_16MHz.png}
     \caption{FFT of current (dBuA) across load from 150$kHz$ to 16.55$MHz$ frequency range}
@@ -318,8 +308,47 @@ Figure \ref{fig:load_fft_150kHz_16MHz_waveform}
 \end{figure}
 
 \section{Discussion}
+\subsection{$V_{AC}$ Input Noise}
+Prior to adding the input RLC filters, the noise from the voltage source did not pass DO-160G emissions as seen in Figure \ref{fig:no_input_filter_top_level_waveform}. 
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=1.0\linewidth]{no_input_filter_emissions_limit.png}
+    \caption{Baseline AC-DC Converter Input with no Filtering Failing DO-160G Conducted Emissions Limit across 150$kHz$ - 16.55$MHz$ frequency range}
+    \label{fig:no_input_filter_top_level_waveform}
+\end{figure}
+
+Figure \ref{fig:input_filter_emissions_limit_waveform} shows the input current after filtering has occurred. DO-160G conducted emissions are met across the entire frequency band.
+
+\begin{figure}[htb]
+    \centering
+    \includegraphics[width=1.0\linewidth]{input_filter_emissions_limit.png}
+    \caption{Baseline AC-DC Converter Input with Filtering Passing DO-160G Conducted Emissions Limit across 150$kHz$ - 16.55$MHz$ frequency range}
+    \label{fig:input_filter_emissions_limit_waveform}
+\end{figure}
+
 \subsection{Conducted Emissions at the Load}
-\subsection{Open Risks and Concerns}
+The current across the load, prior to output filtering, failed the DO-160G Conducted Emissions requirement. The superimposed blue line over the frequency range of interest, 150$kHz$ - 152$MHz$, in Figure \ref{fig:no_output_filter_emissions_limit_waveform} is violated across the frequency range.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=1.0\linewidth]{no_output_filter_emissions_limit.png}
+    \caption{Baseline AC-DC Converter Output with no Filtering Failing DO-160G Conducted Emissions Limit across 150$kHz$ - 16.55$MHz$ frequency range}
+    \label{fig:no_output_filter_emissions_limit_waveform}
+\end{figure}
+
+Figure \ref{fig:output_filter_emissions_limit_waveform} shows the output current after filtering has occurred. DO-160G conducted emissions are met across the entire frequency band.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=1.0\linewidth]{output_filter_emissions_limit.png}
+    \caption{Baseline AC-DC Converter Output with Filtering Passing DO-160G Conducted Emissions Limit across 150$kHz$ - 16.55$MHz$ frequency range}
+    \label{fig:output_filter_emissions_limit_waveform}
+\end{figure}
+
+\subsection{Lessons Learned and Recommendations}
+There are two lessons learned that should be pursued going forward. (1) The filters are over-designed. While attenuation is excellent with plenty of margin, efficiency is compromised - efficiency at maximum power is 74\%. Power-consumer elements are all diodes (could be replaced with active transistors) and damping resistors (represent the bulk of this power dissipation, resistors alone consume nearly 20W)
+(2) Damping resistors consume energy. Recommendation is to tweak RLC values to decrease power consumption. The margin is excellent, so much so that we can afford to scale them back in order to improve the efficiency of the converter while still meeting AFCS. Resistors help pass AFCS, but adding them is an inherent risk and jeopardizes passing AFCS testing as they see the brunt of that stress.
 
 \nocite{*}
 \bibliographystyle{ieeetr}
