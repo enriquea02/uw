@@ -5,6 +5,7 @@
 \usepackage{graphicx}
 \usepackage{textcomp}
 \usepackage{xcolor}
+\usepackage{placeins}
 \def\BibTeX{{\rm B\kern-.05em{\sc i\kern-.025em b}\kern-.08em
     T\kern-.1667em\lower.7ex\hbox{E}\kern-.125emX}}
 \begin{document}
@@ -87,6 +88,8 @@ Set A's waveform 4 injects a peak voltage that peaks according to a time variabl
     \label{fig:do-160f_waveform_set_4_diagram}
 \end{figure}
 
+\FloatBarrier
+
 \section{Circuit Architecture}
 
 \subsection{High-Level Overview}
@@ -107,21 +110,25 @@ Figure \ref{fig:ac_dc_converter_ideal_diagram} presents a high-level overview of
     \label{fig:ac_dc_converter_implemented_diagram}
 \end{figure}
 
+\FloatBarrier
+
 \subsection{Input Filter}
 
 The input filter consists of four sub-circuits: (1) a pair of line-to-chassis ground capacitors (2) a pair of RLC filters (3) a TVS protection diode, and (4) a common-mode choke. The line-to-chassis ground Y-capacitors handle common-mode noise from the 115$V_{AC}$ input rail. Meanwhile, the two RLC circuits stabilize the voltage input of the full-wave rectifier. The two RLC circuit design, one per power rail, is borrowed from common industry best practices. Based on simulations, two RLC circuits moved the peak AC voltage down versus a single RLC circuit block. The trade-off between the inclusion of the damping resistors versus increased power consumption is okay for the main objectives of the project. Based on simulations, there was very little common-mode noise on the input of the 115$V_{AC}$ to 28$V_{DC}$, but a common-mode choke was still added to the input filter to block any common-mode noise coming from the outside world. Additionally, the common-mode choke will choke a lightning strike's commom-mode  input from impacting the rest of the circuit. A bidirectional TVS protection diode was added to meet DO-160G's lightning susceptibility requirements on the input side of the AC-DC converter. The diode will act as a low resistance path to ground when a large differential voltage spike occurs on the input line, which will protect the rest of the circuit since the voltage after the diode will remain constant while any current from transient voltage spikes are shunted to the return path. The diode is rated to shunt a differential lightning threat $>200V$. Refer to Figure \ref{fig:input_filter_top_level_diagram} for the top-level design of the input filter. 
 
-\begin{figure}[htp]
+\begin{figure}[h]
     \centering
     \includegraphics[width=1.0\linewidth]{input_filter_top_level.png}
     \caption{Input Filter Top Level}
     \label{fig:input_filter_top_level_diagram}
 \end{figure}
 
+\FloatBarrier
+
 \subsection{Full-Wave Bridge Rectifier}
 Directly after the AC input filters, the AC signal is fed into a full-wave bridge rectifier. The function of a full-wave rectifier is to convert the positive and negative half-cycles of an AC signal into a pulsating DC signal output, see Figure \ref{fig:full-wave_rectifier_output_waveform_diagram}. From there, a bulk capacitor is used on the output to "smooth" out the pulsating DC signal so that the output signal begins to resemble a stable DC output, see Figure \ref{fig:full-wave_bridge_rectifier_filter_waveform_diagram}. 
 
-\begin{figure}[htp]
+\begin{figure}[h]
     \centering
     \includegraphics[width=1.0\linewidth]{full-wave_bridge_rectifier_output_waveform.png}
     \caption{Full-Wave Rectifier Output Waveforms}
@@ -138,26 +145,28 @@ Directly after the AC input filters, the AC signal is fed into a full-wave bridg
 
 A full-wave bridge rectifier was implemented because of its efficiency in comparison to a half-wave rectifier. The LTSpice model is shown in Figure \ref{fig:full-wave_bridge_rectifier_circuit_diagram}. For a full-wave rectifier, both cycles of the AC signal are converted into the DC signal. For a half-wave rectifier, only a single half cycle of the AC signal is transferred, while the other half cycle is blocked. 
 
-\begin{figure}[hbp]
+\begin{figure}[h]
     \centering
     \includegraphics[width=0.5\linewidth]{full-wave_bridge_rectifier_circuit.png}
     \caption{Full-Wave Bridge Rectifier Circuit}
     \label{fig:full-wave_bridge_rectifier_circuit_diagram}
 \end{figure}
 
+\FloatBarrier
+
 \subsection{Buck Converter}
 After the full-wave bridge rectifier is a Buck Converter. A buck converter is a DC-DC converter that steps down the DC input voltage using a voltage-controlled switch to generate a PWM output. After the PWM output, there is a bulk LC filter. The primary purpose of the bulk inductor and capacitor is to generate a stable stepped down DC output from the switching regulator's PWM input voltage. High-frequency noise introduced by the switching regulator will be handled by a separate block of output filtering components rather than by the bulk inductor and capacitor components. See Figure \ref{fig:buck_converter_circuit_diagram} for a generic diagram of a buck converter circuit.
 
-\begin{figure}[htp]
+\begin{figure}[h]
     \centering
     \includegraphics[width=1.0\linewidth]{buck_converter_circuit.png}
     \caption{Buck Converter Circuit}
-    \label{fig:Buck Converter Voltage Output_circuit_diagram}
+    \label{fig:buck_converter_circuit_diagram}
 \end{figure}
 
-The bulk inductor resists changes in current, so when the switch is turned off, it attempts to keep the current constant. Meanwhile, the bulk capacitor resists changes in voltage, and thus attempts to keep the output voltage constant. The LC circuit includes a protection diode to prevent the switch from being damaged by a reverse voltage spike from the inductor's stored energy when the switch turns ON again. In contrast, when the switch is turned OFF, the forward bias of the protection diode allows the inductor to discharge its stored current. See Figure \ref{fig:Buck Converter Voltage Output_waveform_diagram} for a diagram of the expected output waveforms of the buck converter.
+The bulk inductor resists changes in current, so when the switch is turned off, it attempts to keep the current constant. Meanwhile, the bulk capacitor resists changes in voltage, and thus attempts to keep the output voltage constant. The LC circuit includes a protection diode to prevent the switch from being damaged by a reverse voltage spike from the inductor's stored energy when the switch turns ON again. In contrast, when the switch is turned OFF, the forward bias of the protection diode allows the inductor to discharge its stored current. See Figure \ref{fig:buck_converter_waveform_diagram} for a diagram of the expected output waveforms of the buck converter.
 
-\begin{figure}[htp]
+\begin{figure}[h]
     \centering
     \includegraphics[width=1.0\linewidth]{buck_converter_waveform.png}
     \caption{Buck Converter Expected Output Waveform}
@@ -166,7 +175,7 @@ The bulk inductor resists changes in current, so when the switch is turned off, 
 
 The team decided to move away from a linear regulator because the circuit is not as power-efficient as a switching regulator. The drawback of using a switching regulator is the voltage ripple introduced onto the DC output power rail due to the switching frequency. The switching noise and its harmonics will require output filtering to minimize the voltage ripple seen by the load and to guarantee that the conducted emissions of our circuit are below the DO-160G EMI conducted emissions threshold. 
 
-The switching voltage regulator will not use a feedback loop for auto-adjustment of the switch's duty cycle. For a power rail, typically a feedback loop would be used to adjust the switch's duty cycle so that the power rail can maintain a 28$V_{DC}$ output across a range of loads. The scope of this course focuses on EMI compliance and circuit design, so the 28$V_{DC}$ output will be optimized to meet the objective of 100$W$ power output in compliance with the DO-160G standard. If this were a power electronics course, then the team would have opted to design a feedback loop to the switching regulator so that the 115$V_{AC}$ to 28$V_{DC}$ converter would be compliant across loads. See Figure \ref{buck_converter_final_design.png} for the final design of the buck converter.
+The switching voltage regulator will not use a feedback loop for auto-adjustment of the switch's duty cycle. For a power rail, typically a feedback loop would be used to adjust the switch's duty cycle so that the power rail can maintain a 28$V_{DC}$ output across a range of loads. The scope of this course focuses on EMI compliance and circuit design, so the 28$V_{DC}$ output will be optimized to meet the objective of 100$W$ power output in compliance with the DO-160G standard. If this were a power electronics course, then the team would have opted to design a feedback loop to the switching regulator so that the 115$V_{AC}$ to 28$V_{DC}$ converter would be compliant across loads. See Figure \ref{fig:buck_converter_final_design_diagram} for the final design of the buck converter.
 
 \begin{figure}[htp]
     \centering
@@ -174,6 +183,8 @@ The switching voltage regulator will not use a feedback loop for auto-adjustment
     \caption{Final Design of Buck Converter Subcircuit of AC-DC Converter}
     \label{fig:buck_converter_final_design_diagram}
 \end{figure}
+
+\FloatBarrier
 
 \subsection{Output Filter}
 The output filter for this current circuit design must suppress the noise introduced by the switching regulator in the 150${kHz}$ - 152${MHz}$ range, prevent common-mode noise from propagating to the load and from the load side, and eliminate differential-mode noise from the load. 
@@ -195,13 +206,15 @@ The third part of the output filter consists of a common-mode choke and Y-capaci
 
 The fourth part of the output filter consists of a unidirectional TVS protection diode, which protects against differential lightning threats $>50V$. As the converter only supports output current in one direction, the diode can be unidirectional.
 
+\FloatBarrier
+
 \section{Results}
 To evaluate the circuit design, components were selected to achieve the desired cutoff frequency while providing sufficient damping to minimize resonant behavior.
 
 The following formula was used to calculate the damping factor for all RLC filters in the design.
 $$ \text{Damping Factor} = \zeta = \frac{R}{2} \sqrt{\frac{C}{L}}$$
 
-AC sweeps were conducted on the input filter and on the output filter to determine their resonance frequencies with respect to the AFCS range. The resonance frequencies were then fed back into the design to size the value of the damping resistors $R$ to achieve a sufficient damping factor $\zeta$. The challenge of sizing the damping resistor was balancing the damping factor and the AC-DC converter's power efficiency. See Figure for an example on sizing the two-stage RLC output filters.
+AC sweeps were conducted on the input filter and on the output filter to determine their resonance frequencies with respect to the AFCS range. The resonance frequencies were then fed back into the design to size the value of the damping resistors $R$ to achieve a sufficient damping factor $\zeta$. The challenge of sizing the damping resistor was balancing the damping factor and the AC-DC converter's power efficiency. See Figure \ref{fig:resonance_frequency_design_feedback_results_waveform} for an example on sizing the two-stage RLC output filters.
 
 \begin{figure}[htp]
     \centering
@@ -210,20 +223,24 @@ AC sweeps were conducted on the input filter and on the output filter to determi
     \label{fig:resonance_frequency_design_feedback_results_waveform}
 \end{figure}
 
+\FloatBarrier
+
 \subsection{Input Filter}
 
 The input filter's RLC circuit, which lies between the full-wave bridge rectifier and the ac voltage source, forces the current across R2 to retain most of its ac sine wave characteristic. There are large current spikes on the ac input that occur as the signal oscillates, see Figure \ref{fig:ac_input_waveform}. The spikes are attributable to the diodes of the full-wave rectifier reaching their threshold voltage, which allows current to flow and charge the bulk capacitor of the full-wave bridge rectifier.
 
-\begin{figure}[htp]
+\begin{figure}[h]
     \centering
     \includegraphics[width=1.0\linewidth]{ac_input_waveform.png}
     \caption{115$V_{AC}$ Input Waveform}
     \label{fig:ac_input_waveform}
 \end{figure}
 
+\FloatBarrier
+
 The common-mode noise from the ac input was very small and occurred when the diodes were enabled, see Figure \ref{fig:ac_input_common_mode_y_cap_noise_waveform}. The spike in current introduces noise into the circuit. The simulation shows that the small common-mode noise across the Y-capacitors, directly at the voltage source edge, is filtered out.
 
-\begin{figure}[htp]
+\begin{figure}[h]
     \centering
     \includegraphics[width=1.0\linewidth]{ac_input_common_mode_y_cap_noise_waveform.png}
     \caption{Common-Mode Noise across Y-Capacitors on 115$V_{AC}$ Input Line}
@@ -232,12 +249,14 @@ The common-mode noise from the ac input was very small and occurred when the dio
 
 The current measurement across $R11$ demonstrates how the inductor, $L6$, resists changes in current from the 115 $V_{ac}$ source and smooths the input waveform. The current across the RLC's capacitor, $C16$, is high-frequency noise shunted to the negative rail. The current after capacitor $C16$, measured across $R5$, is a clean ac input as seen in Figure \ref{fig:ac_input_rlc_waveforms}. Similarily, the current measurement across $R12$ demonstrates how the inductors, $L7$, resists changes in the negative half of the input waveform. The current across capacitor $C15$ shows minimal ringing as a result of sudden changes in the current. 
 
-\begin{figure}[htp]
+\begin{figure}[h]
     \centering
     \includegraphics[width=1.0\linewidth]{ac_input_rlc_waveforms.png}
     \caption{RLC Filtering of 115$V_{AC}$ Input}
     \label{fig:ac_input_rlc_waveforms}
 \end{figure}
+
+\FloatBarrier
 
 \subsection{Full-Wave Bridge Rectifier}
 The full bridge rectifier converts the ac input to a dc output. While the dc output rises, the bulk capacitor $C5$ charges, but when the dc output falls the bulk capacitor discharges. LTSpice simulation shows that the dc output is held stable at around $102V$ but with a voltage ripple of approximately $2.5V$. Figure \ref{fig:full_wave_bridge_rectifier_output_waveform} is a simulation of the voltage output of the full-wave rectifier with bulk capacitance filtering. The bulk capacitor $C5$ is charged by the DC output of the full-wave bridge rectifier
@@ -257,6 +276,8 @@ The capacitors $C12$ and $C11$, which connect the power rails to chassis-ground,
     \caption{Voltage across line-to-chassis ground capacitors after Full-Wave Bridge Rectifier}
     \label{fig:full_wave_bridge_rectifier_chassis_caps_waveform}
 \end{figure}
+
+\FloatBarrier
 
 \subsection{Buck Converter}
 
@@ -297,6 +318,8 @@ In addition to the common-mode choke, the noise current across the line to chass
     \label{fig:output_filter_chassis_ground_y_capacitors_waveforms}
 \end{figure}
 
+\FloatBarrier
+
 \subsection{Load}
 
 The voltage across the measured load was averaged 28.369$V$ and can be seen in Figure \ref{fig:output_filter_load_after_rlc_stage_2_waveforms}. The regulator frequency could be modified to reach a perfect 28$V$, but there is negligible benefit in optimizing the power path of our circuit for the scope of this course. The voltage swing is high at $1V$, but the solution to reduce the voltage swing would be to design a feedback loop to the switching regulator which is also outside the purpose of this course. The current across the load resistor $R1$ is also very clean and has a small current swing. The output filter capacitor $C14$ shunted much of the remaining high frequency noise from the converter output to the negative power rail.
@@ -310,13 +333,40 @@ Figure \ref{fig:load_fft_150kHz_16MHz_waveform} displays the FFT of the output c
     \label{fig:load_fft_150kHz_16MHz_waveform}
 \end{figure}
 
-\clearpage
+\FloatBarrier
+
+\subsection{Lightning Pin Injection}
+
+The final portion of the DO-160F standard that the AC-DC converter sets to meet is resistance to lightning susceptibility. The simulation of a lightning strike input is shown in Figure \ref{fig:lightning_strike_stimulus_sim_waveform}. A simplified model of the input filter was used to test the circuit's lightning strike susceptibility (see Figure \ref{fig:input_filter_simplified_for_lightning_strike_sim_waveform}). Figure \ref{fig:tvs_shunted_current_and_voltage_waveform} shows that the bidirectional TVS protection diode shunted the lightning strike current and voltage to the return path at the AC-DC converter input edge.
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\linewidth]{lightning_strike_stimulus_sim.png}
+    \caption{LTSpice Simulation Setup and Output of a DO-160F Section 22. Lightning Strike Test}
+    \label{fig:lightning_strike_stimulus_sim_waveform}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\linewidth]{input_filter_simplified_for_lightning_strike_sim.png}
+    \caption{Simplified Input Filter Circuit for Lightning Strike Simulation}
+    \label{fig:input_filter_simplified_for_lightning_strike_sim_waveform}
+\end{figure}
+
+\begin{figure}[h]
+    \centering
+    \includegraphics[width=1.0\linewidth]{tvs_shunted_current_and_voltage.png}
+    \caption{Simulation of Shunted Current and Voltage at AC-DC Input Pin Edge from Lightning Strike}
+    \label{fig:tvs_shunted_current_and_voltage_waveform}
+\end{figure}
+
+\FloatBarrier
 
 \section{Discussion}
 \subsection{$V_{AC}$ Input Noise}
 Prior to adding the input RLC filters, the noise from the voltage source did not pass DO-160G emissions as seen in Figure \ref{fig:no_input_filter_top_level_waveform}. 
 
-\begin{figure}[htp]
+\begin{figure}[h]
     \centering
     \includegraphics[width=1.0\linewidth]{no_input_filter_emissions_limit.png}
     \caption{Baseline AC-DC Converter Input with no Filtering Failing DO-160G Conducted Emissions Limit across 150$kHz$ - 16.55$MHz$ frequency range}
@@ -332,10 +382,12 @@ Figure \ref{fig:input_filter_emissions_limit_waveform} shows the input current a
     \label{fig:input_filter_emissions_limit_waveform}
 \end{figure}
 
+\FloatBarrier
+
 \subsection{Conducted Emissions at the Load}
 The current across the load, prior to output filtering, failed the DO-160G Conducted Emissions requirement. The superimposed blue line over the frequency range of interest, 150$kHz$ - 152$MHz$, in Figure \ref{fig:no_output_filter_emissions_limit_waveform} is violated across the frequency range.
 
-\begin{figure}[htp]
+\begin{figure}[h]
     \centering
     \includegraphics[width=1.0\linewidth]{no_output_filter_emissions_limit.png}
     \caption{Baseline AC-DC Converter Output with no Filtering Failing DO-160G Conducted Emissions Limit across 150$kHz$ - 16.55$MHz$ frequency range}
@@ -344,7 +396,7 @@ The current across the load, prior to output filtering, failed the DO-160G Condu
 
 Figure \ref{fig:output_filter_emissions_limit_waveform} shows the output current after filtering has occurred. DO-160G conducted emissions are met across the entire frequency band.
 
-\begin{figure}[htp]
+\begin{figure}[h]
     \centering
     \includegraphics[width=1.0\linewidth]{output_filter_emissions_limit.png}
     \caption{Baseline AC-DC Converter Output with Filtering Passing DO-160G Conducted Emissions Limit across 150$kHz$ - 16.55$MHz$ frequency range}
