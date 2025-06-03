@@ -91,7 +91,7 @@ Set A's waveform 4 injects a peak voltage that peaks according to a time variabl
 
 \subsection{High-Level Overview}
 
-Figure \ref{fig:ac_dc_converter_ideal_diagram} presents a high-level overview of an ideal AC-DC converter. The team opted to implement a modified 115$V_{AC}$ - 28$V_{DC}$ AC-DC converter that removed the transformer from the circuit as shown in Figure \ref{fig:ac_dc_converter_implemented_diagram}. Although an AC-DC converter may typically include a transformer to reduce common-mode noise when stepping down the $V_{AC}$, the team decided to eliminate the component to increase noise within the circuit's power path and instead, demonstrate the impact that proper filtering would have on load voltage and current. In practical applications found in the industry, if size and weight were not constraints, then a transformer would likely be included.
+Figure \ref{fig:ac_dc_converter_ideal_diagram} presents a high-level overview of an ideal AC-DC converter. The team opted to implement a modified 115$V_{AC}$ - 28$V_{DC}$ AC-DC converter that removed the transformer from the circuit as shown in Figure \ref{fig:ac_dc_converter_implemented_diagram}. Although an AC-DC converter may typically include a transformer to reduce common-mode noise when stepping down the $V_{AC}$, the team decided to eliminate the component to increase noise within the circuit's power path and instead, demonstrate the impact that proper filtering would have on load voltage and current. In practical applications found in the industry, if size and weight were not constraints, then a transformer would likely be included. Please refer to Appendix A for an image of the final AC-DC circuit design.
 
 \begin{figure}[htbp]
     \centering
@@ -109,7 +109,7 @@ Figure \ref{fig:ac_dc_converter_ideal_diagram} presents a high-level overview of
 
 \subsection{Input Filter}
 
-The input filter consists of two sub-circuits: (1) a pair of line-to-chassis ground capacitors and (2) a pair of RLC filters. The line-to-chassis ground Y-capacitors handle common-mode noise from the 115$V_{AC}$ input rail. Meanwhile, the two RLC circuits stabilize the voltage input of the full-wave rectifier. The two RLC circuit design, one per power rail, is borrowed from common industry best practices. Based on simulations, two RLC circuits moved the peak AC voltage down versus a single RLC circuit block. The trade-off between the inclusion of the damping resistors versus increased power consumption is okay for the main objectives of the project. Based on simulations, there was very little common-mode noise on the input of the 115$V_{AC}$ to 28$V_{DC}$, so no common-mode was included in the design. Refer to Figure \ref{fig:input_filter_top_level_diagram} for the top-level design of the input filter. 
+The input filter consists of four sub-circuits: (1) a pair of line-to-chassis ground capacitors (2) a pair of RLC filters (3) a TVS protection diode, and (4) a common-mode choke. The line-to-chassis ground Y-capacitors handle common-mode noise from the 115$V_{AC}$ input rail. Meanwhile, the two RLC circuits stabilize the voltage input of the full-wave rectifier. The two RLC circuit design, one per power rail, is borrowed from common industry best practices. Based on simulations, two RLC circuits moved the peak AC voltage down versus a single RLC circuit block. The trade-off between the inclusion of the damping resistors versus increased power consumption is okay for the main objectives of the project. Based on simulations, there was very little common-mode noise on the input of the 115$V_{AC}$ to 28$V_{DC}$, but a common-mode choke was still added to the input filter to block any common-mode noise coming from the outside world. Additionally, the common-mode choke will choke a lightning strike's commom-mode  input from impacting the rest of the circuit. A bidirectional TVS protection diode was added to meet DO-160G's lightning susceptibility requirements on the input side of the AC-DC converter. The diode will act as a low resistance path to ground when a large differential voltage spike occurs on the input line, which will protect the rest of the circuit since the voltage after the diode will remain constant while any current from transient voltage spikes are shunted to the return path. The diode is rated to shunt a differential lightning threat $>200V$. Refer to Figure \ref{fig:input_filter_top_level_diagram} for the top-level design of the input filter. 
 
 \begin{figure}[htp]
     \centering
@@ -138,24 +138,24 @@ Directly after the AC input filters, the AC signal is fed into a full-wave bridg
 
 A full-wave bridge rectifier was implemented because of its efficiency in comparison to a half-wave rectifier. The LTSpice model is shown in Figure \ref{fig:full-wave_bridge_rectifier_circuit_diagram}. For a full-wave rectifier, both cycles of the AC signal are converted into the DC signal. For a half-wave rectifier, only a single half cycle of the AC signal is transferred, while the other half cycle is blocked. 
 
-\begin{figure}[htp]
+\begin{figure}[hbp]
     \centering
-    \includegraphics[width=1.0\linewidth]{full-wave_bridge_rectifier_circuit.png}
+    \includegraphics[width=0.5\linewidth]{full-wave_bridge_rectifier_circuit.png}
     \caption{Full-Wave Bridge Rectifier Circuit}
     \label{fig:full-wave_bridge_rectifier_circuit_diagram}
 \end{figure}
 
 \subsection{Buck Converter}
-After the full-wave bridge rectifier is a Buck Converter. A buck converter is a DC-DC converter that steps down the DC input voltage using a voltage-controlled switch to generate a PWM output. After the PWM output, there is a bulk LC filter. The primary purpose of the bulk inductor and capacitor is to generate a stable stepped down DC output from the switching regulator's PWM input voltage. High-frequency noise introduced by the switching regulator will be handled by a separate block of output filtering components rather than by the bulk inductor and capacitor components. See Figure \ref{fig:buck_converter_circuit_diagram} for a diagram of a buck converter circuit.
+After the full-wave bridge rectifier is a Buck Converter. A buck converter is a DC-DC converter that steps down the DC input voltage using a voltage-controlled switch to generate a PWM output. After the PWM output, there is a bulk LC filter. The primary purpose of the bulk inductor and capacitor is to generate a stable stepped down DC output from the switching regulator's PWM input voltage. High-frequency noise introduced by the switching regulator will be handled by a separate block of output filtering components rather than by the bulk inductor and capacitor components. See Figure \ref{fig:buck_converter_circuit_diagram} for a generic diagram of a buck converter circuit.
 
 \begin{figure}[htp]
     \centering
     \includegraphics[width=1.0\linewidth]{buck_converter_circuit.png}
     \caption{Buck Converter Circuit}
-    \label{fig:buck_converter_circuit_diagram}
+    \label{fig:Buck Converter Voltage Output_circuit_diagram}
 \end{figure}
 
-The bulk inductor resists changes in current, so when the switch is turned off, it attempts to keep the current constant. Meanwhile, the bulk capacitor resists changes in voltage, and thus attempts to keep the output voltage constant. The LC circuit includes a protection diode to prevent the switch from being damaged by a reverse voltage spike from the inductor's stored energy when the switch turns ON again. In contrast, when the switch is turned OFF, the forward bias of the protection diode allows the inductor to discharge its stored current. See Figure \ref{fig:buck_converter_waveform_diagram} for a diagram of the expected output waveforms of the buck converter.
+The bulk inductor resists changes in current, so when the switch is turned off, it attempts to keep the current constant. Meanwhile, the bulk capacitor resists changes in voltage, and thus attempts to keep the output voltage constant. The LC circuit includes a protection diode to prevent the switch from being damaged by a reverse voltage spike from the inductor's stored energy when the switch turns ON again. In contrast, when the switch is turned OFF, the forward bias of the protection diode allows the inductor to discharge its stored current. See Figure \ref{fig:Buck Converter Voltage Output_waveform_diagram} for a diagram of the expected output waveforms of the buck converter.
 
 \begin{figure}[htp]
     \centering
@@ -166,12 +166,19 @@ The bulk inductor resists changes in current, so when the switch is turned off, 
 
 The team decided to move away from a linear regulator because the circuit is not as power-efficient as a switching regulator. The drawback of using a switching regulator is the voltage ripple introduced onto the DC output power rail due to the switching frequency. The switching noise and its harmonics will require output filtering to minimize the voltage ripple seen by the load and to guarantee that the conducted emissions of our circuit are below the DO-160G EMI conducted emissions threshold. 
 
-The switching voltage regulator will not use a feedback loop for auto-adjustment of the switch's duty cycle. For a power rail, typically a feedback loop would be used to adjust the switch's duty cycle so that the power rail can maintain a 28$V_{DC}$ output across a range of loads. The scope of this course focuses on EMI compliance and circuit design, so the 28$V_{DC}$ output will be optimized to meet the objective of 100$W$ power output in compliance with the DO-160G standard. If this were a power electronics course, then the team would have opted to design a feedback loop to the switching regulator so that the 115$V_{AC}$ to 28$V_{DC}$ converter would be complaint across loads.
+The switching voltage regulator will not use a feedback loop for auto-adjustment of the switch's duty cycle. For a power rail, typically a feedback loop would be used to adjust the switch's duty cycle so that the power rail can maintain a 28$V_{DC}$ output across a range of loads. The scope of this course focuses on EMI compliance and circuit design, so the 28$V_{DC}$ output will be optimized to meet the objective of 100$W$ power output in compliance with the DO-160G standard. If this were a power electronics course, then the team would have opted to design a feedback loop to the switching regulator so that the 115$V_{AC}$ to 28$V_{DC}$ converter would be compliant across loads. See Figure \ref{buck_converter_final_design.png} for the final design of the buck converter.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=0.7\linewidth]{buck_converter_final_design.png}
+    \caption{Final Design of Buck Converter Subcircuit of AC-DC Converter}
+    \label{fig:buck_converter_final_design_diagram}
+\end{figure}
 
 \subsection{Output Filter}
 The output filter for this current circuit design must suppress the noise introduced by the switching regulator in the 150${kHz}$ - 152${MHz}$ range, prevent common-mode noise from propagating to the load and from the load side, and eliminate differential-mode noise from the load. 
 
-The output filter design is presented in Figure \ref{fig:output_filter_top_level_diagram}. The output filter consists of two stages of RLC filtering, followed by unit-side line-to-chassis ground Y-capacitors, a common-mode choke, and load-side line-to-chassis ground Y-capacitors. Each sub-circuit of the output filter will be further analyzed.
+The output filter consists of four sub-circuits: (1) first stage RLC filter, (2) a second stage RLC filter, (3) a common-mode choke and common-mode Y-capacitors on the unit-side and load-side of the converter, and (4) a TVS protection diode for handling lightning susceptibility on the load side of the AC-DC converter. The output filter design is presented in Figure \ref{fig:output_filter_top_level_diagram}.
 
 \begin{figure}[htp]
     \centering
@@ -184,22 +191,25 @@ As part of the output filter deconstruction, two RLC filters implemented to atta
 
 RLC filters were chosen for their damping resistor. Damping was considered necessary for two reasons. First, although the noise across the load was below the DO-160G emissions line, the margin was 2${db}$ for a harmonic of the switching regulator noise. To increase the margin, an LC filter with a larger capacitor or inductance could have been applied. The risk of increasing the capacitance or inductance was that the LC filter's resonance was already in the middle of the AFCS range, and increasing the capacitor or inductor value does not eliminate our resonant frequency risk. So, a low value damping resistor is included to provide a sufficient damping factor (>1) while balancing power consumption by the set of damping resistors.
 
-The second part of the output filter consists of a common-mode choke and Y-capacitors from rail-to-chassis ground on both the unit-side and load-side of the choke. From simulation, the common-mode noise was minimal, but we think it's good design practice to isolate the unit-side's common-mode noise and the load-side's common-mode noise.
+The third part of the output filter consists of a common-mode choke and Y-capacitors from rail-to-chassis ground on both the unit-side and load-side of the choke. From simulation, the common-mode noise was minimal, but we think it's good design practice to isolate the unit-side's common-mode noise and the load-side's common-mode noise. More importantly, the common-mode choke will protect against a common-mode lightning strike threat.
 
-\section{Simulation Setup}
-
-\subsection{Input Filter}
-
-\subsection{Full-Wave Bridge Rectifier}
-To model the full-wave bridge rectifier in LTSpice, t
-
-\subsection{Buck Converter}
-\subsubsection{Buck Converter Power Efficiency Estimation}
-\subsubsection{LC Filter Calculation}
-\subsection{Output Filter}
-
+The fourth part of the output filter consists of a unidirectional TVS protection diode, which protects against differential lightning threats $>50V$. As the converter only supports output current in one direction, the diode can be unidirectional.
 
 \section{Results}
+To evaluate the circuit design, components were selected to achieve the desired cutoff frequency while providing sufficient damping to minimize resonant behavior.
+
+The following formula was used to calculate the damping factor for all RLC filters in the design.
+$$ \text{Damping Factor} = \zeta = \frac{R}{2} \sqrt{\frac{C}{L}}$$
+
+AC sweeps were conducted on the input filter and on the output filter to determine their resonance frequencies with respect to the AFCS range. The resonance frequencies were then fed back into the design to size the value of the damping resistors $R$ to achieve a sufficient damping factor $\zeta$. The challenge of sizing the damping resistor was balancing the damping factor and the AC-DC converter's power efficiency. See Figure for an example on sizing the two-stage RLC output filters.
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=1.0\linewidth]{resonance_frequency_design_feedback_results.png}
+    \caption{Two-Stage RLC Filter Damping Resistor Sizing with Respect to AFCS frequency range}
+    \label{fig:resonance_frequency_design_feedback_results_waveform}
+\end{figure}
+
 \subsection{Input Filter}
 
 The input filter's RLC circuit, which lies between the full-wave bridge rectifier and the ac voltage source, forces the current across R2 to retain most of its ac sine wave characteristic. There are large current spikes on the ac input that occur as the signal oscillates, see Figure \ref{fig:ac_input_waveform}. The spikes are attributable to the diodes of the full-wave rectifier reaching their threshold voltage, which allows current to flow and charge the bulk capacitor of the full-wave bridge rectifier.
@@ -220,7 +230,7 @@ The common-mode noise from the ac input was very small and occurred when the dio
     \label{fig:ac_input_common_mode_y_cap_noise_waveform}
 \end{figure}
 
-The current measurement across R11 demonstrates how the inductor, L6, resists changes in current from the 115 $V_{ac}$ source and smooths the input waveform. The current across the RLC's capacitor, C16, is high-frequency noise shunted to the negative rail. The current after capacitor C16, measured across $R5$, is a clean ac input, see Figure \ref{fig:ac_input_rlc_waveforms}
+The current measurement across $R11$ demonstrates how the inductor, $L6$, resists changes in current from the 115 $V_{ac}$ source and smooths the input waveform. The current across the RLC's capacitor, $C16$, is high-frequency noise shunted to the negative rail. The current after capacitor $C16$, measured across $R5$, is a clean ac input as seen in Figure \ref{fig:ac_input_rlc_waveforms}. Similarily, the current measurement across $R12$ demonstrates how the inductors, $L7$, resists changes in the negative half of the input waveform. The current across capacitor $C15$ shows minimal ringing as a result of sudden changes in the current. 
 
 \begin{figure}[htp]
     \centering
@@ -250,32 +260,32 @@ The capacitors $C12$ and $C11$, which connect the power rails to chassis-ground,
 
 \subsection{Buck Converter}
 
-The buck converter drops the full-wave bridge rectifier from 102V to 33.6V as measured across the capacitor $C7$. The current output of the switching regulator is maintained constant by the inductor, $L1$, as demonstrated in Figure \ref{fig:buck_converter_lc_filter_waveforms}. There is a slight discharge and recharge of the inductor as a result of the recharge and discharge of the bulk capacitor on the output of the full-wave bridge rectifier. As a final leg of the buck converter, high frequency noise is shunted to ground by capacitor $C7$. Most of the high frequency noise comes from the switching regulator, so the capacitor is important for immediately removing noise introduced by the switch.
+The buck converter drops the full-wave bridge rectifier from 102V to 33.6V as measured across the capacitor $C8$ (dark blue). The current output of the switching regulator is maintained constant by the inductor, $L1$, as demonstrated in Figure \ref{fig:buck_converter_voltage_and_output_filter_rlc_filter_stage_1_waveforms}. There is a slight discharge and recharge of the inductor as a result of the recharge and discharge of the bulk capacitor on the output of the full-wave bridge rectifier. As a final leg of the buck converter, high frequency current noise is shunted to ground by capacitor $C8$ (green shows current across $C7$ after $C8$ shunts high frequency current noise to return path). Most of the high frequency current noise comes from the switching regulator, so the capacitor is important for immediately removing noise introduced by the switch.
 
 \begin{figure}[htp]
     \centering
-    \includegraphics[width=1.0\linewidth]{buck_converter_lc_filter_waveforms.png}
-    \caption{Buck Converter Voltage Output}
-    \label{fig:buck_converter_lc_filter_waveforms}
+    \includegraphics[width=1.0\linewidth]{buck_converter_and_output_filter_rlc_stage_1.png}
+    \caption{Buck Converter Output versus RLC Stage 1 Output}
+    \label{fig:buck_converter_voltage_and_output_filter_rlc_filter_stage_1_waveforms}
 \end{figure}
 
 \subsection{Output Filter}
-In Figure \ref{fig:output_filter_rlc_stage_1_waveforms} the input voltage of the buck converter is provided and is plotted against the output voltage of the first stage RLC filter, measured across $C7$. There is a slight voltage drop because of $R4$, but more importantly, much of the high-frequency voltage noise from the switch is choked by $L2$. The voltage noise is visibly lower for the $C7$ measurement compared to the $C8$ measurement. The capacitor $C7$ removed much of the high frequency noise on current line, as demonstrated by the current noise seen on the $L2$ current measurement versus the $L5$ current measurement. The power penalty of including the damping resistor $R4$ is about 6.2$W$.
-
-\begin{figure}[htp]
-    \centering
-    \includegraphics[width=1.0\linewidth]{output_filter_rlc_stage_1.png}
-    \caption{Output RLC Filter Stage 1}
-    \label{fig:output_filter_rlc_stage_1_waveforms}
-\end{figure}
-
-Figure \ref{fig:output_filter_rlc_stage_2_waveforms} continues to demonstrate the voltage noise and current noise clean-up that was discussed for the first stage current measurement. The power penalty of including the damping resistor $R3$ is about 12.6$W$
+In Figure \ref{fig:output_filter_rlc_stage_2_waveforms} the input voltage of the buck converter is provided and is plotted against the output voltage of the first stage RLC filter, measured across $C7$. There is a slight voltage drop because of $R4$, but more importantly, much of the high-frequency voltage noise from the switch is choked by $L2$. The voltage noise is visibly lower for the $C7$ measurement compared to the $C8$ measurement. The capacitor $C7$ removed much of the high frequency noise on current line, as demonstrated by the current noise seen on the $L2$ current measurement versus the $L5$ current measurement. The power penalty of including the damping resistor $R4$ is about 6.2$W$.
 
 \begin{figure}[htp]
     \centering
     \includegraphics[width=1.0\linewidth]{output_filter_rlc_stage_2.png}
-    \caption{Output RLC Filter Stage 2}
+    \caption{RLC Filter Stage 1 versus Stage 2 Output}
     \label{fig:output_filter_rlc_stage_2_waveforms}
+\end{figure}
+
+Figure \ref{fig:output_filter_load_after_rlc_stage_2_waveforms} continues to demonstrate the voltage noise and current noise clean-up that was discussed for the first stage current measurement. The power penalty of including the damping resistor $R3$ is about 12.6$W$
+
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=1.0\linewidth]{output_filter_load_waveform.png}
+    \caption{Load Voltage and Current After Stage 2 RLC, Common-Mode Choke, TVS Diode, and Y-Capacitors}
+    \label{fig:output_filter_load_after_rlc_stage_2_waveforms}
 \end{figure}
 
 In addition to the common-mode choke, the noise current across the line to chassis-ground capacitors on the unit side and the load side were very small as seen in Figure \ref{fig:output_filter_chassis_ground_y_capacitors_waveforms}. There was very little common-mode noise risk from either the load side or source side threatening the AC-DC converter circuit.  
@@ -289,23 +299,18 @@ In addition to the common-mode choke, the noise current across the line to chass
 
 \subsection{Load}
 
-The voltage across the measured load was averaged 28.369$V$ and can be seen in Figure \ref{fig:load_average_voltage_waveform}. The regulator frequency could be modified to reach a perfect 28$V$, but there is negligible benefit in optimizing the power path of our circuit for the scope of this course. The voltage swing is high at $1V$, but the solution to reduce the voltage swing would be to design a feedback loop to the switching regulator which is also outside the purpose of this course. The current across the load resistor $R1$ is also very clean and has a small current swing. The output filter capacitor $C14$ shunted much of the remaining high frequency noise from the converter output to the negative power rail.
-
-\begin{figure}[htp]
-    \centering
-    \includegraphics[width=1.0\linewidth]{load_average_voltage.png}
-    \caption{Average voltage across load}
-    \label{fig:load_average_voltage_waveform}
-\end{figure}
+The voltage across the measured load was averaged 28.369$V$ and can be seen in Figure \ref{fig:output_filter_load_after_rlc_stage_2_waveforms}. The regulator frequency could be modified to reach a perfect 28$V$, but there is negligible benefit in optimizing the power path of our circuit for the scope of this course. The voltage swing is high at $1V$, but the solution to reduce the voltage swing would be to design a feedback loop to the switching regulator which is also outside the purpose of this course. The current across the load resistor $R1$ is also very clean and has a small current swing. The output filter capacitor $C14$ shunted much of the remaining high frequency noise from the converter output to the negative power rail.
 
 Figure \ref{fig:load_fft_150kHz_16MHz_waveform} displays the FFT of the output current in ($dB \mu A$ across the frequency range 150$kHz$ to 152$MHz$. All current noise values in the FFT lied below the DO-160G conducted emissions limit line.
 
-\begin{figure}[htb]
+\begin{figure}[h]
     \centering
     \includegraphics[width=1.0\linewidth]{load_fft_150kHz_16MHz.png}
     \caption{FFT of current (dBuA) across load from 150$kHz$ to 16.55$MHz$ frequency range}
     \label{fig:load_fft_150kHz_16MHz_waveform}
 \end{figure}
+
+\clearpage
 
 \section{Discussion}
 \subsection{$V_{AC}$ Input Noise}
@@ -320,7 +325,7 @@ Prior to adding the input RLC filters, the noise from the voltage source did not
 
 Figure \ref{fig:input_filter_emissions_limit_waveform} shows the input current after filtering has occurred. DO-160G conducted emissions are met across the entire frequency band.
 
-\begin{figure}[htb]
+\begin{figure}[h]
     \centering
     \includegraphics[width=1.0\linewidth]{input_filter_emissions_limit.png}
     \caption{Baseline AC-DC Converter Input with Filtering Passing DO-160G Conducted Emissions Limit across 150$kHz$ - 16.55$MHz$ frequency range}
@@ -353,5 +358,22 @@ There are two lessons learned that should be pursued going forward. (1) The filt
 \nocite{*}
 \bibliographystyle{ieeetr}
 \bibliography{final_project.bib}
+
+\newpage
+
+\begin{appendices}
+
+\onecolumn
+
+\section{Final AC-DC Converter Circuit Diagram}
+
+\begin{figure*}[!htb]
+    \centering
+    \includegraphics[width=\textwidth]{ac_dc_ltspice_final_implementation.png}
+    \caption{Final 115$V_{AC}$ to 28$V_{DC}$ AC-DC Converter Circuit}
+    \label{fig:ac_dc_ltspice_final_implementation_waveform}
+\end{figure*}
+
+\end{appendices}
 
 \end{document}
