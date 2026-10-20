@@ -4,6 +4,7 @@
 
 // Libraries, Includes, etc...
 #include "cuda_runtime.h"
+#include <stdio.h>
 
 // Kernel
 __global__ void printFKernel(
@@ -14,5 +15,5 @@ __global__ void printFKernel(
     int gid = threadIdx.x + blockDim.x * blockIdx.x;
     
     // Execution    
-    printf("Global Thread ID: %d, Block ID: %d, Thread ID: %d\n", gid, blockIdx.x, threadIdx.x);
+    printf("Global Thread ID: %d, Block ID: %u, Thread ID: %u\n", gid, blockIdx.x, threadIdx.x);
 } 

@@ -32,15 +32,25 @@ int main(
     const int volumeGrid_p_width[] = {3, 100, 1000};
 
     // ---- initialize GPU host API
-    // ---- query for platform/device information
-    // ---- setup GPU host API environment and device program(s)
-    // ---- allocate host memory variables _h
-    // ---- initialize host memory vars
-    // ---- allocate device memory vars _d
-    // ---- copy host memory to device memory
-    // ---- determine GPU device kernel execution configuration
-    // ---- launch kernel on device    
-    // ---- wait for kernel execution to complete, check for errors
-    // ---- retrieve results from device
-    // ---- use/verify results on host
+    checkCuda(cudaSetDevice(0), "cudaSetDevice");
+    // ---- run all kernel test cases
+    tbPrintFKernel();
+
+    for (int N : saxPy_vector_width) {
+        tbSaxPyKernel(N, saxPy_a);
+    }
+
+    for (int caseIndex = 0; caseIndex < 3; ++caseIndex) {
+        tbMatrixAdditionKernel(matrix_m_width[caseIndex],
+                               matrix_n_width[caseIndex]);
+    }
+
+    // Use a Release build for the largest volume test.
+    for (int caseIndex = 0; caseIndex < 3; ++caseIndex) {
+        tbVolumeGridAdditionKernel(volumeGrid_m_width[caseIndex],
+                                   volumeGrid_n_width[caseIndex],
+                                   volumeGrid_p_width[caseIndex]);
+    }
+
+    return 0;
 }
