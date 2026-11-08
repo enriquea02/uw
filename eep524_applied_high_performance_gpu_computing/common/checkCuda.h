@@ -3,7 +3,7 @@
 
 // Libraries, Includes, etc...
 #include <stdio.h>
-#include <assert.h>
+#include <stdlib.h>
 #include <cuda_runtime.h>
 
 // Host Application
@@ -18,7 +18,8 @@ inline static cudaError_t checkCuda (
     // Execution
     if ( result != cudaSuccess ) {
         fprintf ( stderr , "CUDA Runtime Error ( src : %s): %s \n" , srcStr , cudaGetErrorString ( result ));
-        assert ( result == cudaSuccess );
+        // Stop on errors in both Debug and Release builds.
+        exit ( EXIT_FAILURE );
     }
     return result;
 }
