@@ -16,10 +16,13 @@ __global__ void SingleBifurcation(
     int index = blockIdx.x * blockDim.x + threadIdx.x;
 
     if ((threadIdx.x < 10) || (!divergent)) {
-        data[index] = threadIdx.x;
+        for (int i = 0; i < 10; i++) {
+            data[index] = (data[index] * threadIdx.x) + 1.5f;
+        }
     } else {
-        data[index] = threadIdx.x * 2;
-    }
+        for (int i = 0; i < 10; i++) {
+            data[index] = ((data[index] + 3.0f) * 0.501f) - 1.5f;
+        }    }
 
 } 
 
