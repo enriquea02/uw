@@ -11,6 +11,8 @@
 // Libraries, Includes, etc...
 #include <stdio.h>
 #include <stdlib.h>
+#include <Windows.h>
+#include <profileapi.h>
 #include <cmath>
 #include <iterator>
 #include "checkCuda.h"
@@ -57,6 +59,14 @@ int main(
     float* M_d = nullptr;
     float* N_d = nullptr;
     float* P_d = nullptr;
+
+    // Timing variables
+    LARGE_INTEGER frequency;
+    LARGE_INTEGER start_timer, end_timer;
+    double elapsed = 0.0;
+
+    // ---- Get number of ticks per second
+    QueryPerformanceFrequency(&frequency);
 
     // ---- initialize GPU host API
     checkCuda(cudaSetDevice(0), "cudaSetDevice");
@@ -150,15 +160,29 @@ int main(
         // ---- launch transpose and corner-turning kernel, check errors, and retrieve its result
         // Clear the buffer so the naive result cannot hide a missing corner-turning write.
         checkCuda(cudaMemset(P_d, 0, bytes_P), "Clear corner-turning output");
+
+        // START timer
+        QueryPerformanceCounter(&start_timer);
+
+        // ---- copy host memory to device memory (again for timing's sake...)
+        checkCuda(cudaMemcpy(M_d, M_h, bytes_M, cudaMemcpyHostToDevice), "Copy M");
+        checkCuda(cudaMemcpy(N_d, N_h, bytes_N, cudaMemcpyHostToDevice), "Copy N");
+
         // Transpose matrix M on the device
         transposeCoalesced<<<blocks_transpose, threads_transpose>>>(M_d, tM_d);
         checkCuda(cudaGetLastError(), "Transpose M launch");
         checkCuda(cudaDeviceSynchronize(), "Transpose M execution");
         cornerTurning_mmult<<<blocks, threads>>>(tM_d, N_d, P_d, J, K, L);
+
+        // Execute Corner-Turning Kernel MMULT
         checkCuda(cudaGetLastError(), "Corner Turning MMULT launch");
         checkCuda(cudaDeviceSynchronize(), "Corner Turning MMULT execution");
-        checkCuda(cudaMemcpy(P_cornerTurning, P_d, bytes_P, cudaMemcpyDeviceToHost),
-                  "Copy corner-turning output");
+        checkCuda(cudaMemcpy(P_cornerTurning, P_d, bytes_P, cudaMemcpyDeviceToHost), "Copy corner-turning output");
+
+        // STOP timer
+        QueryPerformanceCounter(&end_timer);
+        elapsed = (double)(end_timer.QuadPart - start_timer.QuadPart) / frequency.QuadPart;
+        printf("Total [Corner Turning] execution time: %f seconds\n", elapsed);
 
         // ---- use/verify results on host
         total_errors += verify_mmult("Naive GPU", P_cpu, P_naive, J * L,
