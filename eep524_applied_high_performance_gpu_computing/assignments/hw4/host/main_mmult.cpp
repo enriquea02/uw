@@ -67,7 +67,7 @@ int main(
         K = inner_sizes[caseIndex];
         L = columns[caseIndex];
         bytes_M = (size_t)J * K * sizeof(float);
-        bytes_N = (size_t)K * L * sizeof(float);O
+        bytes_N = (size_t)K * L * sizeof(float);
         bytes_P = (size_t)J * L * sizeof(float);
 
         printf("\nOutput: %d x %d, inner size: %d, tile width: %d\n", J, L, K, TILE_WIDTH);
