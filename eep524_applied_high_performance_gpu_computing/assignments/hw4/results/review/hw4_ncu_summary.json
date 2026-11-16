@@ -1,0 +1,3958 @@
+{
+  "method": "Read original .ncu-repz reports with NVIDIA ncu-report 2026.3.1. No new GPU runs. Values are profiler counters, not application host timings.",
+  "matrix_shape_assumption": {
+    "J": 256,
+    "K": 256,
+    "L": 256,
+    "element_bytes": 4
+  },
+  "actions": [
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "tile_width": 8,
+      "kernel": "mmult_sqr_gmem",
+      "report_sha256": "97ba5d32ab7a9fd1b9235784ac104740396ed4ba8b714176bf3c749b0fca3ccc",
+      "metrics": {
+        "gpu__time_duration.sum": {
+          "value": 87488.0,
+          "unit": "ns"
+        },
+        "device__attribute_display_name": {
+          "value": "Tesla T4",
+          "unit": ""
+        },
+        "device__attribute_multiprocessor_count": {
+          "value": 40,
+          "unit": ""
+        },
+        "device__attribute_l2_cache_size": {
+          "value": 4194304,
+          "unit": ""
+        },
+        "device__attribute_ecc_enabled": {
+          "value": 1,
+          "unit": ""
+        },
+        "launch__block_dim_x": {
+          "value": 8,
+          "unit": "block"
+        },
+        "launch__block_dim_y": {
+          "value": 8,
+          "unit": "block"
+        },
+        "launch__grid_dim_x": {
+          "value": 32,
+          "unit": ""
+        },
+        "launch__grid_dim_y": {
+          "value": 32,
+          "unit": ""
+        },
+        "launch__block_size": {
+          "value": 64,
+          "unit": ""
+        },
+        "launch__grid_size": {
+          "value": 1024,
+          "unit": ""
+        },
+        "launch__thread_count": {
+          "value": 65536,
+          "unit": "thread"
+        },
+        "launch__registers_per_thread": {
+          "value": 52,
+          "unit": "register/thread"
+        },
+        "launch__registers_per_thread_allocated": {
+          "value": 56.0,
+          "unit": "register/thread"
+        },
+        "launch__shared_mem_per_block_static": {
+          "value": 0,
+          "unit": "byte/block"
+        },
+        "launch__waves_per_multiprocessor": {
+          "value": 1.6,
+          "unit": ""
+        },
+        "sm__warps_active.avg.pct_of_peak_sustained_active": {
+          "value": 76.9555455005855,
+          "unit": "%"
+        },
+        "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum": {
+          "value": 1048576.0,
+          "unit": ""
+        },
+        "l1tex__t_sectors_pipe_lsu_mem_global_op_ld.sum": {
+          "value": 2621365.0,
+          "unit": "sector"
+        },
+        "l1tex__t_requests_pipe_lsu_mem_global_op_st.sum": {
+          "value": 2048.0,
+          "unit": ""
+        },
+        "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "l1tex__t_sector_pipe_lsu_mem_global_op_ld_hit_rate.pct": {
+          "value": 83.17838225504651,
+          "unit": "%"
+        },
+        "lts__t_sectors_srcunit_tex_op_read.sum": {
+          "value": 441868.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_read_lookup_hit.sum": {
+          "value": 406344.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_read_lookup_miss.sum": {
+          "value": 16384.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_write.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "lts__t_sector_op_read_hit_rate.pct": {
+          "value": 98.66257991623826,
+          "unit": "%"
+        },
+        "dram__bytes_read.sum": {
+          "value": 942240.0,
+          "unit": "byte"
+        },
+        "dram__bytes_write.sum": {
+          "value": 0.0,
+          "unit": "byte"
+        },
+        "sass__inst_executed_shared_loads": {
+          "value": 0.0,
+          "unit": "inst"
+        },
+        "sass__inst_executed_shared_stores": {
+          "value": 0.0,
+          "unit": "inst"
+        },
+        "sass__inst_executed_register_spilling": {
+          "value": 0,
+          "unit": "inst"
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_st.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_st.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "memory_l1_wavefronts_shared": {
+          "value": 0,
+          "unit": "sectors"
+        },
+        "memory_l1_wavefronts_shared_ideal": {
+          "value": 0,
+          "unit": "sectors"
+        },
+        "derived__memory_l1_wavefronts_shared_excessive": {
+          "value": 0,
+          "unit": ""
+        },
+        "memory_l2_theoretical_sectors_global": {
+          "value": 2629632,
+          "unit": "sectors"
+        },
+        "memory_l2_theoretical_sectors_global_ideal": {
+          "value": 2629632,
+          "unit": "sectors"
+        },
+        "derived__memory_l2_theoretical_sectors_global_excessive": {
+          "value": 0,
+          "unit": "byte"
+        },
+        "profiler__replayer_passes": {
+          "value": 34.0,
+          "unit": "pass"
+        }
+      },
+      "derived": {
+        "duration_us": 87.488,
+        "global_load_sectors_per_request": 2.4999284744262695
+      },
+      "memory_opcode_counts": {
+        "LDG.E.SYS": 1048576.0,
+        "STG.E.SYS": 2048.0
+      },
+      "rule_titles": [
+        {
+          "rule": "SOLBottleneck",
+          "title": "Latency Issue"
+        },
+        {
+          "rule": "IssueSlotUtilization",
+          "title": ""
+        },
+        {
+          "rule": "AchievedOccupancy",
+          "title": ""
+        },
+        {
+          "rule": "CPIStall",
+          "title": "Lg Throttle Stalls"
+        },
+        {
+          "rule": "CPIStall",
+          "title": ""
+        },
+        {
+          "rule": "HighPipeUtilization",
+          "title": "Low Utilization"
+        },
+        {
+          "rule": "LaunchConfiguration",
+          "title": "Tail Effect"
+        },
+        {
+          "rule": "MemoryCacheAccessPattern",
+          "title": "L1TEX Global Load Access Pattern"
+        },
+        {
+          "rule": "PMSamplingData",
+          "title": ""
+        },
+        {
+          "rule": "SOLFPRoofline",
+          "title": "Roofline Analysis"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "SMs Workload Imbalance"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "L1 Slices Workload Imbalance"
+        }
+      ]
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "tile_width": 8,
+      "kernel": "tiled_mmult",
+      "report_sha256": "97ba5d32ab7a9fd1b9235784ac104740396ed4ba8b714176bf3c749b0fca3ccc",
+      "metrics": {
+        "gpu__time_duration.sum": {
+          "value": 63072.0,
+          "unit": "ns"
+        },
+        "device__attribute_display_name": {
+          "value": "Tesla T4",
+          "unit": ""
+        },
+        "device__attribute_multiprocessor_count": {
+          "value": 40,
+          "unit": ""
+        },
+        "device__attribute_l2_cache_size": {
+          "value": 4194304,
+          "unit": ""
+        },
+        "device__attribute_ecc_enabled": {
+          "value": 1,
+          "unit": ""
+        },
+        "launch__block_dim_x": {
+          "value": 8,
+          "unit": "block"
+        },
+        "launch__block_dim_y": {
+          "value": 8,
+          "unit": "block"
+        },
+        "launch__grid_dim_x": {
+          "value": 32,
+          "unit": ""
+        },
+        "launch__grid_dim_y": {
+          "value": 32,
+          "unit": ""
+        },
+        "launch__block_size": {
+          "value": 64,
+          "unit": ""
+        },
+        "launch__grid_size": {
+          "value": 1024,
+          "unit": ""
+        },
+        "launch__thread_count": {
+          "value": 65536,
+          "unit": "thread"
+        },
+        "launch__registers_per_thread": {
+          "value": 36,
+          "unit": "register/thread"
+        },
+        "launch__registers_per_thread_allocated": {
+          "value": 40.0,
+          "unit": "register/thread"
+        },
+        "launch__shared_mem_per_block_static": {
+          "value": 512,
+          "unit": "byte/block"
+        },
+        "launch__waves_per_multiprocessor": {
+          "value": 1.6,
+          "unit": ""
+        },
+        "sm__warps_active.avg.pct_of_peak_sustained_active": {
+          "value": 82.93561505114604,
+          "unit": "%"
+        },
+        "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum": {
+          "value": 131072.0,
+          "unit": ""
+        },
+        "l1tex__t_sectors_pipe_lsu_mem_global_op_ld.sum": {
+          "value": 523059.0,
+          "unit": "sector"
+        },
+        "l1tex__t_requests_pipe_lsu_mem_global_op_st.sum": {
+          "value": 2048.0,
+          "unit": ""
+        },
+        "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "l1tex__t_sector_pipe_lsu_mem_global_op_ld_hit_rate.pct": {
+          "value": 39.022748867718555,
+          "unit": "%"
+        },
+        "lts__t_sectors_srcunit_tex_op_read.sum": {
+          "value": 309485.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_read_lookup_hit.sum": {
+          "value": 303173.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_read_lookup_miss.sum": {
+          "value": 16384.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_write.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "lts__t_sector_op_read_hit_rate.pct": {
+          "value": 99.33221719714784,
+          "unit": "%"
+        },
+        "dram__bytes_read.sum": {
+          "value": 909088.0,
+          "unit": "byte"
+        },
+        "dram__bytes_write.sum": {
+          "value": 0.0,
+          "unit": "byte"
+        },
+        "sass__inst_executed_shared_loads": {
+          "value": 655360.0,
+          "unit": "inst"
+        },
+        "sass__inst_executed_shared_stores": {
+          "value": 131072.0,
+          "unit": "inst"
+        },
+        "sass__inst_executed_register_spilling": {
+          "value": 0,
+          "unit": "inst"
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum": {
+          "value": 786432.0,
+          "unit": ""
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_st.sum": {
+          "value": 131072.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_st.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "memory_l1_wavefronts_shared": {
+          "value": 917504,
+          "unit": "sectors"
+        },
+        "memory_l1_wavefronts_shared_ideal": {
+          "value": 917504,
+          "unit": "sectors"
+        },
+        "derived__memory_l1_wavefronts_shared_excessive": {
+          "value": 0,
+          "unit": ""
+        },
+        "memory_l2_theoretical_sectors_global": {
+          "value": 532480,
+          "unit": "sectors"
+        },
+        "memory_l2_theoretical_sectors_global_ideal": {
+          "value": 532480,
+          "unit": "sectors"
+        },
+        "derived__memory_l2_theoretical_sectors_global_excessive": {
+          "value": 0,
+          "unit": "byte"
+        },
+        "profiler__replayer_passes": {
+          "value": 34.0,
+          "unit": "pass"
+        }
+      },
+      "derived": {
+        "duration_us": 63.072,
+        "global_load_sectors_per_request": 3.9906234741210938
+      },
+      "memory_opcode_counts": {
+        "LDS.U": 524288.0,
+        "STS": 131072.0,
+        "LDS.U.128": 131072.0,
+        "LDG.E.SYS": 131072.0,
+        "STG.E.SYS": 2048.0
+      },
+      "rule_titles": [
+        {
+          "rule": "SOLBottleneck",
+          "title": "Latency Issue"
+        },
+        {
+          "rule": "IssueSlotUtilization",
+          "title": ""
+        },
+        {
+          "rule": "AchievedOccupancy",
+          "title": ""
+        },
+        {
+          "rule": "CPIStall",
+          "title": "Long Scoreboard Stalls"
+        },
+        {
+          "rule": "CPIStall",
+          "title": "Mio Throttle Stalls"
+        },
+        {
+          "rule": "CPIStall",
+          "title": ""
+        },
+        {
+          "rule": "HighPipeUtilization",
+          "title": "Low Utilization"
+        },
+        {
+          "rule": "LaunchConfiguration",
+          "title": "Tail Effect"
+        },
+        {
+          "rule": "PMSamplingData",
+          "title": ""
+        },
+        {
+          "rule": "SOLFPRoofline",
+          "title": "Roofline Analysis"
+        }
+      ]
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "tile_width": 8,
+      "kernel": "transposeCoalesced",
+      "report_sha256": "97ba5d32ab7a9fd1b9235784ac104740396ed4ba8b714176bf3c749b0fca3ccc",
+      "metrics": {
+        "gpu__time_duration.sum": {
+          "value": 3552.0,
+          "unit": "ns"
+        },
+        "device__attribute_display_name": {
+          "value": "Tesla T4",
+          "unit": ""
+        },
+        "device__attribute_multiprocessor_count": {
+          "value": 40,
+          "unit": ""
+        },
+        "device__attribute_l2_cache_size": {
+          "value": 4194304,
+          "unit": ""
+        },
+        "device__attribute_ecc_enabled": {
+          "value": 1,
+          "unit": ""
+        },
+        "launch__block_dim_x": {
+          "value": 32,
+          "unit": "block"
+        },
+        "launch__block_dim_y": {
+          "value": 32,
+          "unit": "block"
+        },
+        "launch__grid_dim_x": {
+          "value": 8,
+          "unit": ""
+        },
+        "launch__grid_dim_y": {
+          "value": 8,
+          "unit": ""
+        },
+        "launch__block_size": {
+          "value": 1024,
+          "unit": ""
+        },
+        "launch__grid_size": {
+          "value": 64,
+          "unit": ""
+        },
+        "launch__thread_count": {
+          "value": 65536,
+          "unit": "thread"
+        },
+        "launch__registers_per_thread": {
+          "value": 16,
+          "unit": "register/thread"
+        },
+        "launch__registers_per_thread_allocated": {
+          "value": 16.0,
+          "unit": "register/thread"
+        },
+        "launch__shared_mem_per_block_static": {
+          "value": 4224,
+          "unit": "byte/block"
+        },
+        "launch__waves_per_multiprocessor": {
+          "value": 1.6,
+          "unit": ""
+        },
+        "sm__warps_active.avg.pct_of_peak_sustained_active": {
+          "value": 97.91373121639812,
+          "unit": "%"
+        },
+        "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum": {
+          "value": 2048.0,
+          "unit": ""
+        },
+        "l1tex__t_sectors_pipe_lsu_mem_global_op_ld.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "l1tex__t_requests_pipe_lsu_mem_global_op_st.sum": {
+          "value": 2048.0,
+          "unit": ""
+        },
+        "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "l1tex__t_sector_pipe_lsu_mem_global_op_ld_hit_rate.pct": {
+          "value": 0.0,
+          "unit": "%"
+        },
+        "lts__t_sectors_srcunit_tex_op_read.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_read_lookup_hit.sum": {
+          "value": 0.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_read_lookup_miss.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_write.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "lts__t_sector_op_read_hit_rate.pct": {
+          "value": 4.565367765736685,
+          "unit": "%"
+        },
+        "dram__bytes_read.sum": {
+          "value": 305024.0,
+          "unit": "byte"
+        },
+        "dram__bytes_write.sum": {
+          "value": 0.0,
+          "unit": "byte"
+        },
+        "sass__inst_executed_shared_loads": {
+          "value": 2048.0,
+          "unit": "inst"
+        },
+        "sass__inst_executed_shared_stores": {
+          "value": 2048.0,
+          "unit": "inst"
+        },
+        "sass__inst_executed_register_spilling": {
+          "value": 0,
+          "unit": "inst"
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum": {
+          "value": 2048.0,
+          "unit": ""
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_st.sum": {
+          "value": 2048.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_st.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "memory_l1_wavefronts_shared": {
+          "value": 4096,
+          "unit": "sectors"
+        },
+        "memory_l1_wavefronts_shared_ideal": {
+          "value": 4096,
+          "unit": "sectors"
+        },
+        "derived__memory_l1_wavefronts_shared_excessive": {
+          "value": 0,
+          "unit": ""
+        },
+        "memory_l2_theoretical_sectors_global": {
+          "value": 16384,
+          "unit": "sectors"
+        },
+        "memory_l2_theoretical_sectors_global_ideal": {
+          "value": 16384,
+          "unit": "sectors"
+        },
+        "derived__memory_l2_theoretical_sectors_global_excessive": {
+          "value": 0,
+          "unit": "byte"
+        },
+        "profiler__replayer_passes": {
+          "value": 34.0,
+          "unit": "pass"
+        }
+      },
+      "derived": {
+        "duration_us": 3.552,
+        "global_load_sectors_per_request": 4.0
+      },
+      "memory_opcode_counts": {
+        "STS": 2048.0,
+        "STG.E.SYS": 2048.0,
+        "LDS.U": 2048.0,
+        "LDG.E.SYS": 2048.0
+      },
+      "rule_titles": [
+        {
+          "rule": "SOLBottleneck",
+          "title": "Latency Issue"
+        },
+        {
+          "rule": "IssueSlotUtilization",
+          "title": ""
+        },
+        {
+          "rule": "CPIStall",
+          "title": "Long Scoreboard Stalls"
+        },
+        {
+          "rule": "CPIStall",
+          "title": ""
+        },
+        {
+          "rule": "HighPipeUtilization",
+          "title": "Low Utilization"
+        },
+        {
+          "rule": "LaunchConfiguration",
+          "title": "Small Grid"
+        },
+        {
+          "rule": "LaunchConfiguration",
+          "title": "Tail Effect"
+        },
+        {
+          "rule": "PMSamplingData",
+          "title": ""
+        },
+        {
+          "rule": "SOLFPRoofline",
+          "title": "Roofline Analysis"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "SMs Workload Imbalance"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "SMSPs Workload Imbalance"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "L1 Slices Workload Imbalance"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "L2 Slices Workload Imbalance"
+        }
+      ]
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "tile_width": 8,
+      "kernel": "cornerTurning_mmult",
+      "report_sha256": "97ba5d32ab7a9fd1b9235784ac104740396ed4ba8b714176bf3c749b0fca3ccc",
+      "metrics": {
+        "gpu__time_duration.sum": {
+          "value": 72032.0,
+          "unit": "ns"
+        },
+        "device__attribute_display_name": {
+          "value": "Tesla T4",
+          "unit": ""
+        },
+        "device__attribute_multiprocessor_count": {
+          "value": 40,
+          "unit": ""
+        },
+        "device__attribute_l2_cache_size": {
+          "value": 4194304,
+          "unit": ""
+        },
+        "device__attribute_ecc_enabled": {
+          "value": 1,
+          "unit": ""
+        },
+        "launch__block_dim_x": {
+          "value": 8,
+          "unit": "block"
+        },
+        "launch__block_dim_y": {
+          "value": 8,
+          "unit": "block"
+        },
+        "launch__grid_dim_x": {
+          "value": 32,
+          "unit": ""
+        },
+        "launch__grid_dim_y": {
+          "value": 32,
+          "unit": ""
+        },
+        "launch__block_size": {
+          "value": 64,
+          "unit": ""
+        },
+        "launch__grid_size": {
+          "value": 1024,
+          "unit": ""
+        },
+        "launch__thread_count": {
+          "value": 65536,
+          "unit": "thread"
+        },
+        "launch__registers_per_thread": {
+          "value": 33,
+          "unit": "register/thread"
+        },
+        "launch__registers_per_thread_allocated": {
+          "value": 40.0,
+          "unit": "register/thread"
+        },
+        "launch__shared_mem_per_block_static": {
+          "value": 512,
+          "unit": "byte/block"
+        },
+        "launch__waves_per_multiprocessor": {
+          "value": 1.6,
+          "unit": ""
+        },
+        "sm__warps_active.avg.pct_of_peak_sustained_active": {
+          "value": 81.70568403252038,
+          "unit": "%"
+        },
+        "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum": {
+          "value": 131072.0,
+          "unit": ""
+        },
+        "l1tex__t_sectors_pipe_lsu_mem_global_op_ld.sum": {
+          "value": 522244.0,
+          "unit": "sector"
+        },
+        "l1tex__t_requests_pipe_lsu_mem_global_op_st.sum": {
+          "value": 2048.0,
+          "unit": ""
+        },
+        "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "l1tex__t_sector_pipe_lsu_mem_global_op_ld_hit_rate.pct": {
+          "value": 36.55053959451904,
+          "unit": "%"
+        },
+        "lts__t_sectors_srcunit_tex_op_read.sum": {
+          "value": 336717.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_read_lookup_hit.sum": {
+          "value": 326729.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_read_lookup_miss.sum": {
+          "value": 16384.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_write.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "lts__t_sector_op_read_hit_rate.pct": {
+          "value": 99.80231203676388,
+          "unit": "%"
+        },
+        "dram__bytes_read.sum": {
+          "value": 866656.0,
+          "unit": "byte"
+        },
+        "dram__bytes_write.sum": {
+          "value": 0.0,
+          "unit": "byte"
+        },
+        "sass__inst_executed_shared_loads": {
+          "value": 1048576.0,
+          "unit": "inst"
+        },
+        "sass__inst_executed_shared_stores": {
+          "value": 131072.0,
+          "unit": "inst"
+        },
+        "sass__inst_executed_register_spilling": {
+          "value": 0,
+          "unit": "inst"
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum": {
+          "value": 1048576.0,
+          "unit": ""
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_st.sum": {
+          "value": 131072.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_st.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "memory_l1_wavefronts_shared": {
+          "value": 1179648,
+          "unit": "sectors"
+        },
+        "memory_l1_wavefronts_shared_ideal": {
+          "value": 1179648,
+          "unit": "sectors"
+        },
+        "derived__memory_l1_wavefronts_shared_excessive": {
+          "value": 0,
+          "unit": ""
+        },
+        "memory_l2_theoretical_sectors_global": {
+          "value": 532480,
+          "unit": "sectors"
+        },
+        "memory_l2_theoretical_sectors_global_ideal": {
+          "value": 532480,
+          "unit": "sectors"
+        },
+        "derived__memory_l2_theoretical_sectors_global_excessive": {
+          "value": 0,
+          "unit": "byte"
+        },
+        "profiler__replayer_passes": {
+          "value": 34.0,
+          "unit": "pass"
+        }
+      },
+      "derived": {
+        "duration_us": 72.032,
+        "global_load_sectors_per_request": 3.984405517578125
+      },
+      "memory_opcode_counts": {
+        "LDS.U": 1048576.0,
+        "STS": 131072.0,
+        "LDG.E.SYS": 131072.0,
+        "STG.E.SYS": 2048.0
+      },
+      "rule_titles": [
+        {
+          "rule": "SOLBottleneck",
+          "title": "Latency Issue"
+        },
+        {
+          "rule": "IssueSlotUtilization",
+          "title": ""
+        },
+        {
+          "rule": "AchievedOccupancy",
+          "title": ""
+        },
+        {
+          "rule": "CPIStall",
+          "title": "Mio Throttle Stalls"
+        },
+        {
+          "rule": "CPIStall",
+          "title": "Long Scoreboard Stalls"
+        },
+        {
+          "rule": "CPIStall",
+          "title": ""
+        },
+        {
+          "rule": "HighPipeUtilization",
+          "title": "Low Utilization"
+        },
+        {
+          "rule": "LaunchConfiguration",
+          "title": "Tail Effect"
+        },
+        {
+          "rule": "PMSamplingData",
+          "title": ""
+        },
+        {
+          "rule": "SOLFPRoofline",
+          "title": "Roofline Analysis"
+        }
+      ]
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "tile_width": 16,
+      "kernel": "mmult_sqr_gmem",
+      "report_sha256": "94866b927ebb1927c0dfdf13f48fc588e1752cab79eeced5f2a0cfe5aa5db0c2",
+      "metrics": {
+        "gpu__time_duration.sum": {
+          "value": 61152.0,
+          "unit": "ns"
+        },
+        "device__attribute_display_name": {
+          "value": "Tesla T4",
+          "unit": ""
+        },
+        "device__attribute_multiprocessor_count": {
+          "value": 40,
+          "unit": ""
+        },
+        "device__attribute_l2_cache_size": {
+          "value": 4194304,
+          "unit": ""
+        },
+        "device__attribute_ecc_enabled": {
+          "value": 1,
+          "unit": ""
+        },
+        "launch__block_dim_x": {
+          "value": 16,
+          "unit": "block"
+        },
+        "launch__block_dim_y": {
+          "value": 16,
+          "unit": "block"
+        },
+        "launch__grid_dim_x": {
+          "value": 16,
+          "unit": ""
+        },
+        "launch__grid_dim_y": {
+          "value": 16,
+          "unit": ""
+        },
+        "launch__block_size": {
+          "value": 256,
+          "unit": ""
+        },
+        "launch__grid_size": {
+          "value": 256,
+          "unit": ""
+        },
+        "launch__thread_count": {
+          "value": 65536,
+          "unit": "thread"
+        },
+        "launch__registers_per_thread": {
+          "value": 52,
+          "unit": "register/thread"
+        },
+        "launch__registers_per_thread_allocated": {
+          "value": 56.0,
+          "unit": "register/thread"
+        },
+        "launch__shared_mem_per_block_static": {
+          "value": 0,
+          "unit": "byte/block"
+        },
+        "launch__waves_per_multiprocessor": {
+          "value": 1.6,
+          "unit": ""
+        },
+        "sm__warps_active.avg.pct_of_peak_sustained_active": {
+          "value": 80.65733930380317,
+          "unit": "%"
+        },
+        "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum": {
+          "value": 1048576.0,
+          "unit": ""
+        },
+        "l1tex__t_sectors_pipe_lsu_mem_global_op_ld.sum": {
+          "value": 2097152.0,
+          "unit": "sector"
+        },
+        "l1tex__t_requests_pipe_lsu_mem_global_op_st.sum": {
+          "value": 2048.0,
+          "unit": ""
+        },
+        "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "l1tex__t_sector_pipe_lsu_mem_global_op_ld_hit_rate.pct": {
+          "value": 91.31917953491211,
+          "unit": "%"
+        },
+        "lts__t_sectors_srcunit_tex_op_read.sum": {
+          "value": 182945.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_read_lookup_hit.sum": {
+          "value": 170824.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_read_lookup_miss.sum": {
+          "value": 16384.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_write.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "lts__t_sector_op_read_hit_rate.pct": {
+          "value": 93.2802601825439,
+          "unit": "%"
+        },
+        "dram__bytes_read.sum": {
+          "value": 990752.0,
+          "unit": "byte"
+        },
+        "dram__bytes_write.sum": {
+          "value": 0.0,
+          "unit": "byte"
+        },
+        "sass__inst_executed_shared_loads": {
+          "value": 0.0,
+          "unit": "inst"
+        },
+        "sass__inst_executed_shared_stores": {
+          "value": 0.0,
+          "unit": "inst"
+        },
+        "sass__inst_executed_register_spilling": {
+          "value": 0,
+          "unit": "inst"
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_st.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_st.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "memory_l1_wavefronts_shared": {
+          "value": 0,
+          "unit": "sectors"
+        },
+        "memory_l1_wavefronts_shared_ideal": {
+          "value": 0,
+          "unit": "sectors"
+        },
+        "derived__memory_l1_wavefronts_shared_excessive": {
+          "value": 0,
+          "unit": ""
+        },
+        "memory_l2_theoretical_sectors_global": {
+          "value": 2105344,
+          "unit": "sectors"
+        },
+        "memory_l2_theoretical_sectors_global_ideal": {
+          "value": 2105344,
+          "unit": "sectors"
+        },
+        "derived__memory_l2_theoretical_sectors_global_excessive": {
+          "value": 0,
+          "unit": "byte"
+        },
+        "profiler__replayer_passes": {
+          "value": 34.0,
+          "unit": "pass"
+        }
+      },
+      "derived": {
+        "duration_us": 61.152,
+        "global_load_sectors_per_request": 2.0
+      },
+      "memory_opcode_counts": {
+        "LDG.E.SYS": 1048576.0,
+        "STG.E.SYS": 2048.0
+      },
+      "rule_titles": [
+        {
+          "rule": "SOLBottleneck",
+          "title": "Latency Issue"
+        },
+        {
+          "rule": "IssueSlotUtilization",
+          "title": ""
+        },
+        {
+          "rule": "AchievedOccupancy",
+          "title": ""
+        },
+        {
+          "rule": "CPIStall",
+          "title": "Lg Throttle Stalls"
+        },
+        {
+          "rule": "CPIStall",
+          "title": ""
+        },
+        {
+          "rule": "HighPipeUtilization",
+          "title": "Low Utilization"
+        },
+        {
+          "rule": "LaunchConfiguration",
+          "title": "Tail Effect"
+        },
+        {
+          "rule": "MemoryCacheAccessPattern",
+          "title": "L1TEX Global Load Access Pattern"
+        },
+        {
+          "rule": "PMSamplingData",
+          "title": ""
+        },
+        {
+          "rule": "SOLFPRoofline",
+          "title": "Roofline Analysis"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "SMs Workload Imbalance"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "SMSPs Workload Imbalance"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "L1 Slices Workload Imbalance"
+        }
+      ]
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "tile_width": 16,
+      "kernel": "tiled_mmult",
+      "report_sha256": "94866b927ebb1927c0dfdf13f48fc588e1752cab79eeced5f2a0cfe5aa5db0c2",
+      "metrics": {
+        "gpu__time_duration.sum": {
+          "value": 45728.0,
+          "unit": "ns"
+        },
+        "device__attribute_display_name": {
+          "value": "Tesla T4",
+          "unit": ""
+        },
+        "device__attribute_multiprocessor_count": {
+          "value": 40,
+          "unit": ""
+        },
+        "device__attribute_l2_cache_size": {
+          "value": 4194304,
+          "unit": ""
+        },
+        "device__attribute_ecc_enabled": {
+          "value": 1,
+          "unit": ""
+        },
+        "launch__block_dim_x": {
+          "value": 16,
+          "unit": "block"
+        },
+        "launch__block_dim_y": {
+          "value": 16,
+          "unit": "block"
+        },
+        "launch__grid_dim_x": {
+          "value": 16,
+          "unit": ""
+        },
+        "launch__grid_dim_y": {
+          "value": 16,
+          "unit": ""
+        },
+        "launch__block_size": {
+          "value": 256,
+          "unit": ""
+        },
+        "launch__grid_size": {
+          "value": 256,
+          "unit": ""
+        },
+        "launch__thread_count": {
+          "value": 65536,
+          "unit": "thread"
+        },
+        "launch__registers_per_thread": {
+          "value": 38,
+          "unit": "register/thread"
+        },
+        "launch__registers_per_thread_allocated": {
+          "value": 40.0,
+          "unit": "register/thread"
+        },
+        "launch__shared_mem_per_block_static": {
+          "value": 2048,
+          "unit": "byte/block"
+        },
+        "launch__waves_per_multiprocessor": {
+          "value": 1.6,
+          "unit": ""
+        },
+        "sm__warps_active.avg.pct_of_peak_sustained_active": {
+          "value": 81.06052625975772,
+          "unit": "%"
+        },
+        "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum": {
+          "value": 65536.0,
+          "unit": ""
+        },
+        "l1tex__t_sectors_pipe_lsu_mem_global_op_ld.sum": {
+          "value": 261824.0,
+          "unit": "sector"
+        },
+        "l1tex__t_requests_pipe_lsu_mem_global_op_st.sum": {
+          "value": 2048.0,
+          "unit": ""
+        },
+        "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "l1tex__t_sector_pipe_lsu_mem_global_op_ld_hit_rate.pct": {
+          "value": 32.333170373991685,
+          "unit": "%"
+        },
+        "lts__t_sectors_srcunit_tex_op_read.sum": {
+          "value": 175336.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_read_lookup_hit.sum": {
+          "value": 162118.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_read_lookup_miss.sum": {
+          "value": 16384.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_write.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "lts__t_sector_op_read_hit_rate.pct": {
+          "value": 90.65713738609355,
+          "unit": "%"
+        },
+        "dram__bytes_read.sum": {
+          "value": 916768.0,
+          "unit": "byte"
+        },
+        "dram__bytes_write.sum": {
+          "value": 0.0,
+          "unit": "byte"
+        },
+        "sass__inst_executed_shared_loads": {
+          "value": 655360.0,
+          "unit": "inst"
+        },
+        "sass__inst_executed_shared_stores": {
+          "value": 65536.0,
+          "unit": "inst"
+        },
+        "sass__inst_executed_register_spilling": {
+          "value": 0,
+          "unit": "inst"
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum": {
+          "value": 786432.0,
+          "unit": ""
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_st.sum": {
+          "value": 65536.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_st.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "memory_l1_wavefronts_shared": {
+          "value": 851968,
+          "unit": "sectors"
+        },
+        "memory_l1_wavefronts_shared_ideal": {
+          "value": 851968,
+          "unit": "sectors"
+        },
+        "derived__memory_l1_wavefronts_shared_excessive": {
+          "value": 0,
+          "unit": ""
+        },
+        "memory_l2_theoretical_sectors_global": {
+          "value": 270336,
+          "unit": "sectors"
+        },
+        "memory_l2_theoretical_sectors_global_ideal": {
+          "value": 270336,
+          "unit": "sectors"
+        },
+        "derived__memory_l2_theoretical_sectors_global_excessive": {
+          "value": 0,
+          "unit": "byte"
+        },
+        "profiler__replayer_passes": {
+          "value": 34.0,
+          "unit": "pass"
+        }
+      },
+      "derived": {
+        "duration_us": 45.728,
+        "global_load_sectors_per_request": 3.9951171875
+      },
+      "memory_opcode_counts": {
+        "LDS.U": 524288.0,
+        "LDS.U.128": 131072.0,
+        "STS": 65536.0,
+        "LDG.E.SYS": 65536.0,
+        "STG.E.SYS": 2048.0
+      },
+      "rule_titles": [
+        {
+          "rule": "SOLBottleneck",
+          "title": "Balanced Throughput"
+        },
+        {
+          "rule": "IssueSlotUtilization",
+          "title": ""
+        },
+        {
+          "rule": "AchievedOccupancy",
+          "title": ""
+        },
+        {
+          "rule": "CPIStall",
+          "title": "Mio Throttle Stalls"
+        },
+        {
+          "rule": "CPIStall",
+          "title": ""
+        },
+        {
+          "rule": "HighPipeUtilization",
+          "title": "Low Utilization"
+        },
+        {
+          "rule": "LaunchConfiguration",
+          "title": "Tail Effect"
+        },
+        {
+          "rule": "PMSamplingData",
+          "title": ""
+        },
+        {
+          "rule": "SOLFPRoofline",
+          "title": "Roofline Analysis"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "SMs Workload Imbalance"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "SMSPs Workload Imbalance"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "L1 Slices Workload Imbalance"
+        }
+      ]
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "tile_width": 16,
+      "kernel": "transposeCoalesced",
+      "report_sha256": "94866b927ebb1927c0dfdf13f48fc588e1752cab79eeced5f2a0cfe5aa5db0c2",
+      "metrics": {
+        "gpu__time_duration.sum": {
+          "value": 3680.0,
+          "unit": "ns"
+        },
+        "device__attribute_display_name": {
+          "value": "Tesla T4",
+          "unit": ""
+        },
+        "device__attribute_multiprocessor_count": {
+          "value": 40,
+          "unit": ""
+        },
+        "device__attribute_l2_cache_size": {
+          "value": 4194304,
+          "unit": ""
+        },
+        "device__attribute_ecc_enabled": {
+          "value": 1,
+          "unit": ""
+        },
+        "launch__block_dim_x": {
+          "value": 32,
+          "unit": "block"
+        },
+        "launch__block_dim_y": {
+          "value": 32,
+          "unit": "block"
+        },
+        "launch__grid_dim_x": {
+          "value": 8,
+          "unit": ""
+        },
+        "launch__grid_dim_y": {
+          "value": 8,
+          "unit": ""
+        },
+        "launch__block_size": {
+          "value": 1024,
+          "unit": ""
+        },
+        "launch__grid_size": {
+          "value": 64,
+          "unit": ""
+        },
+        "launch__thread_count": {
+          "value": 65536,
+          "unit": "thread"
+        },
+        "launch__registers_per_thread": {
+          "value": 16,
+          "unit": "register/thread"
+        },
+        "launch__registers_per_thread_allocated": {
+          "value": 16.0,
+          "unit": "register/thread"
+        },
+        "launch__shared_mem_per_block_static": {
+          "value": 4224,
+          "unit": "byte/block"
+        },
+        "launch__waves_per_multiprocessor": {
+          "value": 1.6,
+          "unit": ""
+        },
+        "sm__warps_active.avg.pct_of_peak_sustained_active": {
+          "value": 97.13388807695058,
+          "unit": "%"
+        },
+        "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum": {
+          "value": 2048.0,
+          "unit": ""
+        },
+        "l1tex__t_sectors_pipe_lsu_mem_global_op_ld.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "l1tex__t_requests_pipe_lsu_mem_global_op_st.sum": {
+          "value": 2048.0,
+          "unit": ""
+        },
+        "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "l1tex__t_sector_pipe_lsu_mem_global_op_ld_hit_rate.pct": {
+          "value": 0.0,
+          "unit": "%"
+        },
+        "lts__t_sectors_srcunit_tex_op_read.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_read_lookup_hit.sum": {
+          "value": 0.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_read_lookup_miss.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_write.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "lts__t_sector_op_read_hit_rate.pct": {
+          "value": 4.565367765736685,
+          "unit": "%"
+        },
+        "dram__bytes_read.sum": {
+          "value": 306944.0,
+          "unit": "byte"
+        },
+        "dram__bytes_write.sum": {
+          "value": 0.0,
+          "unit": "byte"
+        },
+        "sass__inst_executed_shared_loads": {
+          "value": 2048.0,
+          "unit": "inst"
+        },
+        "sass__inst_executed_shared_stores": {
+          "value": 2048.0,
+          "unit": "inst"
+        },
+        "sass__inst_executed_register_spilling": {
+          "value": 0,
+          "unit": "inst"
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum": {
+          "value": 2048.0,
+          "unit": ""
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_st.sum": {
+          "value": 2048.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_st.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "memory_l1_wavefronts_shared": {
+          "value": 4096,
+          "unit": "sectors"
+        },
+        "memory_l1_wavefronts_shared_ideal": {
+          "value": 4096,
+          "unit": "sectors"
+        },
+        "derived__memory_l1_wavefronts_shared_excessive": {
+          "value": 0,
+          "unit": ""
+        },
+        "memory_l2_theoretical_sectors_global": {
+          "value": 16384,
+          "unit": "sectors"
+        },
+        "memory_l2_theoretical_sectors_global_ideal": {
+          "value": 16384,
+          "unit": "sectors"
+        },
+        "derived__memory_l2_theoretical_sectors_global_excessive": {
+          "value": 0,
+          "unit": "byte"
+        },
+        "profiler__replayer_passes": {
+          "value": 34.0,
+          "unit": "pass"
+        }
+      },
+      "derived": {
+        "duration_us": 3.68,
+        "global_load_sectors_per_request": 4.0
+      },
+      "memory_opcode_counts": {
+        "STS": 2048.0,
+        "STG.E.SYS": 2048.0,
+        "LDS.U": 2048.0,
+        "LDG.E.SYS": 2048.0
+      },
+      "rule_titles": [
+        {
+          "rule": "SOLBottleneck",
+          "title": "Latency Issue"
+        },
+        {
+          "rule": "IssueSlotUtilization",
+          "title": ""
+        },
+        {
+          "rule": "CPIStall",
+          "title": "Long Scoreboard Stalls"
+        },
+        {
+          "rule": "CPIStall",
+          "title": ""
+        },
+        {
+          "rule": "HighPipeUtilization",
+          "title": "Low Utilization"
+        },
+        {
+          "rule": "LaunchConfiguration",
+          "title": "Small Grid"
+        },
+        {
+          "rule": "LaunchConfiguration",
+          "title": "Tail Effect"
+        },
+        {
+          "rule": "PMSamplingData",
+          "title": ""
+        },
+        {
+          "rule": "SOLFPRoofline",
+          "title": "Roofline Analysis"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "SMs Workload Imbalance"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "SMSPs Workload Imbalance"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "L1 Slices Workload Imbalance"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "L2 Slices Workload Imbalance"
+        }
+      ]
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "tile_width": 16,
+      "kernel": "cornerTurning_mmult",
+      "report_sha256": "94866b927ebb1927c0dfdf13f48fc588e1752cab79eeced5f2a0cfe5aa5db0c2",
+      "metrics": {
+        "gpu__time_duration.sum": {
+          "value": 53824.0,
+          "unit": "ns"
+        },
+        "device__attribute_display_name": {
+          "value": "Tesla T4",
+          "unit": ""
+        },
+        "device__attribute_multiprocessor_count": {
+          "value": 40,
+          "unit": ""
+        },
+        "device__attribute_l2_cache_size": {
+          "value": 4194304,
+          "unit": ""
+        },
+        "device__attribute_ecc_enabled": {
+          "value": 1,
+          "unit": ""
+        },
+        "launch__block_dim_x": {
+          "value": 16,
+          "unit": "block"
+        },
+        "launch__block_dim_y": {
+          "value": 16,
+          "unit": "block"
+        },
+        "launch__grid_dim_x": {
+          "value": 16,
+          "unit": ""
+        },
+        "launch__grid_dim_y": {
+          "value": 16,
+          "unit": ""
+        },
+        "launch__block_size": {
+          "value": 256,
+          "unit": ""
+        },
+        "launch__grid_size": {
+          "value": 256,
+          "unit": ""
+        },
+        "launch__thread_count": {
+          "value": 65536,
+          "unit": "thread"
+        },
+        "launch__registers_per_thread": {
+          "value": 34,
+          "unit": "register/thread"
+        },
+        "launch__registers_per_thread_allocated": {
+          "value": 40.0,
+          "unit": "register/thread"
+        },
+        "launch__shared_mem_per_block_static": {
+          "value": 2048,
+          "unit": "byte/block"
+        },
+        "launch__waves_per_multiprocessor": {
+          "value": 1.6,
+          "unit": ""
+        },
+        "sm__warps_active.avg.pct_of_peak_sustained_active": {
+          "value": 80.1739888543774,
+          "unit": "%"
+        },
+        "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum": {
+          "value": 65536.0,
+          "unit": ""
+        },
+        "l1tex__t_sectors_pipe_lsu_mem_global_op_ld.sum": {
+          "value": 261648.0,
+          "unit": "sector"
+        },
+        "l1tex__t_requests_pipe_lsu_mem_global_op_st.sum": {
+          "value": 2048.0,
+          "unit": ""
+        },
+        "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "l1tex__t_sector_pipe_lsu_mem_global_op_ld_hit_rate.pct": {
+          "value": 29.130740536904543,
+          "unit": "%"
+        },
+        "lts__t_sectors_srcunit_tex_op_read.sum": {
+          "value": 188280.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_read_lookup_hit.sum": {
+          "value": 172242.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_read_lookup_miss.sum": {
+          "value": 16384.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_write.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "lts__t_sector_op_read_hit_rate.pct": {
+          "value": 89.35828257066373,
+          "unit": "%"
+        },
+        "dram__bytes_read.sum": {
+          "value": 883040.0,
+          "unit": "byte"
+        },
+        "dram__bytes_write.sum": {
+          "value": 0.0,
+          "unit": "byte"
+        },
+        "sass__inst_executed_shared_loads": {
+          "value": 1048576.0,
+          "unit": "inst"
+        },
+        "sass__inst_executed_shared_stores": {
+          "value": 65536.0,
+          "unit": "inst"
+        },
+        "sass__inst_executed_register_spilling": {
+          "value": 0,
+          "unit": "inst"
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum": {
+          "value": 1048576.0,
+          "unit": ""
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_st.sum": {
+          "value": 65536.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_st.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "memory_l1_wavefronts_shared": {
+          "value": 1114112,
+          "unit": "sectors"
+        },
+        "memory_l1_wavefronts_shared_ideal": {
+          "value": 1114112,
+          "unit": "sectors"
+        },
+        "derived__memory_l1_wavefronts_shared_excessive": {
+          "value": 0,
+          "unit": ""
+        },
+        "memory_l2_theoretical_sectors_global": {
+          "value": 270336,
+          "unit": "sectors"
+        },
+        "memory_l2_theoretical_sectors_global_ideal": {
+          "value": 270336,
+          "unit": "sectors"
+        },
+        "derived__memory_l2_theoretical_sectors_global_excessive": {
+          "value": 0,
+          "unit": "byte"
+        },
+        "profiler__replayer_passes": {
+          "value": 34.0,
+          "unit": "pass"
+        }
+      },
+      "derived": {
+        "duration_us": 53.824,
+        "global_load_sectors_per_request": 3.992431640625
+      },
+      "memory_opcode_counts": {
+        "LDS.U": 1048576.0,
+        "STS": 65536.0,
+        "LDG.E.SYS": 65536.0,
+        "STG.E.SYS": 2048.0
+      },
+      "rule_titles": [
+        {
+          "rule": "SOLBottleneck",
+          "title": "Balanced Throughput"
+        },
+        {
+          "rule": "IssueSlotUtilization",
+          "title": ""
+        },
+        {
+          "rule": "AchievedOccupancy",
+          "title": ""
+        },
+        {
+          "rule": "CPIStall",
+          "title": "Mio Throttle Stalls"
+        },
+        {
+          "rule": "CPIStall",
+          "title": ""
+        },
+        {
+          "rule": "HighPipeUtilization",
+          "title": "Low Utilization"
+        },
+        {
+          "rule": "LaunchConfiguration",
+          "title": "Tail Effect"
+        },
+        {
+          "rule": "PMSamplingData",
+          "title": ""
+        },
+        {
+          "rule": "SOLFPRoofline",
+          "title": "Roofline Analysis"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "SMs Workload Imbalance"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "SMSPs Workload Imbalance"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "L1 Slices Workload Imbalance"
+        }
+      ]
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "tile_width": 32,
+      "kernel": "mmult_sqr_gmem",
+      "report_sha256": "80b9d98dfaa57e2d7b30c663c0160e85bc183276b4c099d7d8c2e06ff4ba8d10",
+      "metrics": {
+        "gpu__time_duration.sum": {
+          "value": 52320.0,
+          "unit": "ns"
+        },
+        "device__attribute_display_name": {
+          "value": "Tesla T4",
+          "unit": ""
+        },
+        "device__attribute_multiprocessor_count": {
+          "value": 40,
+          "unit": ""
+        },
+        "device__attribute_l2_cache_size": {
+          "value": 4194304,
+          "unit": ""
+        },
+        "device__attribute_ecc_enabled": {
+          "value": 1,
+          "unit": ""
+        },
+        "launch__block_dim_x": {
+          "value": 32,
+          "unit": "block"
+        },
+        "launch__block_dim_y": {
+          "value": 32,
+          "unit": "block"
+        },
+        "launch__grid_dim_x": {
+          "value": 8,
+          "unit": ""
+        },
+        "launch__grid_dim_y": {
+          "value": 8,
+          "unit": ""
+        },
+        "launch__block_size": {
+          "value": 1024,
+          "unit": ""
+        },
+        "launch__grid_size": {
+          "value": 64,
+          "unit": ""
+        },
+        "launch__thread_count": {
+          "value": 65536,
+          "unit": "thread"
+        },
+        "launch__registers_per_thread": {
+          "value": 52,
+          "unit": "register/thread"
+        },
+        "launch__registers_per_thread_allocated": {
+          "value": 56.0,
+          "unit": "register/thread"
+        },
+        "launch__shared_mem_per_block_static": {
+          "value": 0,
+          "unit": "byte/block"
+        },
+        "launch__waves_per_multiprocessor": {
+          "value": 1.6,
+          "unit": ""
+        },
+        "sm__warps_active.avg.pct_of_peak_sustained_active": {
+          "value": 98.51155197394296,
+          "unit": "%"
+        },
+        "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum": {
+          "value": 1048576.0,
+          "unit": ""
+        },
+        "l1tex__t_sectors_pipe_lsu_mem_global_op_ld.sum": {
+          "value": 2621440.0,
+          "unit": "sector"
+        },
+        "l1tex__t_requests_pipe_lsu_mem_global_op_st.sum": {
+          "value": 2048.0,
+          "unit": ""
+        },
+        "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "l1tex__t_sector_pipe_lsu_mem_global_op_ld_hit_rate.pct": {
+          "value": 95.04135131835938,
+          "unit": "%"
+        },
+        "lts__t_sectors_srcunit_tex_op_read.sum": {
+          "value": 130524.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_read_lookup_hit.sum": {
+          "value": 117372.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_read_lookup_miss.sum": {
+          "value": 16384.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_write.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "lts__t_sector_op_read_hit_rate.pct": {
+          "value": 89.39594961417635,
+          "unit": "%"
+        },
+        "dram__bytes_read.sum": {
+          "value": 895264.0,
+          "unit": "byte"
+        },
+        "dram__bytes_write.sum": {
+          "value": 0.0,
+          "unit": "byte"
+        },
+        "sass__inst_executed_shared_loads": {
+          "value": 0.0,
+          "unit": "inst"
+        },
+        "sass__inst_executed_shared_stores": {
+          "value": 0.0,
+          "unit": "inst"
+        },
+        "sass__inst_executed_register_spilling": {
+          "value": 0,
+          "unit": "inst"
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_st.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_st.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "memory_l1_wavefronts_shared": {
+          "value": 0,
+          "unit": "sectors"
+        },
+        "memory_l1_wavefronts_shared_ideal": {
+          "value": 0,
+          "unit": "sectors"
+        },
+        "derived__memory_l1_wavefronts_shared_excessive": {
+          "value": 0,
+          "unit": ""
+        },
+        "memory_l2_theoretical_sectors_global": {
+          "value": 2629632,
+          "unit": "sectors"
+        },
+        "memory_l2_theoretical_sectors_global_ideal": {
+          "value": 2629632,
+          "unit": "sectors"
+        },
+        "derived__memory_l2_theoretical_sectors_global_excessive": {
+          "value": 0,
+          "unit": "byte"
+        },
+        "profiler__replayer_passes": {
+          "value": 34.0,
+          "unit": "pass"
+        }
+      },
+      "derived": {
+        "duration_us": 52.32,
+        "global_load_sectors_per_request": 2.5
+      },
+      "memory_opcode_counts": {
+        "LDG.E.SYS": 1048576.0,
+        "STG.E.SYS": 2048.0
+      },
+      "rule_titles": [
+        {
+          "rule": "SOLBottleneck",
+          "title": "Balanced Throughput"
+        },
+        {
+          "rule": "IssueSlotUtilization",
+          "title": ""
+        },
+        {
+          "rule": "CPIStall",
+          "title": "Lg Throttle Stalls"
+        },
+        {
+          "rule": "CPIStall",
+          "title": ""
+        },
+        {
+          "rule": "HighPipeUtilization",
+          "title": "Low Utilization"
+        },
+        {
+          "rule": "LaunchConfiguration",
+          "title": "Small Grid"
+        },
+        {
+          "rule": "LaunchConfiguration",
+          "title": "Tail Effect"
+        },
+        {
+          "rule": "MemoryCacheAccessPattern",
+          "title": "L1TEX Global Load Access Pattern"
+        },
+        {
+          "rule": "PMSamplingData",
+          "title": ""
+        },
+        {
+          "rule": "SOLFPRoofline",
+          "title": "Roofline Analysis"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "SMs Workload Imbalance"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "SMSPs Workload Imbalance"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "L1 Slices Workload Imbalance"
+        }
+      ]
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "tile_width": 32,
+      "kernel": "tiled_mmult",
+      "report_sha256": "80b9d98dfaa57e2d7b30c663c0160e85bc183276b4c099d7d8c2e06ff4ba8d10",
+      "metrics": {
+        "gpu__time_duration.sum": {
+          "value": 48672.0,
+          "unit": "ns"
+        },
+        "device__attribute_display_name": {
+          "value": "Tesla T4",
+          "unit": ""
+        },
+        "device__attribute_multiprocessor_count": {
+          "value": 40,
+          "unit": ""
+        },
+        "device__attribute_l2_cache_size": {
+          "value": 4194304,
+          "unit": ""
+        },
+        "device__attribute_ecc_enabled": {
+          "value": 1,
+          "unit": ""
+        },
+        "launch__block_dim_x": {
+          "value": 32,
+          "unit": "block"
+        },
+        "launch__block_dim_y": {
+          "value": 32,
+          "unit": "block"
+        },
+        "launch__grid_dim_x": {
+          "value": 8,
+          "unit": ""
+        },
+        "launch__grid_dim_y": {
+          "value": 8,
+          "unit": ""
+        },
+        "launch__block_size": {
+          "value": 1024,
+          "unit": ""
+        },
+        "launch__grid_size": {
+          "value": 64,
+          "unit": ""
+        },
+        "launch__thread_count": {
+          "value": 65536,
+          "unit": "thread"
+        },
+        "launch__registers_per_thread": {
+          "value": 41,
+          "unit": "register/thread"
+        },
+        "launch__registers_per_thread_allocated": {
+          "value": 48.0,
+          "unit": "register/thread"
+        },
+        "launch__shared_mem_per_block_static": {
+          "value": 8192,
+          "unit": "byte/block"
+        },
+        "launch__waves_per_multiprocessor": {
+          "value": 1.6,
+          "unit": ""
+        },
+        "sm__warps_active.avg.pct_of_peak_sustained_active": {
+          "value": 99.75036184956733,
+          "unit": "%"
+        },
+        "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum": {
+          "value": 32768.0,
+          "unit": ""
+        },
+        "l1tex__t_sectors_pipe_lsu_mem_global_op_ld.sum": {
+          "value": 131072.0,
+          "unit": "sector"
+        },
+        "l1tex__t_requests_pipe_lsu_mem_global_op_st.sum": {
+          "value": 2048.0,
+          "unit": ""
+        },
+        "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "l1tex__t_sector_pipe_lsu_mem_global_op_ld_hit_rate.pct": {
+          "value": 0.3631591796875,
+          "unit": "%"
+        },
+        "lts__t_sectors_srcunit_tex_op_read.sum": {
+          "value": 130116.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_read_lookup_hit.sum": {
+          "value": 114024.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_read_lookup_miss.sum": {
+          "value": 16384.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_write.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "lts__t_sector_op_read_hit_rate.pct": {
+          "value": 86.39415346395069,
+          "unit": "%"
+        },
+        "dram__bytes_read.sum": {
+          "value": 706144.0,
+          "unit": "byte"
+        },
+        "dram__bytes_write.sum": {
+          "value": 0.0,
+          "unit": "byte"
+        },
+        "sass__inst_executed_shared_loads": {
+          "value": 655360.0,
+          "unit": "inst"
+        },
+        "sass__inst_executed_shared_stores": {
+          "value": 32768.0,
+          "unit": "inst"
+        },
+        "sass__inst_executed_register_spilling": {
+          "value": 0,
+          "unit": "inst"
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum": {
+          "value": 786432.0,
+          "unit": ""
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_st.sum": {
+          "value": 32768.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_st.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "memory_l1_wavefronts_shared": {
+          "value": 819200,
+          "unit": "sectors"
+        },
+        "memory_l1_wavefronts_shared_ideal": {
+          "value": 819200,
+          "unit": "sectors"
+        },
+        "derived__memory_l1_wavefronts_shared_excessive": {
+          "value": 0,
+          "unit": ""
+        },
+        "memory_l2_theoretical_sectors_global": {
+          "value": 139264,
+          "unit": "sectors"
+        },
+        "memory_l2_theoretical_sectors_global_ideal": {
+          "value": 139264,
+          "unit": "sectors"
+        },
+        "derived__memory_l2_theoretical_sectors_global_excessive": {
+          "value": 0,
+          "unit": "byte"
+        },
+        "profiler__replayer_passes": {
+          "value": 34.0,
+          "unit": "pass"
+        }
+      },
+      "derived": {
+        "duration_us": 48.672,
+        "global_load_sectors_per_request": 4.0
+      },
+      "memory_opcode_counts": {
+        "LDS.U": 524288.0,
+        "LDS.U.128": 131072.0,
+        "STS": 32768.0,
+        "LDG.E.SYS": 32768.0,
+        "STG.E.SYS": 2048.0
+      },
+      "rule_titles": [
+        {
+          "rule": "SOLBottleneck",
+          "title": "Latency Issue"
+        },
+        {
+          "rule": "IssueSlotUtilization",
+          "title": ""
+        },
+        {
+          "rule": "CPIStall",
+          "title": "Mio Throttle Stalls"
+        },
+        {
+          "rule": "CPIStall",
+          "title": ""
+        },
+        {
+          "rule": "HighPipeUtilization",
+          "title": "Low Utilization"
+        },
+        {
+          "rule": "LaunchConfiguration",
+          "title": "Small Grid"
+        },
+        {
+          "rule": "LaunchConfiguration",
+          "title": "Tail Effect"
+        },
+        {
+          "rule": "PMSamplingData",
+          "title": ""
+        },
+        {
+          "rule": "SOLFPRoofline",
+          "title": "Roofline Analysis"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "SMs Workload Imbalance"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "SMSPs Workload Imbalance"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "L1 Slices Workload Imbalance"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "L2 Slices Workload Imbalance"
+        }
+      ]
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "tile_width": 32,
+      "kernel": "transposeCoalesced",
+      "report_sha256": "80b9d98dfaa57e2d7b30c663c0160e85bc183276b4c099d7d8c2e06ff4ba8d10",
+      "metrics": {
+        "gpu__time_duration.sum": {
+          "value": 3488.0,
+          "unit": "ns"
+        },
+        "device__attribute_display_name": {
+          "value": "Tesla T4",
+          "unit": ""
+        },
+        "device__attribute_multiprocessor_count": {
+          "value": 40,
+          "unit": ""
+        },
+        "device__attribute_l2_cache_size": {
+          "value": 4194304,
+          "unit": ""
+        },
+        "device__attribute_ecc_enabled": {
+          "value": 1,
+          "unit": ""
+        },
+        "launch__block_dim_x": {
+          "value": 32,
+          "unit": "block"
+        },
+        "launch__block_dim_y": {
+          "value": 32,
+          "unit": "block"
+        },
+        "launch__grid_dim_x": {
+          "value": 8,
+          "unit": ""
+        },
+        "launch__grid_dim_y": {
+          "value": 8,
+          "unit": ""
+        },
+        "launch__block_size": {
+          "value": 1024,
+          "unit": ""
+        },
+        "launch__grid_size": {
+          "value": 64,
+          "unit": ""
+        },
+        "launch__thread_count": {
+          "value": 65536,
+          "unit": "thread"
+        },
+        "launch__registers_per_thread": {
+          "value": 16,
+          "unit": "register/thread"
+        },
+        "launch__registers_per_thread_allocated": {
+          "value": 16.0,
+          "unit": "register/thread"
+        },
+        "launch__shared_mem_per_block_static": {
+          "value": 4224,
+          "unit": "byte/block"
+        },
+        "launch__waves_per_multiprocessor": {
+          "value": 1.6,
+          "unit": ""
+        },
+        "sm__warps_active.avg.pct_of_peak_sustained_active": {
+          "value": 96.90938919989459,
+          "unit": "%"
+        },
+        "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum": {
+          "value": 2048.0,
+          "unit": ""
+        },
+        "l1tex__t_sectors_pipe_lsu_mem_global_op_ld.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "l1tex__t_requests_pipe_lsu_mem_global_op_st.sum": {
+          "value": 2048.0,
+          "unit": ""
+        },
+        "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "l1tex__t_sector_pipe_lsu_mem_global_op_ld_hit_rate.pct": {
+          "value": 0.0,
+          "unit": "%"
+        },
+        "lts__t_sectors_srcunit_tex_op_read.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_read_lookup_hit.sum": {
+          "value": 0.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_read_lookup_miss.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_write.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "lts__t_sector_op_read_hit_rate.pct": {
+          "value": 4.565367765736685,
+          "unit": "%"
+        },
+        "dram__bytes_read.sum": {
+          "value": 306048.0,
+          "unit": "byte"
+        },
+        "dram__bytes_write.sum": {
+          "value": 0.0,
+          "unit": "byte"
+        },
+        "sass__inst_executed_shared_loads": {
+          "value": 2048.0,
+          "unit": "inst"
+        },
+        "sass__inst_executed_shared_stores": {
+          "value": 2048.0,
+          "unit": "inst"
+        },
+        "sass__inst_executed_register_spilling": {
+          "value": 0,
+          "unit": "inst"
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum": {
+          "value": 2048.0,
+          "unit": ""
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_st.sum": {
+          "value": 2048.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_st.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "memory_l1_wavefronts_shared": {
+          "value": 4096,
+          "unit": "sectors"
+        },
+        "memory_l1_wavefronts_shared_ideal": {
+          "value": 4096,
+          "unit": "sectors"
+        },
+        "derived__memory_l1_wavefronts_shared_excessive": {
+          "value": 0,
+          "unit": ""
+        },
+        "memory_l2_theoretical_sectors_global": {
+          "value": 16384,
+          "unit": "sectors"
+        },
+        "memory_l2_theoretical_sectors_global_ideal": {
+          "value": 16384,
+          "unit": "sectors"
+        },
+        "derived__memory_l2_theoretical_sectors_global_excessive": {
+          "value": 0,
+          "unit": "byte"
+        },
+        "profiler__replayer_passes": {
+          "value": 34.0,
+          "unit": "pass"
+        }
+      },
+      "derived": {
+        "duration_us": 3.488,
+        "global_load_sectors_per_request": 4.0
+      },
+      "memory_opcode_counts": {
+        "STS": 2048.0,
+        "STG.E.SYS": 2048.0,
+        "LDS.U": 2048.0,
+        "LDG.E.SYS": 2048.0
+      },
+      "rule_titles": [
+        {
+          "rule": "SOLBottleneck",
+          "title": "Latency Issue"
+        },
+        {
+          "rule": "IssueSlotUtilization",
+          "title": ""
+        },
+        {
+          "rule": "CPIStall",
+          "title": "Long Scoreboard Stalls"
+        },
+        {
+          "rule": "CPIStall",
+          "title": ""
+        },
+        {
+          "rule": "HighPipeUtilization",
+          "title": "Low Utilization"
+        },
+        {
+          "rule": "LaunchConfiguration",
+          "title": "Small Grid"
+        },
+        {
+          "rule": "LaunchConfiguration",
+          "title": "Tail Effect"
+        },
+        {
+          "rule": "PMSamplingData",
+          "title": ""
+        },
+        {
+          "rule": "SOLFPRoofline",
+          "title": "Roofline Analysis"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "SMs Workload Imbalance"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "SMSPs Workload Imbalance"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "L1 Slices Workload Imbalance"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "L2 Slices Workload Imbalance"
+        }
+      ]
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "tile_width": 32,
+      "kernel": "cornerTurning_mmult",
+      "report_sha256": "80b9d98dfaa57e2d7b30c663c0160e85bc183276b4c099d7d8c2e06ff4ba8d10",
+      "metrics": {
+        "gpu__time_duration.sum": {
+          "value": 58208.0,
+          "unit": "ns"
+        },
+        "device__attribute_display_name": {
+          "value": "Tesla T4",
+          "unit": ""
+        },
+        "device__attribute_multiprocessor_count": {
+          "value": 40,
+          "unit": ""
+        },
+        "device__attribute_l2_cache_size": {
+          "value": 4194304,
+          "unit": ""
+        },
+        "device__attribute_ecc_enabled": {
+          "value": 1,
+          "unit": ""
+        },
+        "launch__block_dim_x": {
+          "value": 32,
+          "unit": "block"
+        },
+        "launch__block_dim_y": {
+          "value": 32,
+          "unit": "block"
+        },
+        "launch__grid_dim_x": {
+          "value": 8,
+          "unit": ""
+        },
+        "launch__grid_dim_y": {
+          "value": 8,
+          "unit": ""
+        },
+        "launch__block_size": {
+          "value": 1024,
+          "unit": ""
+        },
+        "launch__grid_size": {
+          "value": 64,
+          "unit": ""
+        },
+        "launch__thread_count": {
+          "value": 65536,
+          "unit": "thread"
+        },
+        "launch__registers_per_thread": {
+          "value": 34,
+          "unit": "register/thread"
+        },
+        "launch__registers_per_thread_allocated": {
+          "value": 40.0,
+          "unit": "register/thread"
+        },
+        "launch__shared_mem_per_block_static": {
+          "value": 8192,
+          "unit": "byte/block"
+        },
+        "launch__waves_per_multiprocessor": {
+          "value": 1.6,
+          "unit": ""
+        },
+        "sm__warps_active.avg.pct_of_peak_sustained_active": {
+          "value": 101.5636144565375,
+          "unit": "%"
+        },
+        "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum": {
+          "value": 32768.0,
+          "unit": ""
+        },
+        "l1tex__t_sectors_pipe_lsu_mem_global_op_ld.sum": {
+          "value": 131072.0,
+          "unit": "sector"
+        },
+        "l1tex__t_requests_pipe_lsu_mem_global_op_st.sum": {
+          "value": 2048.0,
+          "unit": ""
+        },
+        "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "l1tex__t_sector_pipe_lsu_mem_global_op_ld_hit_rate.pct": {
+          "value": 0.4486083984375,
+          "unit": "%"
+        },
+        "lts__t_sectors_srcunit_tex_op_read.sum": {
+          "value": 129332.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_read_lookup_hit.sum": {
+          "value": 114688.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_read_lookup_miss.sum": {
+          "value": 16384.0,
+          "unit": "sector"
+        },
+        "lts__t_sectors_srcunit_tex_op_write.sum": {
+          "value": 8192.0,
+          "unit": "sector"
+        },
+        "lts__t_sector_op_read_hit_rate.pct": {
+          "value": 88.35571191544275,
+          "unit": "%"
+        },
+        "dram__bytes_read.sum": {
+          "value": 657184.0,
+          "unit": "byte"
+        },
+        "dram__bytes_write.sum": {
+          "value": 0.0,
+          "unit": "byte"
+        },
+        "sass__inst_executed_shared_loads": {
+          "value": 1048576.0,
+          "unit": "inst"
+        },
+        "sass__inst_executed_shared_stores": {
+          "value": 32768.0,
+          "unit": "inst"
+        },
+        "sass__inst_executed_register_spilling": {
+          "value": 0,
+          "unit": "inst"
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_ld.sum": {
+          "value": 1048576.0,
+          "unit": ""
+        },
+        "l1tex__data_pipe_lsu_wavefronts_mem_shared_op_st.sum": {
+          "value": 32768.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_ld.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "l1tex__data_bank_conflicts_pipe_lsu_mem_shared_op_st.sum": {
+          "value": 0.0,
+          "unit": ""
+        },
+        "memory_l1_wavefronts_shared": {
+          "value": 1081344,
+          "unit": "sectors"
+        },
+        "memory_l1_wavefronts_shared_ideal": {
+          "value": 1081344,
+          "unit": "sectors"
+        },
+        "derived__memory_l1_wavefronts_shared_excessive": {
+          "value": 0,
+          "unit": ""
+        },
+        "memory_l2_theoretical_sectors_global": {
+          "value": 139264,
+          "unit": "sectors"
+        },
+        "memory_l2_theoretical_sectors_global_ideal": {
+          "value": 139264,
+          "unit": "sectors"
+        },
+        "derived__memory_l2_theoretical_sectors_global_excessive": {
+          "value": 0,
+          "unit": "byte"
+        },
+        "profiler__replayer_passes": {
+          "value": 34.0,
+          "unit": "pass"
+        }
+      },
+      "derived": {
+        "duration_us": 58.208,
+        "global_load_sectors_per_request": 4.0
+      },
+      "memory_opcode_counts": {
+        "LDS.U": 1048576.0,
+        "STS": 32768.0,
+        "LDG.E.SYS": 32768.0,
+        "STG.E.SYS": 2048.0
+      },
+      "rule_titles": [
+        {
+          "rule": "SOLBottleneck",
+          "title": "Balanced Throughput"
+        },
+        {
+          "rule": "IssueSlotUtilization",
+          "title": ""
+        },
+        {
+          "rule": "CPIStall",
+          "title": "Mio Throttle Stalls"
+        },
+        {
+          "rule": "CPIStall",
+          "title": ""
+        },
+        {
+          "rule": "HighPipeUtilization",
+          "title": "Low Utilization"
+        },
+        {
+          "rule": "LaunchConfiguration",
+          "title": "Small Grid"
+        },
+        {
+          "rule": "LaunchConfiguration",
+          "title": "Tail Effect"
+        },
+        {
+          "rule": "PMSamplingData",
+          "title": ""
+        },
+        {
+          "rule": "SOLFPRoofline",
+          "title": "Roofline Analysis"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "SMs Workload Imbalance"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "SMSPs Workload Imbalance"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "L1 Slices Workload Imbalance"
+        },
+        {
+          "rule": "WorkloadImbalance",
+          "title": "L2 Slices Workload Imbalance"
+        }
+      ]
+    }
+  ],
+  "consistency_checks": [
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "launch__block_dim_x",
+      "expected": 8,
+      "actual": 8,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "launch__block_dim_y",
+      "expected": 8,
+      "actual": 8,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "launch__grid_dim_x",
+      "expected": 32,
+      "actual": 32,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "launch__grid_dim_y",
+      "expected": 32,
+      "actual": 32,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "launch__shared_mem_per_block_static",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum",
+      "expected": 1048576,
+      "actual": 1048576.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum",
+      "expected": 8192,
+      "actual": 8192.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "lts__t_sectors_srcunit_tex_op_write.sum",
+      "expected": 8192,
+      "actual": 8192.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "sass__inst_executed_register_spilling",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "derived__memory_l1_wavefronts_shared_excessive",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "derived__memory_l2_theoretical_sectors_global_excessive",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "launch__block_dim_x",
+      "expected": 8,
+      "actual": 8,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "launch__block_dim_y",
+      "expected": 8,
+      "actual": 8,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "launch__grid_dim_x",
+      "expected": 32,
+      "actual": 32,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "launch__grid_dim_y",
+      "expected": 32,
+      "actual": 32,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "launch__shared_mem_per_block_static",
+      "expected": 512,
+      "actual": 512,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum",
+      "expected": 131072,
+      "actual": 131072.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum",
+      "expected": 8192,
+      "actual": 8192.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "lts__t_sectors_srcunit_tex_op_write.sum",
+      "expected": 8192,
+      "actual": 8192.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "sass__inst_executed_register_spilling",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "derived__memory_l1_wavefronts_shared_excessive",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "derived__memory_l2_theoretical_sectors_global_excessive",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "launch__block_dim_x",
+      "expected": 32,
+      "actual": 32,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "launch__block_dim_y",
+      "expected": 32,
+      "actual": 32,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "launch__grid_dim_x",
+      "expected": 8,
+      "actual": 8,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "launch__grid_dim_y",
+      "expected": 8,
+      "actual": 8,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "launch__shared_mem_per_block_static",
+      "expected": 4224,
+      "actual": 4224,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum",
+      "expected": 2048,
+      "actual": 2048.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum",
+      "expected": 8192,
+      "actual": 8192.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "lts__t_sectors_srcunit_tex_op_write.sum",
+      "expected": 8192,
+      "actual": 8192.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "sass__inst_executed_register_spilling",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "derived__memory_l1_wavefronts_shared_excessive",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "derived__memory_l2_theoretical_sectors_global_excessive",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "launch__block_dim_x",
+      "expected": 8,
+      "actual": 8,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "launch__block_dim_y",
+      "expected": 8,
+      "actual": 8,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "launch__grid_dim_x",
+      "expected": 32,
+      "actual": 32,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "launch__grid_dim_y",
+      "expected": 32,
+      "actual": 32,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "launch__shared_mem_per_block_static",
+      "expected": 512,
+      "actual": 512,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum",
+      "expected": 131072,
+      "actual": 131072.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum",
+      "expected": 8192,
+      "actual": 8192.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "lts__t_sectors_srcunit_tex_op_write.sum",
+      "expected": 8192,
+      "actual": 8192.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "sass__inst_executed_register_spilling",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "derived__memory_l1_wavefronts_shared_excessive",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile8.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "derived__memory_l2_theoretical_sectors_global_excessive",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "launch__block_dim_x",
+      "expected": 16,
+      "actual": 16,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "launch__block_dim_y",
+      "expected": 16,
+      "actual": 16,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "launch__grid_dim_x",
+      "expected": 16,
+      "actual": 16,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "launch__grid_dim_y",
+      "expected": 16,
+      "actual": 16,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "launch__shared_mem_per_block_static",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum",
+      "expected": 1048576,
+      "actual": 1048576.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum",
+      "expected": 8192,
+      "actual": 8192.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "lts__t_sectors_srcunit_tex_op_write.sum",
+      "expected": 8192,
+      "actual": 8192.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "sass__inst_executed_register_spilling",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "derived__memory_l1_wavefronts_shared_excessive",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "derived__memory_l2_theoretical_sectors_global_excessive",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "launch__block_dim_x",
+      "expected": 16,
+      "actual": 16,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "launch__block_dim_y",
+      "expected": 16,
+      "actual": 16,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "launch__grid_dim_x",
+      "expected": 16,
+      "actual": 16,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "launch__grid_dim_y",
+      "expected": 16,
+      "actual": 16,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "launch__shared_mem_per_block_static",
+      "expected": 2048,
+      "actual": 2048,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum",
+      "expected": 65536,
+      "actual": 65536.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum",
+      "expected": 8192,
+      "actual": 8192.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "lts__t_sectors_srcunit_tex_op_write.sum",
+      "expected": 8192,
+      "actual": 8192.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "sass__inst_executed_register_spilling",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "derived__memory_l1_wavefronts_shared_excessive",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "derived__memory_l2_theoretical_sectors_global_excessive",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "launch__block_dim_x",
+      "expected": 32,
+      "actual": 32,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "launch__block_dim_y",
+      "expected": 32,
+      "actual": 32,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "launch__grid_dim_x",
+      "expected": 8,
+      "actual": 8,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "launch__grid_dim_y",
+      "expected": 8,
+      "actual": 8,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "launch__shared_mem_per_block_static",
+      "expected": 4224,
+      "actual": 4224,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum",
+      "expected": 2048,
+      "actual": 2048.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum",
+      "expected": 8192,
+      "actual": 8192.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "lts__t_sectors_srcunit_tex_op_write.sum",
+      "expected": 8192,
+      "actual": 8192.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "sass__inst_executed_register_spilling",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "derived__memory_l1_wavefronts_shared_excessive",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "derived__memory_l2_theoretical_sectors_global_excessive",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "launch__block_dim_x",
+      "expected": 16,
+      "actual": 16,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "launch__block_dim_y",
+      "expected": 16,
+      "actual": 16,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "launch__grid_dim_x",
+      "expected": 16,
+      "actual": 16,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "launch__grid_dim_y",
+      "expected": 16,
+      "actual": 16,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "launch__shared_mem_per_block_static",
+      "expected": 2048,
+      "actual": 2048,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum",
+      "expected": 65536,
+      "actual": 65536.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum",
+      "expected": 8192,
+      "actual": 8192.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "lts__t_sectors_srcunit_tex_op_write.sum",
+      "expected": 8192,
+      "actual": 8192.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "sass__inst_executed_register_spilling",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "derived__memory_l1_wavefronts_shared_excessive",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile16.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "derived__memory_l2_theoretical_sectors_global_excessive",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "launch__block_dim_x",
+      "expected": 32,
+      "actual": 32,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "launch__block_dim_y",
+      "expected": 32,
+      "actual": 32,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "launch__grid_dim_x",
+      "expected": 8,
+      "actual": 8,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "launch__grid_dim_y",
+      "expected": 8,
+      "actual": 8,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "launch__shared_mem_per_block_static",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum",
+      "expected": 1048576,
+      "actual": 1048576.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum",
+      "expected": 8192,
+      "actual": 8192.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "lts__t_sectors_srcunit_tex_op_write.sum",
+      "expected": 8192,
+      "actual": 8192.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "sass__inst_executed_register_spilling",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "derived__memory_l1_wavefronts_shared_excessive",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "mmult_sqr_gmem",
+      "metric": "derived__memory_l2_theoretical_sectors_global_excessive",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "launch__block_dim_x",
+      "expected": 32,
+      "actual": 32,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "launch__block_dim_y",
+      "expected": 32,
+      "actual": 32,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "launch__grid_dim_x",
+      "expected": 8,
+      "actual": 8,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "launch__grid_dim_y",
+      "expected": 8,
+      "actual": 8,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "launch__shared_mem_per_block_static",
+      "expected": 8192,
+      "actual": 8192,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum",
+      "expected": 32768,
+      "actual": 32768.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum",
+      "expected": 8192,
+      "actual": 8192.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "lts__t_sectors_srcunit_tex_op_write.sum",
+      "expected": 8192,
+      "actual": 8192.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "sass__inst_executed_register_spilling",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "derived__memory_l1_wavefronts_shared_excessive",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "tiled_mmult",
+      "metric": "derived__memory_l2_theoretical_sectors_global_excessive",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "launch__block_dim_x",
+      "expected": 32,
+      "actual": 32,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "launch__block_dim_y",
+      "expected": 32,
+      "actual": 32,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "launch__grid_dim_x",
+      "expected": 8,
+      "actual": 8,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "launch__grid_dim_y",
+      "expected": 8,
+      "actual": 8,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "launch__shared_mem_per_block_static",
+      "expected": 4224,
+      "actual": 4224,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum",
+      "expected": 2048,
+      "actual": 2048.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum",
+      "expected": 8192,
+      "actual": 8192.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "lts__t_sectors_srcunit_tex_op_write.sum",
+      "expected": 8192,
+      "actual": 8192.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "sass__inst_executed_register_spilling",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "derived__memory_l1_wavefronts_shared_excessive",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "transposeCoalesced",
+      "metric": "derived__memory_l2_theoretical_sectors_global_excessive",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "launch__block_dim_x",
+      "expected": 32,
+      "actual": 32,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "launch__block_dim_y",
+      "expected": 32,
+      "actual": 32,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "launch__grid_dim_x",
+      "expected": 8,
+      "actual": 8,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "launch__grid_dim_y",
+      "expected": 8,
+      "actual": 8,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "launch__shared_mem_per_block_static",
+      "expected": 8192,
+      "actual": 8192,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "l1tex__t_requests_pipe_lsu_mem_global_op_ld.sum",
+      "expected": 32768,
+      "actual": 32768.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "l1tex__t_sectors_pipe_lsu_mem_global_op_st.sum",
+      "expected": 8192,
+      "actual": 8192.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "lts__t_sectors_srcunit_tex_op_write.sum",
+      "expected": 8192,
+      "actual": 8192.0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "sass__inst_executed_register_spilling",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "derived__memory_l1_wavefronts_shared_excessive",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    },
+    {
+      "report": "hw4_tile32.ncu-repz",
+      "kernel": "cornerTurning_mmult",
+      "metric": "derived__memory_l2_theoretical_sectors_global_excessive",
+      "expected": 0,
+      "actual": 0,
+      "pass": true
+    }
+  ]
+}
