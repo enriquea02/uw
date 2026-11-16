@@ -15,6 +15,7 @@
 #include <iterator>
 #include "checkCuda.h"
 #include "../kernels/mmult.h"
+#include "../kernels/mtranspose.h"
 
 // Host Functions
 void mmult(float* M, float* N, float* P, int J, int K, int L);
@@ -47,6 +48,10 @@ int main(
     float* P_cpu = nullptr;
     float* P_naive = nullptr;
     float* P_tiled = nullptr;
+    float* P_cornerTurning = nullptr;
+
+    // ---- pointers from device memory - transposed
+    float* tM_d = nullptr;
 
     // ---- pointers from device memory
     float* M_d = nullptr;
@@ -62,7 +67,7 @@ int main(
         K = inner_sizes[caseIndex];
         L = columns[caseIndex];
         bytes_M = (size_t)J * K * sizeof(float);
-        bytes_N = (size_t)K * L * sizeof(float);
+        bytes_N = (size_t)K * L * sizeof(float);O
         bytes_P = (size_t)J * L * sizeof(float);
 
         printf("\nOutput: %d x %d, inner size: %d, tile width: %d\n", J, L, K, TILE_WIDTH);
@@ -74,13 +79,15 @@ int main(
         P_cpu = (float*)malloc(bytes_P);
         P_naive = (float*)malloc(bytes_P);
         P_tiled = (float*)malloc(bytes_P);
+        P_cornerTurning = (float*)malloc(bytes_P);
 
         // Check for successful host memory allocation
         if (M_h     == nullptr || 
             N_h     == nullptr || 
             P_cpu   == nullptr ||
             P_naive == nullptr || 
-            P_tiled == nullptr)
+            P_tiled == nullptr ||
+            P_cornerTurning == nullptr)
         {
             fprintf(stderr, "Host memory allocation failed.\n");
             free(M_h);
@@ -88,6 +95,7 @@ int main(
             free(P_cpu);
             free(P_naive);
             free(P_tiled);
+            free(P_cornerTurning);
             return 1;
         }
 
@@ -106,6 +114,7 @@ int main(
 
         // ---- allocate device memory variables
         checkCuda(cudaMalloc(&M_d, bytes_M), "cudaMalloc M");
+        checkCuda(cudaMalloc(&tM_d, bytes_M), "cudaMalloc tM");
         checkCuda(cudaMalloc(&N_d, bytes_N), "cudaMalloc N");
         checkCuda(cudaMalloc(&P_d, bytes_P), "cudaMalloc P");
 
@@ -117,6 +126,9 @@ int main(
         dim3 threads(TILE_WIDTH, TILE_WIDTH);
         dim3 blocks((L + TILE_WIDTH - 1) / TILE_WIDTH,
                     (J + TILE_WIDTH - 1) / TILE_WIDTH);
+        dim3 threads_transpose(TILE_DIM, BLOCK_ROWS);
+        dim3 blocks_transpose((K / TILE_DIM),
+                              (J / TILE_DIM));
 
         // ---- launch naive kernel, check errors, and retrieve its result
         checkCuda(cudaMemset(P_d, 0, bytes_P), "Clear naive output");
@@ -135,14 +147,30 @@ int main(
         checkCuda(cudaMemcpy(P_tiled, P_d, bytes_P, cudaMemcpyDeviceToHost),
                   "Copy tiled output");
 
+        // ---- launch transpose and corner-turning kernel, check errors, and retrieve its result
+        // Clear the buffer so the naive result cannot hide a missing corner-turning write.
+        checkCuda(cudaMemset(P_d, 0, bytes_P), "Clear corner-turning output");
+        // Transpose matrix M on the device
+        transposeCoalesced<<<blocks_transpose, threads_transpose>>>(M_d, tM_d);
+        checkCuda(cudaGetLastError(), "Transpose M launch");
+        checkCuda(cudaDeviceSynchronize(), "Transpose M execution");
+        cornerTurning_mmult<<<blocks, threads>>>(tM_d, N_d, P_d, J, K, L);
+        checkCuda(cudaGetLastError(), "Corner Turning MMULT launch");
+        checkCuda(cudaDeviceSynchronize(), "Corner Turning MMULT execution");
+        checkCuda(cudaMemcpy(P_cornerTurning, P_d, bytes_P, cudaMemcpyDeviceToHost),
+                  "Copy corner-turning output");
+
         // ---- use/verify results on host
         total_errors += verify_mmult("Naive GPU", P_cpu, P_naive, J * L,
                                      relative_tolerance, zero_tolerance);
         total_errors += verify_mmult("Tiled GPU", P_cpu, P_tiled, J * L,
                                      relative_tolerance, zero_tolerance);
+        total_errors += verify_mmult("Corner Turning GPU", P_cpu, P_cornerTurning, J * L,
+                                     relative_tolerance, zero_tolerance);
 
         // ---- free device and host memory
         checkCuda(cudaFree(M_d), "cudaFree M");
+        checkCuda(cudaFree(tM_d), "cudaFree tM");
         checkCuda(cudaFree(N_d), "cudaFree N");
         checkCuda(cudaFree(P_d), "cudaFree P");
         free(M_h);
@@ -150,6 +178,7 @@ int main(
         free(P_cpu);
         free(P_naive);
         free(P_tiled);
+        free(P_cornerTurning);  
     }
 
     if (total_errors > 0) {

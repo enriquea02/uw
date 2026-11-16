@@ -14,6 +14,7 @@ for %%L in (%TILE_SIZES%) do (
         ..\..\common ^
         host\main_mmult.cpp ^
         kernels\mmult.cu ^
+        kernels\mtranspose.cu ^
         -o ^
         mmult_tile%%L.exe
 

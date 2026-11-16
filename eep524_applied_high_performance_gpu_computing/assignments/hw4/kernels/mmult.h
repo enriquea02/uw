@@ -4,8 +4,8 @@
 //  ICD:
 // 
 
-#ifndef HW3_MMULT_H
-#define HW3_MMULT_H
+#ifndef HW4_MMULT_H
+#define HW4_MMULT_H
 
 // ---- Libraries, Includes, etc...
 #include <cuda_runtime.h>
@@ -36,6 +36,16 @@ __global__ void tiled_mmult(
     int J,
     int K,
     int L
+);
+
+__global__ void cornerTurning_mmult(
+    // Port List
+    float* M, // input matrix M (K x J)
+    float* N, // input matrix N (K x L)
+    float* P, // output matrix P (J x L)
+    int J, // number of columns in M and rows in P
+    int K, // number of rows in M and rows in N
+    int L  // number of columns in N and P
 );
 
 #endif
